@@ -44,7 +44,7 @@ export const Slash = styled.View`
 `;
 
 export const SimpleText = styled.Text`
-  font-size: 14px;
+  font-size: 16px;
   color: #333;
   font-weight: bold;
   margin-top: 4px;
@@ -53,14 +53,14 @@ export const SimpleText = styled.Text`
 
 export const LineLeft = styled.View`
   background: #000;
-  height: 2px;
+  height: 1px;
   width: 135px;
   margin-right: 5px;
 `;
 
 export const LineRight = styled.View`
   background: #000;
-  height: 2px;
+  height: 1px;
   width: 135px;
   margin-left: 5px;
 `;
