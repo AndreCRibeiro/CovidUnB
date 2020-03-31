@@ -33,9 +33,13 @@ export default class Signup extends Component {
     loading: false,
   };
 
-  handleLogin = () => { };
+  handleLogin = () => {
+    const { navigation } = this.props;
 
-  handleNavigationSignUp = () => { };
+    navigation.navigate('Main');
+  };
+
+  handleNavigationSignUp = () => {};
 
   render() {
     const {
@@ -101,8 +105,8 @@ export default class Signup extends Component {
             {loading ? (
               <ActivityIndicator color="#fff" />
             ) : (
-                <ButtonText>Registrar</ButtonText>
-              )}
+              <ButtonText>Registrar</ButtonText>
+            )}
           </Button>
         </Form>
       </Container>

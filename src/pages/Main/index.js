@@ -33,12 +33,16 @@ export default class Main extends Component {
     loading: false,
   };
 
-  handleLogin = () => {};
+  handleLogin = () => {
+    const { navigation } = this.props;
+
+    navigation.navigate('Home');
+  };
 
   handleNavigationSignUp = () => {
     const { navigation } = this.props;
 
-    navigation.navigate('Registro');
+    navigation.navigate('Register');
   };
 
   render() {
