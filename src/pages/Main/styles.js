@@ -34,6 +34,7 @@ export const Input = styled.TextInput.attrs({
   border: 2px solid #000;
   margin: 10px 0;
   margin-bottom: 15px;
+  elevation: 7;
 `;
 
 export const Slash = styled.View`

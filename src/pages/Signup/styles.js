@@ -32,6 +32,7 @@ export const Input = styled.TextInput.attrs({
   border: 2px solid #000;
   margin-top: 10px;
   margin-bottom: 15px;
+  elevation: 6;
 `;
 
 export const FirstSelect = styled.View`
