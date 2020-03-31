@@ -34,9 +34,18 @@ export const Input = styled.TextInput.attrs({
   margin-bottom: 15px;
 `;
 
-export const FirstSelect = styled.View``;
+export const FirstSelect = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  align-self: center;
+`;
 
-export const FirstSelectOptions = styled.View``;
+export const SecondSelect = styled.View`
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+`;
 
 export const Button = styled(RectButton)`
   justify-content: center;
@@ -55,4 +64,10 @@ export const ButtonText = styled.Text`
   font-weight: bold;
   color: #fff;
   text-transform: uppercase;
+`;
+
+export const CenterView = styled.View`
+  justify-content: center;
+  align-self: center;
+  margin: 13px;
 `;
