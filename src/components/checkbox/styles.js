@@ -4,6 +4,7 @@ const styles = StyleSheet.create({
   checkBox: {
     flexDirection: 'row',
     alignItems: 'center',
+    margin: 15,
   },
 });
 

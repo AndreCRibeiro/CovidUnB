@@ -36,14 +36,14 @@ export const Input = styled.TextInput.attrs({
 
 export const FirstSelect = styled.View`
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
   align-self: center;
 `;
 
 export const SecondSelect = styled.View`
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: row;
 `;
 
