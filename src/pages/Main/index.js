@@ -14,7 +14,8 @@ import {
   LoginButtonText,
   Slash,
   SignupButtonText,
-  Line,
+  LineLeft,
+  LineRight,
   SimpleText,
   ButtonSingup,
 } from './styles';
@@ -32,7 +33,7 @@ export default class Main extends Component {
     loading: false,
   };
 
-  handleLogin = () => { };
+  handleLogin = () => {};
 
   handleNavigationSignUp = () => {
     const { navigation } = this.props;
@@ -63,17 +64,18 @@ export default class Main extends Component {
             returnKeyType="send"
             onSubmitEditing={this.handleLogin}
           />
+
           <ButtonLogin loading={loading} onPress={this.handleLogin}>
             {loading ? (
               <ActivityIndicator color="#fff" />
             ) : (
-                <LoginButtonText>Login</LoginButtonText>
-              )}
+              <LoginButtonText>Login</LoginButtonText>
+            )}
           </ButtonLogin>
           <Slash>
-            <Line />
+            <LineLeft />
             <SimpleText>OU</SimpleText>
-            <Line />
+            <LineRight />
           </Slash>
           <ButtonSingup onPress={this.handleNavigationSignUp}>
             <SignupButtonText>Registre-se</SignupButtonText>
