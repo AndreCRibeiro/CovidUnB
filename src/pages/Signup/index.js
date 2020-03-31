@@ -3,8 +3,9 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
 import { ActivityIndicator } from 'react-native';
-import { CheckBox } from 'react-native-elements';
 import PropTypes from 'prop-types';
+import CheckBox from '../../components/checkbox';
+import CheckBoxBall from '../../components/checkboxBall';
 
 import {
   Container,
@@ -14,7 +15,8 @@ import {
   ButtonText,
   SimpleText,
   FirstSelect,
-  FirstSelectOptions,
+  SecondSelect,
+  CenterView,
 } from './styles';
 
 export default class Signup extends Component {
@@ -31,6 +33,8 @@ export default class Signup extends Component {
     userPassConfirmed: '',
     userAddress: '',
     userBirth: '',
+    b1: false,
+    b2: false,
     loading: false,
   };
 
@@ -40,7 +44,19 @@ export default class Signup extends Component {
     navigation.navigate('Main');
   };
 
-  handleNavigationSignUp = () => { };
+  handleNavigationSignUp = () => {};
+
+  handleCheckBox = () => {
+    const { b1 } = this.state;
+
+    this.setState({ b1: !b1 });
+  };
+
+  handleCheckBall = () => {
+    const { b2 } = this.state;
+
+    this.setState({ b2: !b2 });
+  };
 
   render() {
     const {
@@ -51,12 +67,16 @@ export default class Signup extends Component {
       userAddress,
       userBirth,
       loading,
+      b1,
+      b2,
     } = this.state;
 
     return (
       <Container>
         <Form>
-          <SimpleText>CRIE SUA CONTA</SimpleText>
+          <CenterView>
+            <SimpleText>CRIE SUA CONTA</SimpleText>
+          </CenterView>
           <Input
             autoCorrect
             autoCapitalize="none"
@@ -99,24 +119,63 @@ export default class Signup extends Component {
             value={userBirth}
             onChangeText={(text) => this.setState({ userBirth: text })}
           />
+          <CenterView>
+            <SimpleText>QUAL SEU VÍNCULO COM A UNB?</SimpleText>
+          </CenterView>
           <FirstSelect>
-            <CheckBox
-              center
-              title="Click Here to Remove This Item"
-              iconRight
-              iconType="material"
-              checkedIcon="clear"
-              uncheckedIcon="add"
-              checkedColor="red"
-              checked={this.state.checked}
+            <CheckBoxBall
+              selected={b2}
+              onPress={this.handleCheckBall}
+              text="Docente"
+            />
+            <CheckBoxBall
+              selected={b2}
+              onPress={this.handleCheckBall}
+              text="Servidor(a)"
+            />
+            <CheckBoxBall
+              selected={b2}
+              onPress={this.handleCheckBall}
+              text="Discente"
             />
           </FirstSelect>
+          <CenterView>
+            <SimpleText>GRUPO DE RISCO?</SimpleText>
+          </CenterView>
+          <SecondSelect>
+            <CheckBox
+              selected={b1}
+              onPress={this.handleCheckBox}
+              text="Diabetes"
+            />
+            <CheckBox
+              selected={b1}
+              onPress={this.handleCheckBox}
+              text="Hipertensão"
+            />
+            <CheckBox
+              selected={b1}
+              onPress={this.handleCheckBox}
+              text="Bronquite"
+            />
+            <CheckBox selected={b1} onPress={this.handleCheckBox} text="Asma" />
+            <CheckBox
+              selected={b1}
+              onPress={this.handleCheckBox}
+              text="Sistema Imunológico Enfraquecido"
+            />
+            <CheckBox
+              selected={b1}
+              onPress={this.handleCheckBox}
+              text="Paciente Oncológico"
+            />
+          </SecondSelect>
           <Button loading={loading} onPress={this.handleLogin}>
             {loading ? (
               <ActivityIndicator color="#fff" />
             ) : (
-                <ButtonText>Registrar</ButtonText>
-              )}
+              <ButtonText>Registrar</ButtonText>
+            )}
           </Button>
         </Form>
       </Container>
