@@ -14,9 +14,9 @@ export default function Routes() {
     <NavigationContainer>
       <AppStack.Navigator
         screenOptions={{
-          headerTintColor: '#0039A6',
-          headerStyle: { height: 80 },
-          headerShown: false,
+          headerTintColor: '#fff',
+          headerStyle: { height: 60, backgroundColor: '#0039A6' },
+          headerTitle: '',
         }}
       >
         <AppStack.Screen name="Main" component={Main} />
