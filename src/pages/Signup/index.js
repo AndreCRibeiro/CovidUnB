@@ -44,7 +44,7 @@ export default class Signup extends Component {
     navigation.navigate('Main');
   };
 
-  handleNavigationSignUp = () => { };
+  handleNavigationSignUp = () => {};
 
   handleCheckBox = () => {
     const { b1 } = this.state;
@@ -174,8 +174,8 @@ export default class Signup extends Component {
             {loading ? (
               <ActivityIndicator color="#fff" />
             ) : (
-                <ButtonText>Registrar</ButtonText>
-              )}
+              <ButtonText>Registrar</ButtonText>
+            )}
           </Button>
         </Form>
       </Container>
