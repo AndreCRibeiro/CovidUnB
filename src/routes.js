@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Main from './pages/Main';
+import Singup from './pages/Signup';
 
 const Stack = createStackNavigator();
 
@@ -13,14 +14,23 @@ function Routes() {
       <Stack.Navigator
         headerBackTitleVisible={false}
         headerLayoutPreset="center"
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#0039A6',
+          },
+        }}
       >
         <Stack.Screen
           name="Main"
           component={Main}
           options={{
-            headerStyle: { backgroundColor: '#0039A6' },
             headerTintColor: '#0039A6',
           }}
+        />
+        <Stack.Screen
+          name="Registro"
+          component={Singup}
+          options={{ headerTintColor: '#0039A6' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

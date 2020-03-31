@@ -1,7 +1,9 @@
+/* eslint-disable react/static-property-placement */
 /* eslint-disable global-require */
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
 import { ActivityIndicator } from 'react-native';
+import PropTypes from 'prop-types';
 
 import {
   Container,
@@ -18,6 +20,12 @@ import {
 } from './styles';
 
 export default class Main extends Component {
+  static propTypes = {
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func,
+    }).isRequired,
+  };
+
   state = {
     userMail: '',
     userPass: '',
@@ -26,7 +34,11 @@ export default class Main extends Component {
 
   handleLogin = () => { };
 
-  handleNavigationSignUp = () => { };
+  handleNavigationSignUp = () => {
+    const { navigation } = this.props;
+
+    navigation.navigate('Registro');
+  };
 
   render() {
     const { userMail, userPass, loading } = this.state;
