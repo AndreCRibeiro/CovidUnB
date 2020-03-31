@@ -15,19 +15,19 @@ const CheckBox = ({
   text = '',
   ...props
 }) => (
-    <TouchableOpacity
-      style={[styles.checkBox, style]}
-      onPress={onPress}
-      {...props}
-    >
-      <Icon
-        size={size}
-        color={color}
-        name={selected ? 'check-box' : 'check-box-outline-blank'}
-      />
+  <TouchableOpacity
+    style={[styles.checkBox, style]}
+    onPress={onPress}
+    {...props}
+  >
+    <Icon
+      size={size}
+      color={color}
+      name={selected ? 'check-box' : 'check-box-outline-blank'}
+    />
 
-      <Text style={textStyle}> {text} </Text>
-    </TouchableOpacity>
-  );
+    <Text style={textStyle}> {text} </Text>
+  </TouchableOpacity>
+);
 
 export default CheckBox;

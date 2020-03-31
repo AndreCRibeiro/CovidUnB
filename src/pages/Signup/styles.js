@@ -30,7 +30,7 @@ export const Input = styled.TextInput.attrs({
   border-radius: 11px;
   padding: 0 15px;
   border: 2px solid #000;
-  margin-top: 35px;
+  margin-top: 10px;
   margin-bottom: 15px;
 `;
 
@@ -41,10 +41,9 @@ export const FirstSelect = styled.View`
 `;
 
 export const SecondSelect = styled.View`
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
+  /*   flex-wrap: wrap;*/
+
+  flex-direction: column;
 `;
 
 export const Button = styled(RectButton)`
