@@ -3,6 +3,7 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
 import { ActivityIndicator } from 'react-native';
+import { CheckBox } from 'react-native-elements';
 import PropTypes from 'prop-types';
 
 import {
@@ -39,7 +40,7 @@ export default class Signup extends Component {
     navigation.navigate('Main');
   };
 
-  handleNavigationSignUp = () => {};
+  handleNavigationSignUp = () => { };
 
   render() {
     const {
@@ -99,14 +100,23 @@ export default class Signup extends Component {
             onChangeText={(text) => this.setState({ userBirth: text })}
           />
           <FirstSelect>
-            <FirstSelectOptions />
+            <CheckBox
+              center
+              title="Click Here to Remove This Item"
+              iconRight
+              iconType="material"
+              checkedIcon="clear"
+              uncheckedIcon="add"
+              checkedColor="red"
+              checked={this.state.checked}
+            />
           </FirstSelect>
           <Button loading={loading} onPress={this.handleLogin}>
             {loading ? (
               <ActivityIndicator color="#fff" />
             ) : (
-              <ButtonText>Registrar</ButtonText>
-            )}
+                <ButtonText>Registrar</ButtonText>
+              )}
           </Button>
         </Form>
       </Container>
