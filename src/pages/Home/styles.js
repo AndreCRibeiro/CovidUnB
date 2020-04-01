@@ -1,26 +1,66 @@
 import styled from 'styled-components/native';
+import { RectButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
-  display: flex;
-  flex-wrap: wrap;
+  flex: 1;
   justify-content: center;
   align-items: center;
+  background-color: #fff;
 `;
 
-export const Card = styled.View`
-  height: 100px;
-  width: 100px;
+export const TopCards = styled.View`
+  flex-direction: row;
+  margin-bottom: 10px;
+`;
+
+export const Card = styled(RectButton)`
+  height: 120px;
+  width: 120px;
   background-color: #fff;
-  margin: 50px;
+  margin: 30px;
   border-width: 1px;
   border-radius: 2px;
   border-color: #333;
-
   justify-content: center;
   align-items: center;
+  elevation: 10;
 `;
 
-export const Text = styled.TextInput`
-  font-size: 12px;
+export const Image = styled.Image`
+  width: 65px;
+  height: 65px;
+  align-self: center;
+  margin-top: 15px;
+  margin-bottom: 8px;
+`;
+
+export const MediumImage = styled.Image`
+  width: 65px;
+  height: 65px;
+  align-self: center;
+  margin-top: 15px;
+  margin-bottom: 8px;
+`;
+
+export const LargeImage = styled.Image`
+  width: 60px;
+  height: 60px;
+  align-self: center;
+  margin-top: 10px;
+  margin-bottom: 15px;
+`;
+
+export const MiddleCards = styled.View`
+  flex-direction: row;
+  margin-bottom: 10px;
+`;
+
+export const BottomCards = styled.View`
+  flex-direction: row;
+  margin-bottom: 10px;
+`;
+
+export const Text = styled.Text`
+  font-size: 15px;
   font-weight: bold;
 `;

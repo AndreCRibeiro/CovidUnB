@@ -1,35 +1,97 @@
-import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+/* eslint-disable react/static-property-placement */
+/* eslint-disable global-require */
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import { Container, Card, Text } from './styles';
+import {
+  Container,
+  TopCards,
+  MiddleCards,
+  BottomCards,
+  Card,
+  Text,
+  Image,
+  MediumImage,
+  LargeImage,
+} from './styles';
 
-export default function Home() {
-  return (
-    <Container>
-      <Card>
-        <Icon name="location-on" size={30} color="#0039A6" />
-        <Text>Localização</Text>
-      </Card>
-      <Card>
-        <Icon name="question-answer" size={30} color="#0039A6" />
-        <Text>Dúvidas</Text>
-      </Card>
-      <Card>
-        <Icon name="local-hospital" size={30} color="#0039A6" />
-        <Text>Pedir Socorro</Text>
-      </Card>
-      <Card>
-        <Icon name="people" size={30} color="#0039A6" />
-        <Text>Voluntarie-se</Text>
-      </Card>
-      <Card>
-        <Icon name="phone" size={30} color="#0039A6" />
-        <Text>Ajuda Solidária</Text>
-      </Card>
-      <Card>
-        <Icon name="email" size={30} color="#0039A6" />
-        <Text>Fale Conosco</Text>
-      </Card>
-    </Container>
-  );
+export default class Home extends Component {
+  static propTypes = {
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func,
+    }).isRequired,
+  };
+
+  handleNavigateToHelp = () => {
+    const { navigation } = this.props;
+
+    navigation.navigate('Home');
+  };
+
+  handleNavigateToLocal = () => {
+    const { navigation } = this.props;
+
+    navigation.navigate('Home');
+  };
+
+  handleNavigateToQuestions = () => {
+    const { navigation } = this.props;
+
+    navigation.navigate('Home');
+  };
+
+  handleNavigateToSolidary = () => {
+    const { navigation } = this.props;
+
+    navigation.navigate('Home');
+  };
+
+  handleNavigateToTalk = () => {
+    const { navigation } = this.props;
+
+    navigation.navigate('Talk');
+  };
+
+  handleNavigateToVolunteer = () => {
+    const { navigation } = this.props;
+
+    navigation.navigate('Volunteer');
+  };
+
+  render() {
+    return (
+      <Container>
+        <TopCards>
+          <Card onPress={() => this.handleNavigateToLocal()}>
+            <Image source={require('../../assets/images/destination.png')} />
+            <Text>Localização</Text>
+          </Card>
+          <Card onPress={() => this.handleNavigateToVolunteer()}>
+            <MediumImage source={require('../../assets/images/charity.png')} />
+            <Text>Voluntarie-se</Text>
+          </Card>
+        </TopCards>
+        <MiddleCards>
+          <Card onPress={() => this.handleNavigateToQuestions()}>
+            <MediumImage source={require('../../assets/images/question.png')} />
+            <Text>Dúvidas</Text>
+          </Card>
+          <Card onPress={() => this.handleNavigateToSolidary()}>
+            <LargeImage source={require('../../assets/images/phone.png')} />
+            <Text>Ajuda solidária</Text>
+          </Card>
+        </MiddleCards>
+        <BottomCards>
+          <Card onPress={() => this.handleNavigateToHelp()}>
+            <LargeImage source={require('../../assets/images/heart.png')} />
+            <Text>Pedir Socorro</Text>
+          </Card>
+          <Card onPress={() => this.handleNavigateToTalk()}>
+            <Image source={require('../../assets/images/reception.png')} />
+            <Text>Fale Conosco</Text>
+          </Card>
+        </BottomCards>
+      </Container>
+    );
+  }
 }
