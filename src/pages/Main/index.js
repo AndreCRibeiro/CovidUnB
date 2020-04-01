@@ -73,8 +73,8 @@ export default class Main extends Component {
             {loading ? (
               <ActivityIndicator color="#fff" />
             ) : (
-              <LoginButtonText>Login</LoginButtonText>
-            )}
+                <LoginButtonText>Login</LoginButtonText>
+              )}
           </ButtonLogin>
           <Slash>
             <LineLeft />

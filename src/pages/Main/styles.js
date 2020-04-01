@@ -12,8 +12,8 @@ export const Logo = styled.Image`
   height: 160px;
   background: #fff;
   align-self: center;
-  margin-top: 25px;
-  margin-bottom: 80px;
+  margin-top: 8px;
+  margin-bottom: 40px;
 `;
 
 export const Form = styled.View`
@@ -21,7 +21,7 @@ export const Form = styled.View`
   border-color: #fff;
   flex: 1;
   padding: 10px 20px;
-  margin-top: 20px;
+  margin-top: 5px;
 `;
 
 export const Input = styled.TextInput.attrs({
@@ -74,7 +74,7 @@ export const ButtonLogin = styled(RectButton)`
   margin-top: 5px;
   padding: 0 12px;
   opacity: ${(props) => (props.loading ? 0.7 : 1)};
-  height: 50px;
+  height: 45px;
   margin-top: 50px;
   margin-bottom: 5px;
 `;
@@ -95,7 +95,7 @@ export const ButtonSingup = styled(RectButton)`
   border-radius: 10px;
   padding: 0 12px;
   opacity: ${(props) => (props.loading ? 0.7 : 1)};
-  height: 50px;
+  height: 45px;
   margin-top: 5px;
   margin-bottom: 5px;
 `;

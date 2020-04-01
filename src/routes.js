@@ -15,11 +15,20 @@ export default function Routes() {
       <AppStack.Navigator
         screenOptions={{
           headerTintColor: '#fff',
-          headerStyle: { height: 60, backgroundColor: '#0039A6' },
+          headerStyle: { height: 40, backgroundColor: '#0039A6' },
           headerTitle: '',
         }}
       >
-        <AppStack.Screen name="Main" component={Main} />
+        <AppStack.Screen
+          name="Main"
+          component={Main}
+          options={{
+            headerStyle: {
+              height: 20,
+              backgroundColor: '#0039A6',
+            },
+          }}
+        />
         <AppStack.Screen name="Register" component={Signup} />
         <AppStack.Screen name="Home" component={Home} />
       </AppStack.Navigator>
