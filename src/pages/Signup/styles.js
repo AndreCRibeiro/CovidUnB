@@ -39,6 +39,7 @@ export const FirstSelect = styled.View`
   flex-direction: row;
   justify-content: space-around;
   align-self: center;
+  margin-bottom: 15px;
 `;
 
 export const SecondSelect = styled.View`
@@ -69,5 +70,19 @@ export const ButtonText = styled.Text`
 export const CenterView = styled.View`
   justify-content: center;
   align-self: center;
-  margin: 13px;
+  margin-bottom: 10px;
+`;
+
+export const SecondCenterView = styled.View`
+  justify-content: center;
+  align-self: center;
+  margin-top: 15px;
+  margin-bottom: 8px;
+`;
+
+export const ThirdCenterView = styled.View`
+  justify-content: center;
+  align-self: center;
+  margin-top: 5px;
+  margin-bottom: 3px;
 `;

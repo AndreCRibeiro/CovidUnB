@@ -39,7 +39,7 @@ export default class Main extends Component {
     navigation.navigate('Home');
   };
 
-  handleNavigationSignUp = () => {
+  handleNavigationToSignUp = () => {
     const { navigation } = this.props;
 
     navigation.navigate('Register');
@@ -81,7 +81,7 @@ export default class Main extends Component {
             <SimpleText>OU</SimpleText>
             <LineRight />
           </Slash>
-          <ButtonSingup onPress={this.handleNavigationSignUp}>
+          <ButtonSingup onPress={this.handleNavigationToSignUp}>
             <SignupButtonText>Registre-se</SignupButtonText>
           </ButtonSingup>
         </Form>

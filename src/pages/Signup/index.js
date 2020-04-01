@@ -17,6 +17,8 @@ import {
   FirstSelect,
   SecondSelect,
   CenterView,
+  SecondCenterView,
+  ThirdCenterView,
 } from './styles';
 
 export default class Signup extends Component {
@@ -44,7 +46,11 @@ export default class Signup extends Component {
     navigation.navigate('Main');
   };
 
-  handleNavigationSignUp = () => {};
+  handleNavigationToLogin = () => {
+    const { navigation } = this.props;
+
+    navigation.navigate('Main');
+  };
 
   handleCheckBox = () => {
     const { b1 } = this.state;
@@ -119,9 +125,9 @@ export default class Signup extends Component {
             value={userBirth}
             onChangeText={(text) => this.setState({ userBirth: text })}
           />
-          <CenterView>
+          <SecondCenterView>
             <SimpleText>QUAL SEU VÍNCULO COM A UNB?</SimpleText>
-          </CenterView>
+          </SecondCenterView>
           <FirstSelect>
             <CheckBoxBall
               selected={b2}
@@ -139,9 +145,9 @@ export default class Signup extends Component {
               text="Discente"
             />
           </FirstSelect>
-          <CenterView>
+          <ThirdCenterView>
             <SimpleText>GRUPO DE RISCO?</SimpleText>
-          </CenterView>
+          </ThirdCenterView>
           <SecondSelect>
             <CheckBox
               selected={b1}
@@ -174,8 +180,8 @@ export default class Signup extends Component {
             {loading ? (
               <ActivityIndicator color="#fff" />
             ) : (
-              <ButtonText>Registrar</ButtonText>
-            )}
+                <ButtonText>Registrar</ButtonText>
+              )}
           </Button>
         </Form>
       </Container>
