@@ -2,32 +2,39 @@ import styled from 'styled-components';
 
 export const Container = styled.View`
   flex: 1;
-  padding: 30px;
   background: #fff;
-`;
-
-export const CenterView = styled.View`
   align-items: center;
 `;
 
-export const LogoUnB = styled.Image`
-  width: 180px;
-  height: 180px;
-  background: #fff;
-  align-self: center;
-  margin-top: 40px;
-  margin-bottom: 20px;
+export const CardList = styled.ScrollView.attrs(() => ({
+  showsHorizontalScrollIndicator: false,
+  contentContainerStyle: {
+    alignItems: 'center',
+  },
+}))`
+  flex-grow: 1;
+`;
+
+export const Card = styled.View`
+  height: 400px;
+  width: 330px;
+  background-color: #fff;
+  margin-left: 18px;
+  border-width: 3px;
+  border-radius: 30px;
+  border-color: #333;
+  justify-content: center;
+  align-items: center;
+  elevation: 10;
+`;
+
+export const EndView = styled.View`
+  align-self: flex-end;
 `;
 
 export const SimpleText = styled.Text`
   font-weight: bold;
+  font-size: 18px;
 `;
 
-export const LogoLatitude = styled.Image`
-  width: 300px;
-  height: 160px;
-  background: #fff;
-  align-self: center;
-  margin-top: 8px;
-  margin-bottom: 25px;
-`;
+export const Info = styled.Image``;

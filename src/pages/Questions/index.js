@@ -4,26 +4,32 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
 
-import {
-  Container,
-  CenterView,
-  LogoUnB,
-  LogoLatitude,
-  SimpleText,
-} from './styles';
+import { Container, CardList, Card, Info, EndView, SimpleText } from './styles';
 
 export default class Questions extends Component {
   render() {
     return (
       <Container>
-        <CenterView>
-          <LogoUnB source={require('../../assets/images/logo.png')} />
-          <SimpleText>Telefone: (61)XXXX-XXXX</SimpleText>
-        </CenterView>
-        <CenterView>
-          <LogoLatitude source={require('../../assets/images/latitude.png')} />
-          <SimpleText>Telefone: (61)YYYY-YYYY</SimpleText>
-        </CenterView>
+        <CardList horizontal>
+          <Card>
+            <Info />
+          </Card>
+          <Card>
+            <Info />
+          </Card>
+          <Card>
+            <Info />
+          </Card>
+          <Card>
+            <Info />
+          </Card>
+          <Card>
+            <Info />
+          </Card>
+        </CardList>
+        <EndView>
+          <SimpleText>Fonte: OMS</SimpleText>
+        </EndView>
       </Container>
     );
   }
