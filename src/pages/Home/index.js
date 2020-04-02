@@ -43,7 +43,7 @@ export default class Home extends Component {
   handleNavigateToSolidary = () => {
     const { navigation } = this.props;
 
-    navigation.navigate('Home');
+    navigation.navigate('Solidary');
   };
 
   handleNavigateToTalk = () => {

@@ -8,6 +8,7 @@ import Signup from './pages/Signup';
 import Volunteer from './pages/Volunteer';
 import Talk from './pages/Talk';
 import Questions from './pages/Questions';
+import Solidary from './pages/Solidary';
 
 const AppStack = createStackNavigator();
 
@@ -36,6 +37,7 @@ export default function Routes() {
         <AppStack.Screen name="Volunteer" component={Volunteer} />
         <AppStack.Screen name="Talk" component={Talk} />
         <AppStack.Screen name="Questions" component={Questions} />
+        <AppStack.Screen name="Solidary" component={Solidary} />
       </AppStack.Navigator>
     </NavigationContainer>
   );
