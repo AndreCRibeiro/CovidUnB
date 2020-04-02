@@ -69,7 +69,7 @@ export default class Volunteer extends Component {
                 <Picker.Item label="Selecione o serviço" />
                 <Picker.Item label="Médicos" value="1" />
                 <Picker.Item label="Passear com cachorros" value="2" />
-                <Picker.Item label="Realizar compras" value="2" />
+                <Picker.Item label="Realizar compras" value="3" />
               </Picker>
             ) : region && region === '2' ? (
               <Picker
@@ -80,8 +80,8 @@ export default class Volunteer extends Component {
               >
                 <Picker.Item label="Selecione o serviço" />
                 <Picker.Item label="Psicólogo" value="1" />
-                <Picker.Item label="Passear com cachorros" value="2" />
-                <Picker.Item label="Realizar compras" value="2" />
+                <Picker.Item label="Conversar" value="2" />
+                <Picker.Item label="Compras" value="3" />
               </Picker>
             ) : (
                   region && (
@@ -93,13 +93,13 @@ export default class Volunteer extends Component {
                     >
                       <Picker.Item label="Selecione o serviço" />
                       <Picker.Item label="Personal" value="1" />
-                      <Picker.Item label="Passear com cachorros" value="2" />
-                      <Picker.Item label="Realizar compras" value="2" />
+                      <Picker.Item label="Remédios" value="2" />
+                      <Picker.Item label="Veterinário" value="3" />
                     </Picker>
                   )
                 )}
           </PickerView>
-          <ButtonVolunteer loading={loading} onPress={this.handleLogin}>
+          <ButtonVolunteer loading={loading} onPress={this.handleSubmit}>
             {loading ? (
               <ActivityIndicator color="#fff" />
             ) : (

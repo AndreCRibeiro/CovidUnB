@@ -81,7 +81,7 @@ export default class Volunteer extends Component {
               <Picker.Item label="Opção B" value="2" />
             </Picker>
           </PickerView>
-          <ButtonVolunteer loading={loading} onPress={this.handleLogin}>
+          <ButtonVolunteer loading={loading} onPress={this.handleSubmit}>
             {loading ? (
               <ActivityIndicator color="#fff" />
             ) : (
