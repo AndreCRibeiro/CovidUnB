@@ -62,6 +62,7 @@ export default class Main extends Component {
           <Input
             autoCorrect={false}
             autoCapitalize="none"
+            secureTextEntry
             placeholder="Senha"
             value={userPass}
             onChangeText={(text) => this.setState({ userPass: text })}

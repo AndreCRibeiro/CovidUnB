@@ -31,6 +31,7 @@ export default class Signup extends Component {
   state = {
     userName: '',
     userMail: '',
+    userTel: '',
     userPass: '',
     userPassConfirmed: '',
     userAddress: '',
@@ -63,6 +64,7 @@ export default class Signup extends Component {
     const {
       userName,
       userMail,
+      userTel,
       userPass,
       userPassConfirmed,
       userAddress,
@@ -102,6 +104,16 @@ export default class Signup extends Component {
           <Input
             autoCorrect={false}
             autoCapitalize="none"
+            keyboardType="numeric"
+            placeholder="Telefone"
+            value={userTel}
+            onChangeText={(text) => this.setState({ userTel: text })}
+          />
+          <Input
+            autoCorrect={false}
+            caretHidden
+            autoCapitalize="none"
+            secureTextEntry
             placeholder="Senha"
             value={userPass}
             onChangeText={(text) => this.setState({ userPass: text })}
@@ -109,6 +121,7 @@ export default class Signup extends Component {
           <Input
             autoCorrect={false}
             autoCapitalize="none"
+            secureTextEntry
             placeholder="Confirmação de senha"
             value={userPassConfirmed}
             onChangeText={(text) => this.setState({ userPassConfirmed: text })}
