@@ -27,7 +27,7 @@ export default class Volunteer extends Component {
   state = {
     userName: '',
     userRG: '',
-    userCRM: '',
+    userNRP: '',
     loading: false,
   };
 
@@ -38,7 +38,7 @@ export default class Volunteer extends Component {
   };
 
   render() {
-    const { userName, userRG, userCRM, loading } = this.state;
+    const { userName, userRG, userNRP, loading } = this.state;
 
     return (
       <Container>
@@ -65,8 +65,8 @@ export default class Volunteer extends Component {
           <Input
             autoCorrect={false}
             autoCapitalize="none"
-            placeholder="CRM"
-            value={userCRM}
+            placeholder="N Registro Profissional"
+            value={userNRP}
             onChangeText={(text) => this.setState({ userCRM: text })}
           />
           <PickerView>
