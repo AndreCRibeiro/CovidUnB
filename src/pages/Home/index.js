@@ -37,13 +37,13 @@ export default class Home extends Component {
   handleNavigateToQuestions = () => {
     const { navigation } = this.props;
 
-    navigation.navigate('Home');
+    navigation.navigate('Questions');
   };
 
   handleNavigateToSolidary = () => {
     const { navigation } = this.props;
 
-    navigation.navigate('Home');
+    navigation.navigate('Solidary');
   };
 
   handleNavigateToTalk = () => {

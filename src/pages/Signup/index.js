@@ -35,8 +35,15 @@ export default class Signup extends Component {
     userPassConfirmed: '',
     userAddress: '',
     userBirth: '',
-    b1: false,
-    b2: false,
+    docente: false,
+    servidor: false,
+    discente: false,
+    diabetes: false,
+    hipertensao: false,
+    bronquite: false,
+    asma: false,
+    sistema: false,
+    paciente: false,
     loading: false,
   };
 
@@ -52,18 +59,6 @@ export default class Signup extends Component {
     navigation.navigate('Main');
   };
 
-  handleCheckBox = () => {
-    const { b1 } = this.state;
-
-    this.setState({ b1: !b1 });
-  };
-
-  handleCheckBall = () => {
-    const { b2 } = this.state;
-
-    this.setState({ b2: !b2 });
-  };
-
   render() {
     const {
       userName,
@@ -73,8 +68,15 @@ export default class Signup extends Component {
       userAddress,
       userBirth,
       loading,
-      b1,
-      b2,
+      docente,
+      servidor,
+      discente,
+      diabetes,
+      hipertensao,
+      bronquite,
+      asma,
+      sistema,
+      paciente,
     } = this.state;
 
     return (
@@ -130,18 +132,36 @@ export default class Signup extends Component {
           </SecondCenterView>
           <FirstSelect>
             <CheckBoxBall
-              selected={b2}
-              onPress={this.handleCheckBall}
+              selected={docente}
+              onPress={() =>
+                this.setState({
+                  docente: !docente,
+                  servidor: false,
+                  discente: false,
+                })
+              }
               text="Docente"
             />
             <CheckBoxBall
-              selected={b2}
-              onPress={this.handleCheckBall}
+              selected={servidor}
+              onPress={() =>
+                this.setState({
+                  docente: false,
+                  servidor: !servidor,
+                  discente: false,
+                })
+              }
               text="Servidor(a)"
             />
             <CheckBoxBall
-              selected={b2}
-              onPress={this.handleCheckBall}
+              selected={discente}
+              onPress={() =>
+                this.setState({
+                  docente: false,
+                  servidor: false,
+                  discente: !discente,
+                })
+              }
               text="Discente"
             />
           </FirstSelect>
@@ -150,29 +170,33 @@ export default class Signup extends Component {
           </ThirdCenterView>
           <SecondSelect>
             <CheckBox
-              selected={b1}
-              onPress={this.handleCheckBox}
+              selected={diabetes}
+              onPress={() => this.setState({ diabetes: !diabetes })}
               text="Diabetes"
             />
             <CheckBox
-              selected={b1}
-              onPress={this.handleCheckBox}
+              selected={hipertensao}
+              onPress={() => this.setState({ hipertensao: !hipertensao })}
               text="Hipertensão"
             />
             <CheckBox
-              selected={b1}
-              onPress={this.handleCheckBox}
+              selected={bronquite}
+              onPress={() => this.setState({ bronquite: !bronquite })}
               text="Bronquite"
             />
-            <CheckBox selected={b1} onPress={this.handleCheckBox} text="Asma" />
             <CheckBox
-              selected={b1}
-              onPress={this.handleCheckBox}
+              selected={asma}
+              onPress={() => this.setState({ asma: !asma })}
+              text="Asma"
+            />
+            <CheckBox
+              selected={sistema}
+              onPress={() => this.setState({ sistema: !sistema })}
               text="Sistema Imunológico Enfraquecido"
             />
             <CheckBox
-              selected={b1}
-              onPress={this.handleCheckBox}
+              selected={paciente}
+              onPress={() => this.setState({ paciente: !paciente })}
               text="Paciente Oncológico"
             />
           </SecondSelect>

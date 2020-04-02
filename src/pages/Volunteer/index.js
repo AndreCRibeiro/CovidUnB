@@ -2,7 +2,8 @@
 /* eslint-disable global-require */
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
-import { ActivityIndicator, Picker } from 'react-native';
+import { ActivityIndicator } from 'react-native';
+import { Picker } from '@react-native-community/picker';
 import PropTypes from 'prop-types';
 
 import {
@@ -26,7 +27,7 @@ export default class Volunteer extends Component {
   state = {
     userName: '',
     userRG: '',
-    userCRM: '',
+    userNRP: '',
     loading: false,
   };
 
@@ -37,7 +38,7 @@ export default class Volunteer extends Component {
   };
 
   render() {
-    const { userName, userRG, userCRM, loading } = this.state;
+    const { userName, userRG, userNRP, loading } = this.state;
 
     return (
       <Container>
@@ -64,8 +65,8 @@ export default class Volunteer extends Component {
           <Input
             autoCorrect={false}
             autoCapitalize="none"
-            placeholder="CRM"
-            value={userCRM}
+            placeholder="N Registro Profissional"
+            value={userNRP}
             onChangeText={(text) => this.setState({ userCRM: text })}
           />
           <PickerView>
@@ -80,7 +81,7 @@ export default class Volunteer extends Component {
               <Picker.Item label="Opção B" value="2" />
             </Picker>
           </PickerView>
-          <ButtonVolunteer loading={loading} onPress={this.handleLogin}>
+          <ButtonVolunteer loading={loading} onPress={this.handleSubmit}>
             {loading ? (
               <ActivityIndicator color="#fff" />
             ) : (
