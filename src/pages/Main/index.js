@@ -42,19 +42,16 @@ export default class Main extends Component {
   handleLogin = async () => {
     const { userMail, userPass } = this.state;
     const { navigation } = this.props;
-    const userData = { email: userMail, password: userPass };
-    const user = JSON.stringify(userData);
-    console.tron.log(user);
 
     try {
       const response = await api.post('/sessions', {
-        email: JSON.stringify(userMail),
-        password: JSON.stringify(userPass),
+        email: userMail,
+        password: userPass,
       });
+      navigation.navigate('Home');
     } catch (err) {
-      console.tron.log('Erro de autenticação');
+      console.tron.log(err);
     }
-
     navigation.navigate('Home');
   };
 
