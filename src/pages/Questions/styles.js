@@ -16,8 +16,8 @@ export const CardList = styled.ScrollView.attrs(() => ({
 `;
 
 export const Card = styled.View`
-  height: 400px;
-  width: 330px;
+  height: 440px;
+  width: 340px;
   background-color: #fff;
   margin-left: 18px;
   border-width: 3px;
@@ -30,6 +30,7 @@ export const Card = styled.View`
 
 export const EndView = styled.View`
   align-self: flex-end;
+  margin-right: 10px;
 `;
 
 export const SimpleText = styled.Text`
@@ -37,4 +38,15 @@ export const SimpleText = styled.Text`
   font-size: 18px;
 `;
 
-export const Info = styled.Image``;
+export const Source = styled.Text`
+  font-weight: bold;
+  color: #0039a6;
+  font-size: 14px;
+`;
+
+export const Info = styled.Image`
+  width: 330px;
+  height: 415px;
+  align-self: center;
+  border-radius: 30px;
+`;

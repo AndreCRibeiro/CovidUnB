@@ -3,6 +3,7 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
 import { ActivityIndicator } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
 
 import {
@@ -18,6 +19,9 @@ import {
   LineRight,
   SimpleText,
   ButtonSingup,
+  Teste,
+  HideNShowPassword,
+  Eye,
 } from './styles';
 
 export default class Main extends Component {
@@ -30,6 +34,7 @@ export default class Main extends Component {
   state = {
     userMail: '',
     userPass: '',
+    showingPass: true,
     loading: false,
   };
 
@@ -45,8 +50,14 @@ export default class Main extends Component {
     navigation.navigate('Register');
   };
 
+  showPass = () => {
+    const { showingPass } = this.state;
+
+    this.setState({ showingPass: !showingPass });
+  };
+
   render() {
-    const { userMail, userPass, loading } = this.state;
+    const { userMail, userPass, showingPass, loading } = this.state;
 
     return (
       <Container>
@@ -59,16 +70,25 @@ export default class Main extends Component {
             value={userMail}
             onChangeText={(text) => this.setState({ userMail: text })}
           />
-          <Input
-            autoCorrect={false}
-            autoCapitalize="none"
-            secureTextEntry
-            placeholder="Senha"
-            value={userPass}
-            onChangeText={(text) => this.setState({ userPass: text })}
-            returnKeyType="send"
-            onSubmitEditing={this.handleLogin}
-          />
+          <Teste>
+            <Input
+              autoCorrect={false}
+              autoCapitalize="none"
+              secureTextEntry={showingPass}
+              placeholder="Senha"
+              value={userPass}
+              onChangeText={(text) => this.setState({ userPass: text })}
+              returnKeyType="send"
+              onSubmitEditing={this.handleLogin}
+            />
+            <HideNShowPassword onPress={this.showPass}>
+              {showingPass ? (
+                <Icon name="visibility" size={28} color="#000" />
+              ) : (
+                  <Eye source={require('../../assets/images/eye.png')} />
+                )}
+            </HideNShowPassword>
+          </Teste>
 
           <ButtonLogin loading={loading} onPress={this.handleLogin}>
             {loading ? (

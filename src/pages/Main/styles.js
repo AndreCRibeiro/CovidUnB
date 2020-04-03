@@ -37,6 +37,26 @@ export const Input = styled.TextInput.attrs({
   elevation: 7;
 `;
 
+export const Teste = styled.View`
+  position: relative;
+  align-self: stretch;
+  justify-content: center;
+`;
+
+export const HideNShowPassword = styled.TouchableOpacity`
+  position: absolute;
+  align-self: flex-end;
+  justify-content: center;
+  height: 40px;
+  width: 35px;
+  padding: 2px;
+  elevation: 10;
+`;
+
+export const Eye = styled.Image`
+  width: 28px;
+`;
+
 export const Slash = styled.View`
   flex-direction: row;
   justify-content: center;
