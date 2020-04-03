@@ -48,6 +48,7 @@ export default class Main extends Component {
         email: userMail,
         password: userPass,
       });
+      console.tron.log(response);
       navigation.navigate('Home');
     } catch (err) {
       console.tron.log(err);

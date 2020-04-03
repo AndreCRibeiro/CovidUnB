@@ -6,6 +6,7 @@ import { ActivityIndicator } from 'react-native';
 import PropTypes from 'prop-types';
 import CheckBox from '../../components/checkbox';
 import CheckBoxBall from '../../components/checkboxBall';
+import api from '../../services/api';
 
 import {
   Container,
@@ -36,9 +37,11 @@ export default class Signup extends Component {
     userPassConfirmed: '',
     userAddress: '',
     userBirth: '',
+    linkUnb: '',
     docente: false,
     servidor: false,
     discente: false,
+    riskGroup: [],
     diabetes: false,
     hipertensao: false,
     bronquite: false,
@@ -48,16 +51,41 @@ export default class Signup extends Component {
     loading: false,
   };
 
-  handleLogin = () => {
+  handleSignUp = async () => {
+    const {
+      userName,
+      userMail,
+      userTel,
+      userPass,
+      userPassConfirmed,
+      userAddress,
+      userBirth,
+      linkUnb,
+      riskGroup,
+    } = this.state;
     const { navigation } = this.props;
 
-    navigation.navigate('Main');
-  };
-
-  handleNavigationToLogin = () => {
-    const { navigation } = this.props;
-
-    navigation.navigate('Main');
+    if (userPass !== userPassConfirmed) {
+      console.tron.log('Senhas fornecidas não são iguais');
+    } else {
+      try {
+        const response = await api.post('/users', {
+          name: userName,
+          email: userMail,
+          whatsapp: userTel,
+          password: userPassConfirmed,
+          address: userAddress,
+          birth_date: userBirth,
+          link_unb: linkUnb,
+          risk_group: riskGroup.toString(),
+          user_location: null,
+        });
+        navigation.navigate('Home');
+      } catch (err) {
+        console.tron.log(err);
+      }
+      navigation.navigate('Home');
+    }
   };
 
   render() {
@@ -73,6 +101,7 @@ export default class Signup extends Component {
       docente,
       servidor,
       discente,
+      riskGroup,
       diabetes,
       hipertensao,
       bronquite,
@@ -151,6 +180,7 @@ export default class Signup extends Component {
                   docente: !docente,
                   servidor: false,
                   discente: false,
+                  linkUnb: 'Docente',
                 })
               }
               text="Docente"
@@ -162,6 +192,7 @@ export default class Signup extends Component {
                   docente: false,
                   servidor: !servidor,
                   discente: false,
+                  linkUnb: 'Servidor',
                 })
               }
               text="Servidor(a)"
@@ -173,6 +204,7 @@ export default class Signup extends Component {
                   docente: false,
                   servidor: false,
                   discente: !discente,
+                  linkUnb: 'Discente',
                 })
               }
               text="Discente"
@@ -184,36 +216,66 @@ export default class Signup extends Component {
           <SecondSelect>
             <CheckBox
               selected={diabetes}
-              onPress={() => this.setState({ diabetes: !diabetes })}
+              onPress={() =>
+                this.setState({
+                  diabetes: !diabetes,
+                  riskGroup: [...riskGroup, 'Diabetes'],
+                })
+              }
               text="Diabetes"
             />
             <CheckBox
               selected={hipertensao}
-              onPress={() => this.setState({ hipertensao: !hipertensao })}
+              onPress={() =>
+                this.setState({
+                  hipertensao: !hipertensao,
+                  riskGroup: [...riskGroup, 'Hipertensão'],
+                })
+              }
               text="Hipertensão"
             />
             <CheckBox
               selected={bronquite}
-              onPress={() => this.setState({ bronquite: !bronquite })}
+              onPress={() =>
+                this.setState({
+                  bronquite: !bronquite,
+                  riskGroup: [...riskGroup, 'Bronquite'],
+                })
+              }
               text="Bronquite"
             />
             <CheckBox
               selected={asma}
-              onPress={() => this.setState({ asma: !asma })}
+              onPress={() =>
+                this.setState({
+                  asma: !asma,
+                  riskGroup: [...riskGroup, 'Asma'],
+                })
+              }
               text="Asma"
             />
             <CheckBox
               selected={sistema}
-              onPress={() => this.setState({ sistema: !sistema })}
+              onPress={() =>
+                this.setState({
+                  sistema: !sistema,
+                  riskGroup: [...riskGroup, 'Sistema Imunológico Enfraquecido'],
+                })
+              }
               text="Sistema Imunológico Enfraquecido"
             />
             <CheckBox
               selected={paciente}
-              onPress={() => this.setState({ paciente: !paciente })}
+              onPress={() =>
+                this.setState({
+                  paciente: !paciente,
+                  riskGroup: [...riskGroup, 'Paciente Oncológico'],
+                })
+              }
               text="Paciente Oncológico"
             />
           </SecondSelect>
-          <Button loading={loading} onPress={this.handleLogin}>
+          <Button loading={loading} onPress={this.handleSignUp}>
             {loading ? (
               <ActivityIndicator color="#fff" />
             ) : (
