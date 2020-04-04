@@ -31,6 +31,8 @@ static void InitializeFlipper(UIApplication *application) {
   InitializeFlipper(application);
 #endif
 
+[GMSServices provideAPIKey:@"AIzaSyCA3oGCY61JLGgp7W122FGDa9sU0awFIZY"];
+
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"CovidUnB"
