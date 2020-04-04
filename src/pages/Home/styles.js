@@ -64,3 +64,6 @@ export const Text = styled.Text`
   font-size: 15px;
   font-weight: bold;
 `;
+
+export const SelectionView = styled.View``;
+export const QuestionText = styled.Text``;

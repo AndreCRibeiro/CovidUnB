@@ -12,12 +12,12 @@ import {
 } from 'react-native';
 import { Picker } from '@react-native-community/picker';
 import PropTypes from 'prop-types';
+import api from '../../services/api';
+import useAuth from '../../store';
 
 import {
   Container,
   Form,
-  ButtonVolunteer,
-  VolunteerButtonText,
   CenterView,
   SimpleText,
   PickerView,
@@ -30,7 +30,12 @@ import api from '../../services/api';
 
 import { colors } from '../../styles';
 
-export default class Volunteer extends Component {
+const withZustand = (Comp) => (props) => {
+  const { token, userData } = useAuth();
+  return <Comp {...props} token={token} userData={userData} />;
+};
+
+class Volunteer extends Component {
   static propTypes = {
     navigation: PropTypes.shape({
       navigate: PropTypes.func,
@@ -40,42 +45,9 @@ export default class Volunteer extends Component {
   state = {
     region: '',
     task: false,
+    allVolunteers: [],
     loading: false,
     data: [{ id: 1, name: 'Paulo' }],
-  };
-
-  componentDidMount = async () => {
-    const response = await api.get('volunteers', {
-      headers: {
-        Authorization:
-          'Bearer ' +
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTg2MDMzODU4LCJleHAiOjE1ODYxMjAyNTh9.Gigw9MdlfM8Q7P8JcPQ2Btho36MNwngzjh2rl6zY4kY',
-      },
-    });
-
-    this.setState({ data: response.data, loading: false });
-  };
-
-  sendwhatsapp = (profile) => {
-    const message = `Olá ${profile.name}, ví que você se voluntariou para ${profile.activities} e gostaria da sua ajuda! Podemos falar a respeito?`;
-
-    Linking.openURL(
-      `whatsapp://send?phone=${profile.whatsapp}&text=${message}`
-    );
-  };
-
-  filterByCity = async () => {
-    const { region } = this.state;
-
-    const response = await api.get(`volunteers?ra=${region}`, {
-      headers: {
-        Authorization:
-          'Bearer ' +
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTg2MDMzODU4LCJleHAiOjE1ODYxMjAyNTh9.Gigw9MdlfM8Q7P8JcPQ2Btho36MNwngzjh2rl6zY4kY',
-      },
-    });
-
-    this.setState({ data: response.data, loading: false });
   };
 
   handleSubmit = () => {
@@ -85,7 +57,9 @@ export default class Volunteer extends Component {
   };
 
   render() {
-    const { region, task, loading, data } = this.state;
+    const { region, task, loading } = this.state;
+
+    console.tron.log(allVolunteers);
 
     return (
       <Container>
@@ -135,12 +109,51 @@ export default class Volunteer extends Component {
               <Picker.Item label="Varjão" value="Varjão" />
               <Picker.Item label="Vicente Pires" value="Vicente Pires" />
             </Picker>
+            {region && region === '1' ? (
+              <Picker
+                selectedValue={task}
+                onValueChange={(itemValue) =>
+                  this.setState({ task: itemValue })
+                }
+              >
+                <Picker.Item label="Selecione o serviço" />
+                <Picker.Item label="Médicos" value="1" />
+                <Picker.Item label="Passear com cachorros" value="2" />
+                <Picker.Item label="Realizar compras" value="3" />
+              </Picker>
+            ) : region && region === '2' ? (
+              <Picker
+                selectedValue={task}
+                onValueChange={(itemValue) =>
+                  this.setState({ task: itemValue })
+                }
+              >
+                <Picker.Item label="Selecione o serviço" />
+                <Picker.Item label="Psicólogo" value="1" />
+                <Picker.Item label="Conversar" value="2" />
+                <Picker.Item label="Compras" value="3" />
+              </Picker>
+            ) : (
+              region && (
+                <Picker
+                  selectedValue={task}
+                  onValueChange={(itemValue) =>
+                    this.setState({ task: itemValue })
+                  }
+                >
+                  <Picker.Item label="Selecione o serviço" />
+                  <Picker.Item label="Personal" value="1" />
+                  <Picker.Item label="Remédios" value="2" />
+                  <Picker.Item label="Veterinário" value="3" />
+                </Picker>
+              )
+            )}
           </PickerView>
-          <ButtonVolunteer loading={loading} onPress={this.filterByCity}>
+          <ButtonVolunteer loading={loading} onPress={this.handleSubmit}>
             {loading ? (
               <ActivityIndicator color={colors.white} />
             ) : (
-              <VolunteerButtonText>Buscar Voluntários</VolunteerButtonText>
+              <VolunteerButtonText>CANDITAR</VolunteerButtonText>
             )}
           </ButtonVolunteer>
         </Form>
@@ -163,3 +176,5 @@ export default class Volunteer extends Component {
     );
   }
 }
+
+export default withZustand(Volunteer);
