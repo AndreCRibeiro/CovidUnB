@@ -51,6 +51,8 @@ export default class Signup extends Component {
     loading: false,
   };
 
+  checkState = () => { };
+
   handleSignUp = async () => {
     const {
       userName,
@@ -64,6 +66,10 @@ export default class Signup extends Component {
       riskGroup,
     } = this.state;
     const { navigation } = this.props;
+    if (this.state.diabetes === true) {
+      this.setState({ riskGroup: [...riskGroup, 'Diabetes'] });
+      console.tron.log('Teste', riskGroup);
+    }
 
     if (userPass !== userPassConfirmed) {
       console.tron.log('Senhas fornecidas não são iguais');
@@ -86,6 +92,57 @@ export default class Signup extends Component {
       }
       navigation.navigate('Home');
     }
+  };
+
+  handleCheck = (group) => {
+    const {
+      riskGroup,
+      diabetes,
+      hipertensao,
+      bronquite,
+      asma,
+      sistema,
+      paciente,
+    } = this.state;
+
+    const index = riskGroup.findIndex((gp) => gp === group);
+    console.tron.log(index);
+
+    if (index >= 0) {
+      riskGroup.splice(index, 1);
+    } else {
+      riskGroup.push(group);
+    }
+    switch (group) {
+      case 'Diabetes': {
+        this.setState({ riskGroup, diabetes: !diabetes });
+        break;
+      }
+      case 'Hipertensão': {
+        this.setState({ riskGroup, hipertensao: !hipertensao });
+        break;
+      }
+      case 'Bronquite': {
+        this.setState({ riskGroup, bronquite: !bronquite });
+        break;
+      }
+      case 'Asma': {
+        this.setState({ riskGroup, asma: !asma });
+        break;
+      }
+      case 'Sistema Imunológico Enfraquencido': {
+        this.setState({ riskGroup, sistema: !sistema });
+        break;
+      }
+      case 'Paciente Oncológico': {
+        this.setState({ riskGroup, paciente: !paciente });
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+    console.tron.log(riskGroup);
   };
 
   render() {
@@ -216,62 +273,34 @@ export default class Signup extends Component {
           <SecondSelect>
             <CheckBox
               selected={diabetes}
-              onPress={() =>
-                this.setState({
-                  diabetes: !diabetes,
-                  riskGroup: [...riskGroup, 'Diabetes'],
-                })
-              }
+              onPress={() => this.handleCheck('Diabetes')}
               text="Diabetes"
             />
             <CheckBox
               selected={hipertensao}
-              onPress={() =>
-                this.setState({
-                  hipertensao: !hipertensao,
-                  riskGroup: [...riskGroup, 'Hipertensão'],
-                })
-              }
+              onPress={() => this.handleCheck('Hipertensão')}
               text="Hipertensão"
             />
             <CheckBox
               selected={bronquite}
-              onPress={() =>
-                this.setState({
-                  bronquite: !bronquite,
-                  riskGroup: [...riskGroup, 'Bronquite'],
-                })
-              }
+              onPress={() => this.handleCheck('Bronquite')}
               text="Bronquite"
             />
             <CheckBox
               selected={asma}
-              onPress={() =>
-                this.setState({
-                  asma: !asma,
-                  riskGroup: [...riskGroup, 'Asma'],
-                })
-              }
+              onPress={() => this.handleCheck('Asma')}
               text="Asma"
             />
             <CheckBox
               selected={sistema}
               onPress={() =>
-                this.setState({
-                  sistema: !sistema,
-                  riskGroup: [...riskGroup, 'Sistema Imunológico Enfraquecido'],
-                })
+                this.handleCheck('Sistema Imunológico Enfraquecido')
               }
               text="Sistema Imunológico Enfraquecido"
             />
             <CheckBox
               selected={paciente}
-              onPress={() =>
-                this.setState({
-                  paciente: !paciente,
-                  riskGroup: [...riskGroup, 'Paciente Oncológico'],
-                })
-              }
+              onPress={() => this.handleCheck('Paciente Oncológico')}
               text="Paciente Oncológico"
             />
           </SecondSelect>
