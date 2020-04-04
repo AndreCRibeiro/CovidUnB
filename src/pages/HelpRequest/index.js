@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import CheckBox from '../../components/checkbox';
-import { Alert } from 'react-native';
+
+import Geolocation from 'react-native-geolocation-service';
+
 import {
   Container,
   TextHeader,
   CheckBoxField,
   Others,
-  Button,
-  Text,
+  ButtonArea,
+  TextArea,
   Image,
   AlertField,
 } from './styles';
+
+import api from '../../services/api';
 
 export default class HelpRequest extends Component {
   constructor(props) {
@@ -21,17 +25,30 @@ export default class HelpRequest extends Component {
       tosse: false,
       faltaAr: false,
       cansaco: false,
+      other: '',
     };
   }
 
-  sendHelpRequest = () => {
+  sendHelpRequest = async () => {
+    await Geolocation.getCurrentPosition((info) => console.tron.log(info));
+
     AlertField.alert(
       'Mantenha a calma e o seu celular por perto. A ajuda está a caminho!'
     );
+
+    const response = await api.post('/help', {
+      headers: { Authorization: 'application/x-www-form-urlencoded' },
+      data: {
+        name: 'Rafael Zerbini',
+        sintoms: 'Pesadelos com Princom',
+        user_location: ' ',
+        whatsapp: '61999712343',
+      },
+    });
   };
 
   render() {
-    const { febre, tosse, faltaAr, cansaco } = this.state;
+    const { febre, tosse, faltaAr, cansaco, other } = this.state;
     return (
       <Container>
         <TextHeader>
@@ -58,16 +75,21 @@ export default class HelpRequest extends Component {
             onPress={() => this.handleCheck('Diabetes')}
             text="Cansaço"
           />
-          <Others placeholder="Outros sintomas" autoCorrect={false} />
+          <Others
+            placeholder="Outros sintomas"
+            autoCorrect={false}
+            value={other}
+            onChangeText={(text) => this.setState({ other: text })}
+          />
         </CheckBoxField>
-        <Button
+        <ButtonArea
           onPress={() => {
             this.sendHelpRequest();
           }}
         >
           <Image source={require('../../assets/images/megaphone.png')} />
-          <Text>SOCORRO!</Text>
-        </Button>
+          <TextArea>SOCORRO!</TextArea>
+        </ButtonArea>
       </Container>
     );
   }

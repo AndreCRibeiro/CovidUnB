@@ -27,7 +27,7 @@ export const Others = styled.TextInput`
   border-radius: 10px;
 `;
 
-export const Button = styled.TouchableOpacity`
+export const ButtonArea = styled.TouchableOpacity`
   padding: 10px;
   padding-top: 80px;
   align-self: center;
@@ -41,7 +41,7 @@ export const Image = styled.Image`
   height: 100px;
 `;
 
-export const Text = styled.Text`
+export const TextArea = styled.Text`
   margin: 5px 50%;
   color: #ff0000;
   font-weight: bold;
