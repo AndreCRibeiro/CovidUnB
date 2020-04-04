@@ -19,6 +19,7 @@ import {
   LargeImage,
   SelectionView,
   QuestionText,
+  CheckboxView,
 } from './styles';
 
 const withZustand = (Comp) => (props) => {
@@ -47,7 +48,7 @@ class Home extends Component {
     answer: [],
   };
 
-  async componentDidMount() {
+  async componentWillUnmount() {
     const { yes, no, answer } = this.state;
     const { isSick, reqIsSick, userData } = this.props;
     if (yes) {
@@ -102,27 +103,30 @@ class Home extends Component {
     return (
       <Container>
         <SelectionView>
-          <QuestionText>Olá {userData.name}, você está doente?</QuestionText>
-          <CheckBoxBall
-            selected={yes}
-            onPress={() =>
-              this.setState({
-                yes: !yes,
-                no: false,
-              })
-            }
-            text="Sim"
-          />
-          <CheckBoxBall
-            selected={no}
-            onPress={() =>
-              this.setState({
-                yes: false,
-                no: !no,
-              })
-            }
-            text="Não"
-          />
+          <QuestionText>Bem-vindo {userData.name}!</QuestionText>
+          <QuestionText>Você está com algum dos sintomas?</QuestionText>
+          <CheckboxView>
+            <CheckBoxBall
+              selected={yes}
+              onPress={() =>
+                this.setState({
+                  yes: !yes,
+                  no: false,
+                })
+              }
+              text="Sim"
+            />
+            <CheckBoxBall
+              selected={no}
+              onPress={() =>
+                this.setState({
+                  yes: false,
+                  no: !no,
+                })
+              }
+              text="Não"
+            />
+          </CheckboxView>
         </SelectionView>
         <TopCards>
           <Card onPress={() => this.handleNavigateToLocal()}>

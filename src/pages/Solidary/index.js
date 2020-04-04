@@ -30,7 +30,7 @@ import { colors } from '../../styles';
 
 const withZustand = (Comp) => (props) => {
   const { token, userData } = useAuth();
-  return <Comp {...props} token={token} userData={userData} />;
+  return <Comp {...props} token={token} />;
 };
 
 class Volunteer extends Component {

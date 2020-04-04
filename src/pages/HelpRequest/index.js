@@ -1,4 +1,6 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
+import { Alert } from 'react-native';
 import CheckBox from '../../components/checkbox';
 
 import {
@@ -9,12 +11,17 @@ import {
   ButtonArea,
   TextArea,
   Image,
-  AlertField,
 } from './styles';
 
+import useAuth from '../../store';
 import api from '../../services/api';
 
-export default class HelpRequest extends Component {
+const withZustand = (Comp) => (props) => {
+  const { token, userData, reqIsSick, isSick } = useAuth();
+  return <Comp {...props} token={token} userData={userData} />;
+};
+
+class HelpRequest extends Component {
   constructor(props) {
     super(props);
 
@@ -62,33 +69,37 @@ export default class HelpRequest extends Component {
   };
 
   sendHelpRequest = async () => {
-    const { allSymptoms, other } = this.state;
-
-    console.tron.log('Teste', other);
+    const { other, allSymptoms } = this.state;
+    const { token, userData, navigation } = this.props;
 
     if (other !== '') {
-      this.setState({ allSymptoms: [...allSymptoms, other] });
+      allSymptoms.push(other);
     } else {
-      console.tron.log('Entrei aqui');
+      console.tron.log('entrei aqui');
     }
 
-    console.tron.log(allSymptoms);
+    const body = {
+      name: userData.name,
+      sintoms: allSymptoms.toString(),
+      user_location: '',
+      whatsapp: userData.whatsapp,
+    };
 
-    /* await Geolocation.getCurrentPosition((info) => console.tron.log(info));
+    // await Geolocation.getCurrentPosition((info) => console.tron.log(info));
 
-    AlertField.alert(
-      'Mantenha a calma e o seu celular por perto. A ajuda está a caminho!'
-    );
-
-    const response = await api.post('/help', {
-      headers: { Authorization: 'application/x-www-form-urlencoded' },
-      data: {
-        name: 'Rafael Zerbini',
-        sintoms: allSymptoms,
-        user_location: ' ',
-        whatsapp: '61999712343',
-      },
-    }); */
+    try {
+      const response = await api.post('/help', body, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      Alert.alert(
+        'Atenção',
+        'Fique em casa e com o celular próximo!',
+        [{ text: 'OK', onPress: () => navigation.navigate('Home') }],
+        { cancelable: false }
+      );
+    } catch (err) { }
   };
 
   render() {
@@ -139,3 +150,5 @@ export default class HelpRequest extends Component {
     );
   }
 }
+
+export default withZustand(HelpRequest);
