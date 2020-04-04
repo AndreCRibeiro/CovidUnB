@@ -47,18 +47,16 @@ class Home extends Component {
     answer: [],
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const { yes, no, answer } = this.state;
     const { isSick, reqIsSick, userData } = this.props;
-    console.log(userData);
     if (yes) {
       answer.push('yes');
     }
     if (no) {
       answer.push('no');
     }
-    reqIsSick(answer);
-    console.tron.log(isSick);
+    await reqIsSick(answer);
   }
 
   handleNavigateToHelp = () => {
