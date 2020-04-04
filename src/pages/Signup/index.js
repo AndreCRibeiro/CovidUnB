@@ -53,7 +53,7 @@ export default class Signup extends Component {
     loading: false,
   };
 
-  checkState = () => {};
+  checkState = () => { };
 
   handleSignUp = async () => {
     const {
@@ -87,7 +87,7 @@ export default class Signup extends Component {
           user_location: null,
         });
         navigation.navigate('Home');
-      } catch (err) {}
+      } catch (err) { }
       navigation.navigate('Home');
     }
   };
@@ -304,8 +304,8 @@ export default class Signup extends Component {
             {loading ? (
               <ActivityIndicator color={colors.white} />
             ) : (
-              <ButtonText>Registrar</ButtonText>
-            )}
+                <ButtonText>Registrar</ButtonText>
+              )}
           </Button>
         </Form>
       </Container>

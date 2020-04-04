@@ -3,13 +3,15 @@ import { Alert } from 'react-native';
 
 export const Container = styled.View`
   flex: 1;
+  padding: 15px;
 `;
 
 export const TextHeader = styled.Text`
-  margin: 25px;
-  color: #000;
+  font-size: 18px;
+  color: #333;
   font-weight: bold;
-  font-size: 24px;
+  margin-top: 4px;
+  text-align: center;
 `;
 
 export const CheckBoxField = styled.View`

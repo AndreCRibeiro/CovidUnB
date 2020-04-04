@@ -25,7 +25,7 @@ export default class Home extends Component {
   handleNavigateToHelp = () => {
     const { navigation } = this.props;
 
-    navigation.navigate('Home');
+    navigation.navigate('HelpRequest');
   };
 
   handleNavigateToLocal = () => {

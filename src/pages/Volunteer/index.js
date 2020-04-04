@@ -87,8 +87,8 @@ export default class Volunteer extends Component {
             {loading ? (
               <ActivityIndicator color={colors.white} />
             ) : (
-              <VolunteerButtonText>CANDITAR</VolunteerButtonText>
-            )}
+                <VolunteerButtonText>CANDITAR</VolunteerButtonText>
+              )}
           </ButtonVolunteer>
         </Form>
       </Container>

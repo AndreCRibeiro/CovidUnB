@@ -5,7 +5,7 @@ export const Container = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  background-color: colors;
+  background: #fff;
 `;
 
 export const TopCards = styled.View`
@@ -16,7 +16,7 @@ export const TopCards = styled.View`
 export const Card = styled(RectButton)`
   height: 120px;
   width: 120px;
-  background-color: #fff;
+  background: #fff;
   margin: 30px;
   border-width: 1px;
   border-radius: 2px;
