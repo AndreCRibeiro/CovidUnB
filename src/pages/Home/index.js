@@ -49,7 +49,8 @@ class Home extends Component {
 
   componentDidMount() {
     const { yes, no, answer } = this.state;
-    const { isSick, reqIsSick } = this.props;
+    const { isSick, reqIsSick, userData } = this.props;
+    console.log(userData);
     if (yes) {
       answer.push('yes');
     }
@@ -99,6 +100,7 @@ class Home extends Component {
   render() {
     const { yes, no } = this.state;
     const { userData } = this.props;
+
     return (
       <Container>
         <SelectionView>
