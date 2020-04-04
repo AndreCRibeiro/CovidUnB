@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
+import api from '../../services/api';
 
 import {
   Container,
@@ -38,9 +39,20 @@ export default class Main extends Component {
     loading: false,
   };
 
-  handleLogin = () => {
+  handleLogin = async () => {
+    const { userMail, userPass } = this.state;
     const { navigation } = this.props;
 
+    try {
+      const response = await api.post('/sessions', {
+        email: userMail,
+        password: userPass,
+      });
+      console.tron.log(response);
+      navigation.navigate('Home');
+    } catch (err) {
+      console.tron.log(err);
+    }
     navigation.navigate('Home');
   };
 
