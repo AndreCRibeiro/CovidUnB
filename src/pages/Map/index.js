@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
         <MapView
+          provider={PROVIDER_GOOGLE}
           style={styles.map}
           loadingEnabled={true}
           region={{
