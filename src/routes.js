@@ -37,11 +37,12 @@ export default function Routes() {
         />
         <AppStack.Screen name="Register" component={Signup} />
         <AppStack.Screen name="Home" component={Home} />
-        <AppStack.Screen name="Volunteer" component={Volunteer} />
         <AppStack.Screen name="Talk" component={Talk} />
+        <AppStack.Screen name="Volunteer" component={Volunteer} />
+        <AppStack.Screen name="Solidary" component={Solidary} />
+
         <AppStack.Screen name="HelpRequest" component={HelpRequest} />
         <AppStack.Screen name="Questions" component={Questions} />
-        <AppStack.Screen name="Solidary" component={Solidary} />
       </AppStack.Navigator>
     </NavigationContainer>
   );

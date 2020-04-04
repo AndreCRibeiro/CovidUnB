@@ -3,7 +3,13 @@
 /* eslint-disable global-require */
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
-import { ActivityIndicator } from 'react-native';
+import {
+  ActivityIndicator,
+  ScrollView,
+  TouchableOpacity,
+  Linking,
+  Button,
+} from 'react-native';
 import { Picker } from '@react-native-community/picker';
 import PropTypes from 'prop-types';
 
@@ -15,7 +21,12 @@ import {
   CenterView,
   SimpleText,
   PickerView,
+  ProfileList,
+  Profile,
+  Text,
 } from './styles';
+
+import api from '../../services/api';
 
 import { colors } from '../../styles';
 
@@ -27,9 +38,44 @@ export default class Volunteer extends Component {
   };
 
   state = {
-    region: false,
+    region: '',
     task: false,
     loading: false,
+    data: [{ id: 1, name: 'Paulo' }],
+  };
+
+  componentDidMount = async () => {
+    const response = await api.get('volunteers', {
+      headers: {
+        Authorization:
+          'Bearer ' +
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTg2MDMzODU4LCJleHAiOjE1ODYxMjAyNTh9.Gigw9MdlfM8Q7P8JcPQ2Btho36MNwngzjh2rl6zY4kY',
+      },
+    });
+
+    this.setState({ data: response.data, loading: false });
+  };
+
+  sendwhatsapp = (profile) => {
+    const message = `Olá ${profile.name}, ví que você se voluntariou para ${profile.activities} e gostaria da sua ajuda! Podemos falar a respeito?`;
+
+    Linking.openURL(
+      `whatsapp://send?phone=${profile.whatsapp}&text=${message}`
+    );
+  };
+
+  filterByCity = async () => {
+    const { region } = this.state;
+
+    const response = await api.get(`volunteers?ra=${region}`, {
+      headers: {
+        Authorization:
+          'Bearer ' +
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTg2MDMzODU4LCJleHAiOjE1ODYxMjAyNTh9.Gigw9MdlfM8Q7P8JcPQ2Btho36MNwngzjh2rl6zY4kY',
+      },
+    });
+
+    this.setState({ data: response.data, loading: false });
   };
 
   handleSubmit = () => {
@@ -39,76 +85,80 @@ export default class Volunteer extends Component {
   };
 
   render() {
-    const { region, task, loading } = this.state;
+    const { region, task, loading, data } = this.state;
 
     return (
       <Container>
-        <CenterView>
-          <SimpleText>
-            Informe com o que podemos contar com sua ajuda
-          </SimpleText>
-        </CenterView>
         <Form>
           <PickerView>
             <Picker
               selectedValue={region}
-              onValueChange={(itemValue) =>
-                this.setState({ region: itemValue })
-              }
+              onValueChange={(label) => this.setState({ region: label })}
+              style={{ backgroundColor: '#eee', borderRadius: 50 }}
             >
-              <Picker.Item label="Selecionar sua região" />
-              <Picker.Item label="Asa Norte" value="1" />
-              <Picker.Item label="Asa Sul" value="2" />
-              <Picker.Item label="Taguatinga" value="3" />
+              <Picker.Item label="Filtrar por Região Administrativa" />
+              <Picker.Item label="Plano Piloto" value="Plano Piloto" />
+              <Picker.Item label="Águas Claras" value="Águas Claras" />
+              <Picker.Item label="Brazlândia" value="Brazlândia" />
+              <Picker.Item label="Candangolândia" value="Candangolândia" />
+              <Picker.Item label="Ceilândia" value="Ceilândia" />
+              <Picker.Item label="Cruzeiro" value="Cruzeiro" />
+              <Picker.Item label="Fercal" value="Fercal" />
+              <Picker.Item label="Gama" value="Gama" />
+              <Picker.Item label="Guará" value="Guará" />
+              <Picker.Item label="Itapoã" value="Itapoã" />
+              <Picker.Item label="Jardim Botânico" value="Jardim Botânico" />
+              <Picker.Item label="Lago Norte" value="Lago Norte" />
+              <Picker.Item label="Lago Sul" value="Lago Sul" />
+              <Picker.Item
+                label="Núcleo Bandeirante"
+                value="Núcleo Bandeirante"
+              />
+              <Picker.Item label="Paranoá" value="Paranoá" />
+              <Picker.Item label="Park Way" value="Park Way" />
+              <Picker.Item label="Planaltina" value="Planaltina" />
+              <Picker.Item label="Recanto das Emas" value="Recanto das Emas" />
+              <Picker.Item label="Riacho Fundo I" value="Riacho Fundo I" />
+              <Picker.Item label="Riacho Fundo II" value="Riacho Fundo II" />
+              <Picker.Item label="Samambaia" value="Samambaia" />
+              <Picker.Item label="Santa Maria" value="Santa Maria" />
+              <Picker.Item label="São Sebastião" value="São Sebastião" />
+              <Picker.Item label="SCIA/Estrutural" value="SCIA/Estrutural" />
+              <Picker.Item label="SIA" value="SIA" />
+              <Picker.Item label="Sobradinho" value="Sobradinho" />
+              <Picker.Item label="Sobradinho II" value="Sobradinho II" />
+              <Picker.Item
+                label="Sudoeste/Octogonal"
+                value="Sudoeste/Octogonal"
+              />
+              <Picker.Item label="Taguatinga" value="Taguatinga" />
+              <Picker.Item label="Varjão" value="Varjão" />
+              <Picker.Item label="Vicente Pires" value="Vicente Pires" />
             </Picker>
-            {region && region === '1' ? (
-              <Picker
-                selectedValue={task}
-                onValueChange={(itemValue) =>
-                  this.setState({ task: itemValue })
-                }
-              >
-                <Picker.Item label="Selecione o serviço" />
-                <Picker.Item label="Médicos" value="1" />
-                <Picker.Item label="Passear com cachorros" value="2" />
-                <Picker.Item label="Realizar compras" value="3" />
-              </Picker>
-            ) : region && region === '2' ? (
-              <Picker
-                selectedValue={task}
-                onValueChange={(itemValue) =>
-                  this.setState({ task: itemValue })
-                }
-              >
-                <Picker.Item label="Selecione o serviço" />
-                <Picker.Item label="Psicólogo" value="1" />
-                <Picker.Item label="Conversar" value="2" />
-                <Picker.Item label="Compras" value="3" />
-              </Picker>
-            ) : (
-              region && (
-                <Picker
-                  selectedValue={task}
-                  onValueChange={(itemValue) =>
-                    this.setState({ task: itemValue })
-                  }
-                >
-                  <Picker.Item label="Selecione o serviço" />
-                  <Picker.Item label="Personal" value="1" />
-                  <Picker.Item label="Remédios" value="2" />
-                  <Picker.Item label="Veterinário" value="3" />
-                </Picker>
-              )
-            )}
           </PickerView>
-          <ButtonVolunteer loading={loading} onPress={this.handleSubmit}>
+          <ButtonVolunteer loading={loading} onPress={this.filterByCity}>
             {loading ? (
               <ActivityIndicator color={colors.white} />
             ) : (
-              <VolunteerButtonText>CANDITAR</VolunteerButtonText>
+              <VolunteerButtonText>Buscar Voluntários</VolunteerButtonText>
             )}
           </ButtonVolunteer>
         </Form>
+
+        <ProfileList>
+          <ScrollView>
+            {data.map((profile) => (
+              <Profile key={profile.id}>
+                <TouchableOpacity onPress={(profile) => this.sendwhatsapp}>
+                  <Text>{profile.name}</Text>
+                  <Text>{profile.administrative_region}</Text>
+                  <Text>{profile.whatsapp}</Text>
+                  <Text>Atividades: {profile.activities}</Text>
+                </TouchableOpacity>
+              </Profile>
+            ))}
+          </ScrollView>
+        </ProfileList>
       </Container>
     );
   }

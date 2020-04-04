@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Geolocation from 'react-native-geolocation-service';
 import CheckBox from '../../components/checkbox';
 
 import {

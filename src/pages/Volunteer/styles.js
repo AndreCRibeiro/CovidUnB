@@ -32,7 +32,7 @@ export const Input = styled.TextInput.attrs({
   border-radius: 11px;
   padding: 0 15px;
   border: 2px solid #000;
-  margin: 10px 0;
+  margin: 0px 0;
   margin-bottom: 15px;
   elevation: 7;
 `;

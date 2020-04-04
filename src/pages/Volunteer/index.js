@@ -2,8 +2,7 @@
 /* eslint-disable global-require */
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
-import { ActivityIndicator } from 'react-native';
-import { Picker } from '@react-native-community/picker';
+import { ActivityIndicator, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 
 import {
@@ -14,7 +13,6 @@ import {
   VolunteerButtonText,
   CenterView,
   SimpleText,
-  PickerView,
 } from './styles';
 
 import { colors } from '../../styles';
@@ -28,8 +26,14 @@ export default class Volunteer extends Component {
 
   state = {
     userName: '',
-    userRG: '',
+    userEmail: '',
+    whatsapp: '',
+    userCPF: '',
     userNRP: '',
+    uf: '',
+    specialty: '',
+    administrativeRegion: '',
+    activities: '',
     loading: false,
   };
 
@@ -40,56 +44,109 @@ export default class Volunteer extends Component {
   };
 
   render() {
-    const { userName, userRG, userNRP, loading } = this.state;
+    const {
+      userName,
+      userEmail,
+      whatsapp,
+      userCPF,
+      userNRP,
+      uf,
+      specialty,
+      administrativeRegion,
+      activities,
+      loading,
+    } = this.state;
 
     return (
       <Container>
         <CenterView>
-          <SimpleText>
-            Informe os dados para o exercício do voluntário
-          </SimpleText>
+          <SimpleText>Candidate-se como voluntário:</SimpleText>
         </CenterView>
         <Form>
-          <Input
-            autoCorrect={false}
-            autoCapitalize="none"
-            placeholder="Nome"
-            value={userName}
-            onChangeText={(text) => this.setState({ userName: text })}
-          />
-          <Input
-            autoCorrect={false}
-            autoCapitalize="none"
-            placeholder="RG"
-            value={userRG}
-            onChangeText={(text) => this.setState({ userRG: text })}
-          />
-          <Input
-            autoCorrect={false}
-            autoCapitalize="none"
-            placeholder="N Registro Profissional"
-            value={userNRP}
-            onChangeText={(text) => this.setState({ userCRM: text })}
-          />
-          <PickerView>
-            <Picker>
-              <Picker.Item label="Selecionar a UF do Conselho" />
-              <Picker.Item label="Opção 1" value="1" />
-              <Picker.Item label="Opção 2" value="2" />
-            </Picker>
-            <Picker>
-              <Picker.Item label="Selecione sua especialidade" />
-              <Picker.Item label="Opção A" value="1" />
-              <Picker.Item label="Opção B" value="2" />
-            </Picker>
-          </PickerView>
-          <ButtonVolunteer loading={loading} onPress={this.handleSubmit}>
-            {loading ? (
-              <ActivityIndicator color={colors.white} />
-            ) : (
-                <VolunteerButtonText>CANDITAR</VolunteerButtonText>
+          <ScrollView>
+            <Input
+              autoCorrect={false}
+              autoCapitalize="none"
+              placeholder="Nome"
+              value={userName}
+              onChangeText={(text) => this.setState({ userName: text })}
+            />
+            <Input
+              autoCorrect={false}
+              autoCapitalize="none"
+              placeholder="Email"
+              value={userEmail}
+              onChangeText={(text) => this.setState({ userEmail: text })}
+            />
+            <Input
+              autoCorrect={false}
+              autoCapitalize="none"
+              placeholder="whatsapp"
+              value={whatsapp}
+              onChangeText={(text) => this.setState({ whatsapp: text })}
+            />
+            <Input
+              autoCorrect={false}
+              autoCapitalize="none"
+              placeholder="CPF"
+              value={userCPF}
+              onChangeText={(text) => this.setState({ userCPF: text })}
+            />
+            <Input
+              autoCorrect={false}
+              autoCapitalize="none"
+              placeholder="Unidade da Federação"
+              value={uf}
+              onChangeText={(text) => this.setState({ uf: text })}
+            />
+            <Input
+              autoCorrect={false}
+              autoCapitalize="none"
+              placeholder="Região Administrativa"
+              value={administrativeRegion}
+              onChangeText={(text) =>
+                this.setState({ administrativeRegion: text })
+              }
+            />
+            <Input
+              autoCorrect={false}
+              autoCapitalize="none"
+              placeholder="N Registro Profissional"
+              value={userNRP}
+              onChangeText={(text) => this.setState({ userNRP: text })}
+            />
+            <Input
+              autoCorrect={false}
+              autoCapitalize="none"
+              placeholder="Especialidade"
+              value={specialty}
+              onChangeText={(text) => this.setState({ specialty: text })}
+            />
+            <Input
+              autoCorrect={false}
+              autoCapitalize="none"
+              placeholder="Região Administrativa"
+              value={administrativeRegion}
+              onChangeText={(text) =>
+                this.setState({ administrativeRegion: text })
+              }
+            />
+            <Input
+              autoCorrect={false}
+              autoCapitalize="none"
+              placeholder="Atividades voluntárias"
+              value={activities}
+              onChangeText={(text) => this.setState({ activities: text })}
+            />
+
+            <ButtonVolunteer loading={loading} onPress={this.handleSubmit}>
+              {loading ? (
+                <ActivityIndicator color={colors.white} />
+              ) : (
+                <VolunteerButtonText>CANDITAR-SE</VolunteerButtonText>
               )}
-          </ButtonVolunteer>
+            </ButtonVolunteer>
+          </ScrollView>
         </Form>
       </Container>
     );
