@@ -147,16 +147,18 @@ export default class Volunteer extends Component {
 
         <ProfileList>
           <ScrollView>
-            {data.map((profile) => (
-              <Profile key={profile.id}>
-                <TouchableOpacity onPress={(profile) => this.sendwhatsapp}>
-                  <Text>{profile.name}</Text>
-                  <Text>{profile.administrative_region}</Text>
-                  <Text>{profile.whatsapp}</Text>
-                  <Text>Atividades: {profile.activities}</Text>
-                </TouchableOpacity>
-              </Profile>
-            ))}
+            {data.map((profile) =>
+              !profile.is_sick ? (
+                <Profile key={profile.id}>
+                  <TouchableOpacity onPress={(profile) => this.sendwhatsapp}>
+                    <Text>{profile.name}</Text>
+                    <Text>{profile.administrative_region}</Text>
+                    <Text>{profile.whatsapp}</Text>
+                    <Text>Atividades: {profile.activities}</Text>
+                  </TouchableOpacity>
+                </Profile>
+              ) : null
+            )}
           </ScrollView>
         </ProfileList>
       </Container>
