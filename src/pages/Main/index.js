@@ -6,6 +6,7 @@ import { ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
 import api from '../../services/api';
+import useAuth from '../../store';
 
 import { colors } from '../../styles';
 
@@ -27,7 +28,14 @@ import {
   Eye,
 } from './styles';
 
-export default class Main extends Component {
+const withZustand = (Comp) => (props) => {
+  const { loading, fetchAuth, token } = useAuth();
+  return (
+    <Comp {...props} loading={loading} fetchAuth={fetchAuth} token={token} />
+  );
+};
+
+class Main extends Component {
   static propTypes = {
     navigation: PropTypes.shape({
       navigate: PropTypes.func,
@@ -38,21 +46,20 @@ export default class Main extends Component {
     userMail: '',
     userPass: '',
     showingPass: true,
-    loading: false,
   };
+
+  componentWillReceiveProps(nextprops) {
+    const { token, navigation } = this.props;
+    if (token !== nextprops.token) {
+      navigation.navigate('Home');
+    }
+  }
 
   handleLogin = async () => {
     const { userMail, userPass } = this.state;
-    const { navigation } = this.props;
-
-    try {
-      const response = await api.post('/sessions', {
-        email: userMail,
-        password: userPass,
-      });
-
-      navigation.navigate('Home');
-    } catch (err) {}
+    const { fetchAuth, navigation } = this.props;
+    const body = { email: userMail, password: userPass };
+    fetchAuth(body);
     navigation.navigate('Home');
   };
 
@@ -69,7 +76,8 @@ export default class Main extends Component {
   };
 
   render() {
-    const { userMail, userPass, showingPass, loading } = this.state;
+    const { userMail, userPass, showingPass } = this.state;
+    const { loading } = this.props;
 
     return (
       <Container>
@@ -97,8 +105,8 @@ export default class Main extends Component {
               {showingPass ? (
                 <Icon name="visibility" size={28} color={colors.black} />
               ) : (
-                <Eye source={require('../../assets/images/eye.png')} />
-              )}
+                  <Eye source={require('../../assets/images/eye.png')} />
+                )}
             </HideNShowPassword>
           </Teste>
 
@@ -106,8 +114,8 @@ export default class Main extends Component {
             {loading ? (
               <ActivityIndicator color={colors.white} />
             ) : (
-              <LoginButtonText>Login</LoginButtonText>
-            )}
+                <LoginButtonText>Login</LoginButtonText>
+              )}
           </ButtonLogin>
           <Slash>
             <LineLeft />
@@ -122,3 +130,5 @@ export default class Main extends Component {
     );
   }
 }
+
+export default withZustand(Main);

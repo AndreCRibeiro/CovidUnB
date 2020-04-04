@@ -6,20 +6,29 @@ import React, { Component } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { Picker } from '@react-native-community/picker';
 import PropTypes from 'prop-types';
+import api from '../../services/api';
+import useAuth from '../../store';
 
 import {
   Container,
   Form,
-  ButtonVolunteer,
-  VolunteerButtonText,
   CenterView,
   SimpleText,
   PickerView,
+  Volunteers,
+  Info,
+  VolunteerName,
+  VolunteerTel,
 } from './styles';
 
 import { colors } from '../../styles';
 
-export default class Volunteer extends Component {
+const withZustand = (Comp) => (props) => {
+  const { token, userData } = useAuth();
+  return <Comp {...props} token={token} userData={userData} />;
+};
+
+class Volunteer extends Component {
   static propTypes = {
     navigation: PropTypes.shape({
       navigate: PropTypes.func,
@@ -29,8 +38,22 @@ export default class Volunteer extends Component {
   state = {
     region: false,
     task: false,
+    allVolunteers: [],
     loading: false,
   };
+
+  async componentDidMount() {
+    const { token, userData } = this.props;
+    try {
+      const response = await api.get('/volunteers', {
+        headers: { Authorization: `bearer ${token}` },
+      });
+      this.setState({ allVolunteers: response });
+      console.tron.log(response);
+    } catch (err) {
+      console.tron.log(err);
+    }
+  }
 
   handleSubmit = () => {
     const { navigation } = this.props;
@@ -39,7 +62,9 @@ export default class Volunteer extends Component {
   };
 
   render() {
-    const { region, task, loading } = this.state;
+    const { region, task, loading, allVolunteers } = this.state;
+
+    console.tron.log(allVolunteers);
 
     return (
       <Container>
@@ -86,30 +111,31 @@ export default class Volunteer extends Component {
                 <Picker.Item label="Compras" value="3" />
               </Picker>
             ) : (
-              region && (
-                <Picker
-                  selectedValue={task}
-                  onValueChange={(itemValue) =>
-                    this.setState({ task: itemValue })
-                  }
-                >
-                  <Picker.Item label="Selecione o serviço" />
-                  <Picker.Item label="Personal" value="1" />
-                  <Picker.Item label="Remédios" value="2" />
-                  <Picker.Item label="Veterinário" value="3" />
-                </Picker>
-              )
-            )}
+                  region && (
+                    <Picker
+                      selectedValue={task}
+                      onValueChange={(itemValue) =>
+                        this.setState({ task: itemValue })
+                      }
+                    >
+                      <Picker.Item label="Selecione o serviço" />
+                      <Picker.Item label="Personal" value="1" />
+                      <Picker.Item label="Remédios" value="2" />
+                      <Picker.Item label="Veterinário" value="3" />
+                    </Picker>
+                  )
+                )}
           </PickerView>
-          <ButtonVolunteer loading={loading} onPress={this.handleSubmit}>
-            {loading ? (
-              <ActivityIndicator color={colors.white} />
-            ) : (
-              <VolunteerButtonText>CANDITAR</VolunteerButtonText>
-            )}
-          </ButtonVolunteer>
+          <Volunteers data={allVolunteers}>
+            <Info>
+              <VolunteerName />
+              <VolunteerTel />
+            </Info>
+          </Volunteers>
         </Form>
       </Container>
     );
   }
 }
+
+export default withZustand(Volunteer);
