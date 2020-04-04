@@ -17,6 +17,8 @@ import {
   PickerView,
 } from './styles';
 
+import { colors } from '../../styles';
+
 export default class Volunteer extends Component {
   static propTypes = {
     navigation: PropTypes.shape({
@@ -84,27 +86,27 @@ export default class Volunteer extends Component {
                 <Picker.Item label="Compras" value="3" />
               </Picker>
             ) : (
-                  region && (
-                    <Picker
-                      selectedValue={task}
-                      onValueChange={(itemValue) =>
-                        this.setState({ task: itemValue })
-                      }
-                    >
-                      <Picker.Item label="Selecione o serviço" />
-                      <Picker.Item label="Personal" value="1" />
-                      <Picker.Item label="Remédios" value="2" />
-                      <Picker.Item label="Veterinário" value="3" />
-                    </Picker>
-                  )
-                )}
+              region && (
+                <Picker
+                  selectedValue={task}
+                  onValueChange={(itemValue) =>
+                    this.setState({ task: itemValue })
+                  }
+                >
+                  <Picker.Item label="Selecione o serviço" />
+                  <Picker.Item label="Personal" value="1" />
+                  <Picker.Item label="Remédios" value="2" />
+                  <Picker.Item label="Veterinário" value="3" />
+                </Picker>
+              )
+            )}
           </PickerView>
           <ButtonVolunteer loading={loading} onPress={this.handleSubmit}>
             {loading ? (
-              <ActivityIndicator color="#fff" />
+              <ActivityIndicator color={colors.white} />
             ) : (
-                <VolunteerButtonText>CANDITAR</VolunteerButtonText>
-              )}
+              <VolunteerButtonText>CANDITAR</VolunteerButtonText>
+            )}
           </ButtonVolunteer>
         </Form>
       </Container>

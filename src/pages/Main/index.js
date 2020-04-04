@@ -7,6 +7,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
 import api from '../../services/api';
 
+import { colors } from '../../styles';
+
 import {
   Container,
   Logo,
@@ -48,11 +50,9 @@ export default class Main extends Component {
         email: userMail,
         password: userPass,
       });
-      console.tron.log(response);
+
       navigation.navigate('Home');
-    } catch (err) {
-      console.tron.log(err);
-    }
+    } catch (err) {}
     navigation.navigate('Home');
   };
 
@@ -95,19 +95,19 @@ export default class Main extends Component {
             />
             <HideNShowPassword onPress={this.showPass}>
               {showingPass ? (
-                <Icon name="visibility" size={28} color="#000" />
+                <Icon name="visibility" size={28} color={colors.black} />
               ) : (
-                  <Eye source={require('../../assets/images/eye.png')} />
-                )}
+                <Eye source={require('../../assets/images/eye.png')} />
+              )}
             </HideNShowPassword>
           </Teste>
 
           <ButtonLogin loading={loading} onPress={this.handleLogin}>
             {loading ? (
-              <ActivityIndicator color="#fff" />
+              <ActivityIndicator color={colors.white} />
             ) : (
-                <LoginButtonText>Login</LoginButtonText>
-              )}
+              <LoginButtonText>Login</LoginButtonText>
+            )}
           </ButtonLogin>
           <Slash>
             <LineLeft />

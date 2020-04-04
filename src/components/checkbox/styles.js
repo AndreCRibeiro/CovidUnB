@@ -6,6 +6,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: 15,
   },
+
+  textOptionStyle: {
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
 });
 
 export default styles;

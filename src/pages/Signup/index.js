@@ -22,6 +22,8 @@ import {
   ThirdCenterView,
 } from './styles';
 
+import { colors } from '../../styles';
+
 export default class Signup extends Component {
   static propTypes = {
     navigation: PropTypes.shape({
@@ -51,7 +53,7 @@ export default class Signup extends Component {
     loading: false,
   };
 
-  checkState = () => { };
+  checkState = () => {};
 
   handleSignUp = async () => {
     const {
@@ -68,11 +70,9 @@ export default class Signup extends Component {
     const { navigation } = this.props;
     if (this.state.diabetes === true) {
       this.setState({ riskGroup: [...riskGroup, 'Diabetes'] });
-      console.tron.log('Teste', riskGroup);
     }
 
     if (userPass !== userPassConfirmed) {
-      console.tron.log('Senhas fornecidas não são iguais');
     } else {
       try {
         const response = await api.post('/users', {
@@ -87,9 +87,7 @@ export default class Signup extends Component {
           user_location: null,
         });
         navigation.navigate('Home');
-      } catch (err) {
-        console.tron.log(err);
-      }
+      } catch (err) {}
       navigation.navigate('Home');
     }
   };
@@ -106,7 +104,6 @@ export default class Signup extends Component {
     } = this.state;
 
     const index = riskGroup.findIndex((gp) => gp === group);
-    console.tron.log(index);
 
     if (index >= 0) {
       riskGroup.splice(index, 1);
@@ -142,7 +139,6 @@ export default class Signup extends Component {
         break;
       }
     }
-    console.tron.log(riskGroup);
   };
 
   render() {
@@ -306,10 +302,10 @@ export default class Signup extends Component {
           </SecondSelect>
           <Button loading={loading} onPress={this.handleSignUp}>
             {loading ? (
-              <ActivityIndicator color="#fff" />
+              <ActivityIndicator color={colors.white} />
             ) : (
-                <ButtonText>Registrar</ButtonText>
-              )}
+              <ButtonText>Registrar</ButtonText>
+            )}
           </Button>
         </Form>
       </Container>

@@ -17,6 +17,8 @@ import {
   PickerView,
 } from './styles';
 
+import { colors } from '../../styles';
+
 export default class Volunteer extends Component {
   static propTypes = {
     navigation: PropTypes.shape({
@@ -83,10 +85,10 @@ export default class Volunteer extends Component {
           </PickerView>
           <ButtonVolunteer loading={loading} onPress={this.handleSubmit}>
             {loading ? (
-              <ActivityIndicator color="#fff" />
+              <ActivityIndicator color={colors.white} />
             ) : (
-                <VolunteerButtonText>CANDITAR</VolunteerButtonText>
-              )}
+              <VolunteerButtonText>CANDITAR</VolunteerButtonText>
+            )}
           </ButtonVolunteer>
         </Form>
       </Container>

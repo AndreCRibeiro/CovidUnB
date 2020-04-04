@@ -2,6 +2,8 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import { colors } from './styles';
+
 import Main from './pages/Main';
 import Home from './pages/Home';
 import Signup from './pages/Signup';
@@ -9,6 +11,7 @@ import Volunteer from './pages/Volunteer';
 import Talk from './pages/Talk';
 import Questions from './pages/Questions';
 import Solidary from './pages/Solidary';
+import HelpRequest from './pages/HelpRequest';
 
 const AppStack = createStackNavigator();
 
@@ -17,18 +20,19 @@ export default function Routes() {
     <NavigationContainer>
       <AppStack.Navigator
         screenOptions={{
-          headerTintColor: '#fff',
-          headerStyle: { height: 40, backgroundColor: '#0039A6' },
+          headerTintColor: colors.white,
+          headerStyle: { height: 40, backgroundColor: colors.headerBlue },
           headerTitle: '',
         }}
       >
+        <AppStack.Screen name="HelpRequest" component={HelpRequest} />
         <AppStack.Screen
           name="Main"
           component={Main}
           options={{
             headerStyle: {
               height: 20,
-              backgroundColor: '#0039A6',
+              backgroundColor: colors.headerBlue,
             },
           }}
         />
