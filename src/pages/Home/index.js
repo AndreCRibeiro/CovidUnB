@@ -31,7 +31,7 @@ export default class Home extends Component {
   handleNavigateToLocal = () => {
     const { navigation } = this.props;
 
-    navigation.navigate('Home');
+    navigation.navigate('Local');
   };
 
   handleNavigateToQuestions = () => {

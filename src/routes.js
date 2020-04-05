@@ -12,6 +12,8 @@ import Talk from './pages/Talk';
 import Questions from './pages/Questions';
 import Solidary from './pages/Solidary';
 import HelpRequest from './pages/HelpRequest';
+import Map from './pages/Map';
+
 
 const AppStack = createStackNavigator();
 
@@ -42,6 +44,8 @@ export default function Routes() {
         <AppStack.Screen name="HelpRequest" component={HelpRequest} />
         <AppStack.Screen name="Questions" component={Questions} />
         <AppStack.Screen name="Solidary" component={Solidary} />
+        <AppStack.Screen name="Local" component={Map} />
+
       </AppStack.Navigator>
     </NavigationContainer>
   );
