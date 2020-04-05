@@ -60,7 +60,6 @@ class Main extends Component {
     const { fetchAuth, navigation } = this.props;
     const body = { email: userMail, password: userPass };
     fetchAuth(body);
-    navigation.navigate('Home');
   };
 
   handleNavigationToSignUp = () => {

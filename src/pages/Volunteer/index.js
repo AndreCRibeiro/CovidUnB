@@ -4,6 +4,8 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
+import api from '../../services/api';
+import useAuth from '../../store';
 
 import {
   Container,
@@ -17,7 +19,12 @@ import {
 
 import { colors } from '../../styles';
 
-export default class Volunteer extends Component {
+const withZustand = (Comp) => (props) => {
+  const { token, isSick } = useAuth();
+  return <Comp {...props} token={token} isSick={isSick} />;
+};
+
+class Volunteer extends Component {
   static propTypes = {
     navigation: PropTypes.shape({
       navigate: PropTypes.func,
@@ -37,10 +44,45 @@ export default class Volunteer extends Component {
     loading: false,
   };
 
-  handleSubmit = () => {
-    const { navigation } = this.props;
+  handleSubmit = async () => {
+    const {
+      userName,
+      userEmail,
+      whatsapp,
+      userCPF,
+      userNRP,
+      uf,
+      specialty,
+      administrativeRegion,
+      activities,
+    } = this.state;
+    const { navigation, token, isSick } = this.props;
 
-    navigation.navigate('Home');
+    const body = {
+      name: userName,
+      email: userEmail,
+      whatsapp,
+      cpf: userCPF,
+      professional_id: userNRP,
+      uf,
+      specialty,
+      administrative_region: administrativeRegion,
+      activities,
+      user_location: '',
+      is_sick: isSick,
+    };
+    try {
+      const response = await api.post('volunteers', body, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response);
+    } catch (error) {
+      console.tron.log(error);
+    }
+
+    // navigation.navigate('Home');
   };
 
   render() {
@@ -81,6 +123,7 @@ export default class Volunteer extends Component {
             <Input
               autoCorrect={false}
               autoCapitalize="none"
+              keyboardType="numeric"
               placeholder="whatsapp"
               value={whatsapp}
               onChangeText={(text) => this.setState({ whatsapp: text })}
@@ -88,6 +131,7 @@ export default class Volunteer extends Component {
             <Input
               autoCorrect={false}
               autoCapitalize="none"
+              keyboardType="numeric"
               placeholder="CPF"
               value={userCPF}
               onChangeText={(text) => this.setState({ userCPF: text })}
@@ -112,6 +156,7 @@ export default class Volunteer extends Component {
               autoCorrect={false}
               autoCapitalize="none"
               placeholder="N Registro Profissional"
+              keyboardType="numeric"
               value={userNRP}
               onChangeText={(text) => this.setState({ userNRP: text })}
             />
@@ -121,15 +166,6 @@ export default class Volunteer extends Component {
               placeholder="Especialidade"
               value={specialty}
               onChangeText={(text) => this.setState({ specialty: text })}
-            />
-            <Input
-              autoCorrect={false}
-              autoCapitalize="none"
-              placeholder="Região Administrativa"
-              value={administrativeRegion}
-              onChangeText={(text) =>
-                this.setState({ administrativeRegion: text })
-              }
             />
             <Input
               autoCorrect={false}
@@ -152,3 +188,5 @@ export default class Volunteer extends Component {
     );
   }
 }
+
+export default withZustand(Volunteer);

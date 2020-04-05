@@ -33,7 +33,7 @@ const withZustand = (Comp) => (props) => {
   return <Comp {...props} token={token} />;
 };
 
-class Volunteer extends Component {
+class Solidary extends Component {
   static propTypes = {
     navigation: PropTypes.shape({
       navigate: PropTypes.func,
@@ -168,4 +168,4 @@ class Volunteer extends Component {
   }
 }
 
-export default withZustand(Volunteer);
+export default withZustand(Solidary);

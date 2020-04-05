@@ -25,6 +25,10 @@ const reqIsSick = (set, params) => {
   set((state) => ({ ...state, isSick: params }));
 };
 
+const reqIsSickNo = (set, params) => {
+  set((state) => ({ ...state, isSick: params }));
+};
+
 const [useAuth] = create((set) => ({
   userData: null, // variavel reducer
   token: null, // variavel reducer
@@ -37,6 +41,9 @@ const [useAuth] = create((set) => ({
   },
   reqIsSick: (params) => {
     reqIsSick(set, params);
+  },
+  reqIsSickNo: (params) => {
+    reqIsSickNo(set, params);
   },
 }));
 
