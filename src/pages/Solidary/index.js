@@ -148,22 +148,24 @@ class Solidary extends Component {
           </ButtonVolunteer>
         </Form>
 
-        <ProfileList>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            {data.map((profile) =>
-              !profile.is_sick ? (
-                <Profile key={profile.id}>
-                  <TouchableOpacity onPress={(profile) => this.sendwhatsapp}>
-                    <Text>{profile.name}</Text>
-                    <Text>{profile.administrative_region}</Text>
-                    <Text>{profile.whatsapp}</Text>
-                    <Text>Atividades: {profile.activities}</Text>
-                  </TouchableOpacity>
-                </Profile>
-              ) : null
-            )}
-          </ScrollView>
-        </ProfileList>
+        {data ? (
+          <ProfileList>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              {data.map((profile) =>
+                !profile.is_sick ? (
+                  <Profile key={profile.id}>
+                    <TouchableOpacity onPress={(profile) => this.sendwhatsapp}>
+                      <Text>{profile.name}</Text>
+                      <Text>{profile.administrative_region}</Text>
+                      <Text>{profile.whatsapp}</Text>
+                      <Text>Atividades: {profile.activities}</Text>
+                    </TouchableOpacity>
+                  </Profile>
+                ) : null
+              )}
+            </ScrollView>
+          </ProfileList>
+        ) : null}
       </Container>
     );
   }
