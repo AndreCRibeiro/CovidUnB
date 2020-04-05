@@ -48,7 +48,7 @@ class Main extends Component {
     showingPass: true,
   };
 
-  componentWillReceiveProps(nextprops) {
+  UNSAFE_componentWillReceiveProps(nextprops) {
     const { token, navigation } = this.props;
     if (token !== nextprops.token) {
       navigation.navigate('Home');

@@ -3,20 +3,13 @@ import { RectButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   flex: 1;
-  padding: 30px;
+  padding: 15px;
   background: #fff;
 `;
 
-export const Logo = styled.Image`
-  width: 160px;
-  height: 160px;
-  background: #fff;
-  align-self: center;
-  margin-top: 8px;
-  margin-bottom: 40px;
-`;
-
-export const Form = styled.View`
+export const Form = styled.ScrollView.attrs({
+  showsVerticalScrollIndicator: false,
+})`
   flex-direction: column;
   border-color: #fff;
   flex: 1;
@@ -37,6 +30,10 @@ export const Input = styled.TextInput.attrs({
   elevation: 7;
 `;
 
+export const PickerView = styled.View`
+  margin-bottom: 15px;
+`;
+
 export const Slash = styled.View`
   flex-direction: row;
   justify-content: center;
@@ -51,6 +48,7 @@ export const SimpleText = styled.Text`
   color: #333;
   font-weight: bold;
   margin-top: 4px;
+  margin-bottom: 5px;
   text-align: center;
 `;
 
@@ -73,11 +71,11 @@ export const ButtonVolunteer = styled(RectButton)`
   align-items: center;
   background: #0039a6;
   border-radius: 10px;
-  margin-top: 5px;
   padding: 0 12px;
   opacity: ${(props) => (props.loading ? 0.7 : 1)};
   height: 45px;
-  margin-top: 20px;
+  margin-top: 5px;
+  margin-bottom: 20px;
 `;
 
 export const VolunteerButtonText = styled.Text`
@@ -87,8 +85,4 @@ export const VolunteerButtonText = styled.Text`
   font-weight: bold;
   margin-top: 4px;
   text-align: center;
-`;
-
-export const PickerView = styled.View`
-  margin-top: 20px;
 `;

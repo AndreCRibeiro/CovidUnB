@@ -6,11 +6,11 @@ export const Container = styled.View`
   justify-content: center;
   align-items: center;
   background: #fff;
+  margin-bottom: 20px;
 `;
 
 export const TopCards = styled.View`
   flex-direction: row;
-  margin-bottom: 10px;
 `;
 
 export const Card = styled(RectButton)`
@@ -52,12 +52,10 @@ export const LargeImage = styled.Image`
 
 export const MiddleCards = styled.View`
   flex-direction: row;
-  margin-bottom: 10px;
 `;
 
 export const BottomCards = styled.View`
   flex-direction: row;
-  margin-bottom: 10px;
 `;
 
 export const Text = styled.Text`
@@ -65,9 +63,7 @@ export const Text = styled.Text`
   font-weight: bold;
 `;
 
-export const SelectionView = styled.View`
-  margin-top: 20px;
-`;
+export const SelectionView = styled.View``;
 
 export const CheckboxView = styled.View`
   flex-direction: row;
@@ -78,6 +74,5 @@ export const QuestionText = styled.Text`
   font-size: 18px;
   color: #333;
   font-weight: bold;
-  margin-top: 4px;
   text-align: center;
 `;

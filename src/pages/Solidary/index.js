@@ -46,7 +46,6 @@ class Solidary extends Component {
     region: '',
     task: false,
     loading: false,
-    data: [{ id: 1, name: 'Paulo' }],
   };
 
   componentDidMount = async () => {

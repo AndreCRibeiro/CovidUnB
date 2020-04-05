@@ -3,7 +3,9 @@ import styled from 'styled-components';
 export const Container = styled.View`
   flex: 1;
   padding: 30px;
+  justify-content: center;
   background: #fff;
+  margin-bottom: 25px;
 `;
 
 export const CenterView = styled.View`
@@ -15,8 +17,7 @@ export const LogoUnB = styled.Image`
   height: 180px;
   background: #fff;
   align-self: center;
-  margin-top: 40px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 `;
 
 export const SimpleText = styled.Text`
@@ -28,6 +29,5 @@ export const LogoLatitude = styled.Image`
   height: 160px;
   background: #fff;
   align-self: center;
-  margin-top: 8px;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
 `;

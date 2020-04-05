@@ -77,17 +77,12 @@ class Home extends Component {
     }
   }
 
-  componentWillReceiveProps(nextprops) {
+  UNSAFE_componentWillReceiveProps(nextprops) {
     const { isSick } = this.props;
     if (isSick !== nextprops.isSick) {
       this.componentDidMount();
     }
   }
-
-  changeState = async (param) => {
-    const { reqIsSick, userData, isSick, token } = this.props;
-    await reqIsSick(param);
-  };
 
   handleYes = async () => {
     const { yes } = this.state;

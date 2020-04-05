@@ -14,17 +14,18 @@ export const CardList = styled.ScrollView.attrs(() => ({
 }))``;
 
 export const Title = styled.Text`
-  font-size: 34px;
+  font-size: 25px;
   font-weight: bold;
-  margin-top: 20px;
-  padding: 10px;
+  margin-top: 5px;
+  padding: 5px;
 `;
 
 export const Card = styled.View`
-  height: 450px;
+  height: 445px;
   width: 340px;
   background-color: #fff;
-  margin-left: 18px;
+  margin-left: 10px;
+  margin-right: 10px;
   border-width: 2px;
   border-radius: 8px;
   border-color: #333;
@@ -33,21 +34,24 @@ export const Card = styled.View`
 `;
 
 export const EndView = styled.View`
-  align-self: flex-start;
+  align-items: center;
+  justify-content: center;
   margin-right: 10px;
-  margin: 20px 20px;
+  margin-bottom: 20px;
+  flex: 12;
 `;
 
 export const SimpleText = styled.Text`
-  font-weight: bold;
   font-size: 16px;
+  font-weight: bold;
+  text-align: center;
 `;
 
 export const Source = styled.Text`
   font-weight: bold;
   color: #0039a6;
   font-size: 14px;
-  margin-top: 10px;
+  margin-top: 3px;
 `;
 
 export const Info = styled.Image`

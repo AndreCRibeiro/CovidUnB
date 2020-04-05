@@ -3,35 +3,38 @@ import { Alert } from 'react-native';
 
 export const Container = styled.View`
   flex: 1;
-  padding: 15px;
+  padding: 18px;
 `;
 
 export const TextHeader = styled.Text`
-  font-size: 18px;
-  color: #333;
+  font-size: 17px;
   font-weight: bold;
-  margin-top: 4px;
   text-align: center;
+  justify-content: center;
+  margin-top: 30px;
 `;
 
 export const CheckBoxField = styled.View`
   padding: 10px;
 `;
 
-export const Others = styled.TextInput`
+export const Others = styled.TextInput.attrs({
+  placeholderTextColor: '#000',
+})`
   align-self: center;
   padding: 5px;
   width: 90%;
   height: 60px;
   margin-top: 10px;
   font-size: 16px;
-  background-color: #ddd;
+  background-color: #fff;
   border-radius: 10px;
+  border: 2px solid #000;
 `;
 
 export const ButtonArea = styled.TouchableOpacity`
   padding: 10px;
-  padding-top: 80px;
+  padding-top: 40px;
   align-self: center;
   align-content: center;
   flex-direction: column;
