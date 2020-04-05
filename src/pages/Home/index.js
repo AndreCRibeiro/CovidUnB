@@ -88,11 +88,6 @@ class Home extends Component {
     }
   }
 
-  changeState = async (param) => {
-    const { reqIsSick, userData, isSick, token } = this.props;
-    await reqIsSick(param);
-  };
-
   handleYes = async () => {
     const { yes } = this.state;
     const { reqIsSick, userData, isSick, token } = this.props;
