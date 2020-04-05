@@ -26,6 +26,8 @@ export default function Routes() {
         }}
         headerMode="none"
       >
+        <AppStack.Screen name="Map" component={Map} headerMode="none" />
+
         <AppStack.Screen
           name="Main"
           component={Main}
@@ -36,9 +38,9 @@ export default function Routes() {
             },
           }}
         />
+
         <AppStack.Screen name="Register" component={Signup} />
         <AppStack.Screen name="Home" component={Home} />
-        <AppStack.Screen name="Map" component={Map} headerMode="none" />
         <AppStack.Screen name="Talk" component={Talk} />
         <AppStack.Screen name="Volunteer" component={Volunteer} />
         <AppStack.Screen name="Solidary" component={Solidary} />
