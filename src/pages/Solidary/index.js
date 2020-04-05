@@ -30,7 +30,7 @@ import { colors } from '../../styles';
 
 const withZustand = (Comp) => (props) => {
   const { token, userData } = useAuth();
-  return <Comp {...props} token={token} userData={userData} />;
+  return <Comp {...props} token={token} />;
 };
 
 class Volunteer extends Component {
@@ -149,16 +149,18 @@ class Volunteer extends Component {
 
         <ProfileList>
           <ScrollView>
-            {data.map((profile) => (
-              <Profile key={profile.id}>
-                <TouchableOpacity onPress={(profile) => this.sendwhatsapp}>
-                  <Text>{profile.name}</Text>
-                  <Text>{profile.administrative_region}</Text>
-                  <Text>{profile.whatsapp}</Text>
-                  <Text>Atividades: {profile.activities}</Text>
-                </TouchableOpacity>
-              </Profile>
-            ))}
+            {data.map((profile) =>
+              !profile.is_sick ? (
+                <Profile key={profile.id}>
+                  <TouchableOpacity onPress={(profile) => this.sendwhatsapp}>
+                    <Text>{profile.name}</Text>
+                    <Text>{profile.administrative_region}</Text>
+                    <Text>{profile.whatsapp}</Text>
+                    <Text>Atividades: {profile.activities}</Text>
+                  </TouchableOpacity>
+                </Profile>
+              ) : null
+            )}
           </ScrollView>
         </ProfileList>
       </Container>

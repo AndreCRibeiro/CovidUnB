@@ -13,12 +13,14 @@ import {
   EndView,
   SimpleText,
   Source,
+  Title,
 } from './styles';
 
 export default class Questions extends Component {
   render() {
     return (
       <Container>
+        <Title>Siga as recomendações:</Title>
         <CardList horizontal>
           <Card>
             <Info source={require('../../assets/images/compobj.png')} />
@@ -32,19 +34,71 @@ export default class Questions extends Component {
           </Card>
           <Card>
             <Info source={require('../../assets/images/cubrir.png')} />
+            <Source
+              onPress={() =>
+                Linking.openURL('https://</Card>coronavirus.saude.gov.br')
+              }
+            >
+              https://coronavirus.saude.gov.br/
+            </Source>
           </Card>
           <Card>
             <Info source={require('../../assets/images/evitar.png')} />
+            <Source
+              onPress={() =>
+                Linking.openURL('https://</Card>coronavirus.saude.gov.br')
+              }
+            >
+              https://coronavirus.saude.gov.br/
+            </Source>
           </Card>
           <Card>
             <Info source={require('../../assets/images/lavar.png')} />
+            <Source
+              onPress={() =>
+                Linking.openURL('https://</Card>coronavirus.saude.gov.br')
+              }
+            >
+              https://coronavirus.saude.gov.br/
+            </Source>
           </Card>
           <Card>
             <Info source={require('../../assets/images/manter.png')} />
+            <Source
+              onPress={() =>
+                Linking.openURL('https://</Card>coronavirus.saude.gov.br')
+              }
+            >
+              https://coronavirus.saude.gov.br/
+            </Source>
           </Card>
         </CardList>
         <EndView>
-          <SimpleText>Fonte: OMS</SimpleText>
+          <SimpleText>
+            Para mais informaçoes, busque fontes confiáveis:
+          </SimpleText>
+          <Source
+            onPress={() =>
+              Linking.openURL('https://</Card>coronavirus.saude.gov.br')
+            }
+          >
+            https://saude.gov.br/
+          </Source>
+          <Source
+            onPress={() =>
+              Linking.openURL('https://</Card>coronavirus.saude.gov.br')
+            }
+          >
+            https://coronavirus.saude.gov.br/
+          </Source>
+
+          <Source
+            onPress={() =>
+              Linking.openURL('https://</Card>coronavirus.saude.gov.br')
+            }
+          >
+            https://www.paho.org/bra/
+          </Source>
         </EndView>
       </Container>
     );
