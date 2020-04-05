@@ -48,7 +48,7 @@ class Home extends Component {
     answer: [],
   };
 
-  async componentWillUnmount() {
+  async componentDidMount() {
     const { yes, no, answer } = this.state;
     const { isSick, reqIsSick, userData } = this.props;
     if (yes) {
@@ -103,7 +103,9 @@ class Home extends Component {
     return (
       <Container>
         <SelectionView>
-          <QuestionText>Bem-vindo {userData.name}!</QuestionText>
+          <QuestionText>
+            Bem-vindo {userData.name ? userData.name : null} !
+          </QuestionText>
           <QuestionText>Você está com algum dos sintomas?</QuestionText>
           <CheckboxView>
             <CheckBoxBall
