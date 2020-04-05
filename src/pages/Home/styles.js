@@ -64,3 +64,20 @@ export const Text = styled.Text`
   font-size: 15px;
   font-weight: bold;
 `;
+
+export const SelectionView = styled.View`
+  margin-top: 20px;
+`;
+
+export const CheckboxView = styled.View`
+  flex-direction: row;
+  justify-content: center;
+`;
+
+export const QuestionText = styled.Text`
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+  margin-top: 4px;
+  text-align: center;
+`;

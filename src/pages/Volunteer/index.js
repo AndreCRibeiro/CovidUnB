@@ -143,8 +143,8 @@ export default class Volunteer extends Component {
               {loading ? (
                 <ActivityIndicator color={colors.white} />
               ) : (
-                <VolunteerButtonText>CANDITAR-SE</VolunteerButtonText>
-              )}
+                  <VolunteerButtonText>CANDITAR-SE</VolunteerButtonText>
+                )}
             </ButtonVolunteer>
           </ScrollView>
         </Form>

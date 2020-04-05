@@ -50,7 +50,4 @@ export const TextArea = styled.Text`
   font-size: 20px;
 `;
 
-export const AlertField = styled(Alert)`
-  color: #892323;
-  background-color: #345670;
-`;
+export const AlertField = styled(Alert)``;

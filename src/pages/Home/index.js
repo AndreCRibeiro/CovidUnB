@@ -1,7 +1,11 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/state-in-constructor */
 /* eslint-disable react/static-property-placement */
 /* eslint-disable global-require */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import useAuth from '../../store';
+import CheckBoxBall from '../../components/checkboxBall';
 
 import {
   Container,
@@ -13,14 +17,48 @@ import {
   Image,
   MediumImage,
   LargeImage,
+  SelectionView,
+  QuestionText,
+  CheckboxView,
 } from './styles';
 
-export default class Home extends Component {
+const withZustand = (Comp) => (props) => {
+  const { token, userData, reqIsSick, isSick } = useAuth();
+  return (
+    <Comp
+      {...props}
+      token={token}
+      userData={userData}
+      reqIsSick={reqIsSick}
+      isSick={isSick}
+    />
+  );
+};
+
+class Home extends Component {
   static propTypes = {
     navigation: PropTypes.shape({
       navigate: PropTypes.func,
     }).isRequired,
   };
+
+  state = {
+    yes: false,
+    no: false,
+    answer: [],
+  };
+
+  async componentWillUnmount() {
+    const { yes, no, answer } = this.state;
+    const { isSick, reqIsSick, userData } = this.props;
+    if (yes) {
+      answer.push('yes');
+    }
+    if (no) {
+      answer.push('no');
+    }
+    await reqIsSick(answer);
+  }
 
   handleNavigateToHelp = () => {
     const { navigation } = this.props;
@@ -59,8 +97,37 @@ export default class Home extends Component {
   };
 
   render() {
+    const { yes, no } = this.state;
+    const { userData } = this.props;
+
     return (
       <Container>
+        <SelectionView>
+          <QuestionText>Bem-vindo {userData.name}!</QuestionText>
+          <QuestionText>Você está com algum dos sintomas?</QuestionText>
+          <CheckboxView>
+            <CheckBoxBall
+              selected={yes}
+              onPress={() =>
+                this.setState({
+                  yes: !yes,
+                  no: false,
+                })
+              }
+              text="Sim"
+            />
+            <CheckBoxBall
+              selected={no}
+              onPress={() =>
+                this.setState({
+                  yes: false,
+                  no: !no,
+                })
+              }
+              text="Não"
+            />
+          </CheckboxView>
+        </SelectionView>
         <TopCards>
           <Card onPress={() => this.handleNavigateToLocal()}>
             <Image source={require('../../assets/images/destination.png')} />
@@ -95,3 +162,5 @@ export default class Home extends Component {
     );
   }
 }
+
+export default withZustand(Home);

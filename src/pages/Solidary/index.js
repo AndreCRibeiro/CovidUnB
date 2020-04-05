@@ -8,18 +8,16 @@ import {
   ScrollView,
   TouchableOpacity,
   Linking,
-  Button,
 } from 'react-native';
 import { Picker } from '@react-native-community/picker';
 import PropTypes from 'prop-types';
+import useAuth from '../../store';
 
 import {
   Container,
   Form,
   ButtonVolunteer,
   VolunteerButtonText,
-  CenterView,
-  SimpleText,
   PickerView,
   ProfileList,
   Profile,
@@ -30,7 +28,12 @@ import api from '../../services/api';
 
 import { colors } from '../../styles';
 
-export default class Volunteer extends Component {
+const withZustand = (Comp) => (props) => {
+  const { token, userData } = useAuth();
+  return <Comp {...props} token={token} />;
+};
+
+class Volunteer extends Component {
   static propTypes = {
     navigation: PropTypes.shape({
       navigate: PropTypes.func,
@@ -45,11 +48,11 @@ export default class Volunteer extends Component {
   };
 
   componentDidMount = async () => {
+    const { token } = this.props;
+
     const response = await api.get('volunteers', {
       headers: {
-        Authorization:
-          'Bearer ' +
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTg2MDMzODU4LCJleHAiOjE1ODYxMjAyNTh9.Gigw9MdlfM8Q7P8JcPQ2Btho36MNwngzjh2rl6zY4kY',
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -66,12 +69,11 @@ export default class Volunteer extends Component {
 
   filterByCity = async () => {
     const { region } = this.state;
+    const { token } = this.props;
 
     const response = await api.get(`volunteers?ra=${region}`, {
       headers: {
-        Authorization:
-          'Bearer ' +
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTg2MDMzODU4LCJleHAiOjE1ODYxMjAyNTh9.Gigw9MdlfM8Q7P8JcPQ2Btho36MNwngzjh2rl6zY4kY',
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -96,7 +98,7 @@ export default class Volunteer extends Component {
               onValueChange={(label) => this.setState({ region: label })}
               style={{ backgroundColor: '#eee', borderRadius: 50 }}
             >
-              <Picker.Item label="Filtrar por Região Administrativa" />
+              <Picker.Item label="Filtrar por Região Administrativa" value="" />
               <Picker.Item label="Plano Piloto" value="Plano Piloto" />
               <Picker.Item label="Águas Claras" value="Águas Claras" />
               <Picker.Item label="Brazlândia" value="Brazlândia" />
@@ -140,8 +142,8 @@ export default class Volunteer extends Component {
             {loading ? (
               <ActivityIndicator color={colors.white} />
             ) : (
-              <VolunteerButtonText>Buscar Voluntários</VolunteerButtonText>
-            )}
+                <VolunteerButtonText>Buscar Voluntários</VolunteerButtonText>
+              )}
           </ButtonVolunteer>
         </Form>
 
@@ -165,3 +167,5 @@ export default class Volunteer extends Component {
     );
   }
 }
+
+export default withZustand(Volunteer);
