@@ -137,7 +137,7 @@ class Home extends Component {
   handleNavigateToLocal = () => {
     const { navigation } = this.props;
 
-    navigation.navigate('Home');
+    navigation.navigate('Map');
   };
 
   handleNavigateToQuestions = () => {
