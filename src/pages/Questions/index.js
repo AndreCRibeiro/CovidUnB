@@ -75,7 +75,7 @@ export default class Questions extends Component {
         </CardList>
         <EndView>
           <SimpleText>
-            Para mais informaçoes, busque fontes confiáveis:
+            Para mais informações, busque fontes confiáveis:
           </SimpleText>
           <Source
             onPress={() =>
