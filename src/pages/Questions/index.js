@@ -23,10 +23,10 @@ export default class Questions extends Component {
         <Title>Siga as recomendações:</Title>
         <CardList horizontal>
           <Card>
-            <Info source={require('../../assets/images/compobj.png')} />
+            <Info source={require('../../assets/images/lavar.png')} />
             <Source
               onPress={() =>
-                Linking.openURL('https://</Card>coronavirus.saude.gov.br')
+                Linking.openURL('https://coronavirus.saude.gov.br')
               }
             >
               https://coronavirus.saude.gov.br/
@@ -36,7 +36,17 @@ export default class Questions extends Component {
             <Info source={require('../../assets/images/cubrir.png')} />
             <Source
               onPress={() =>
-                Linking.openURL('https://</Card>coronavirus.saude.gov.br')
+                Linking.openURL('https://coronavirus.saude.gov.br')
+              }
+            >
+              https://coronavirus.saude.gov.br/
+            </Source>
+          </Card>
+          <Card>
+            <Info source={require('../../assets/images/compobj.png')} />
+            <Source
+              onPress={() =>
+                Linking.openURL('https://coronavirus.saude.gov.br')
               }
             >
               https://coronavirus.saude.gov.br/
@@ -46,17 +56,7 @@ export default class Questions extends Component {
             <Info source={require('../../assets/images/evitar.png')} />
             <Source
               onPress={() =>
-                Linking.openURL('https://</Card>coronavirus.saude.gov.br')
-              }
-            >
-              https://coronavirus.saude.gov.br/
-            </Source>
-          </Card>
-          <Card>
-            <Info source={require('../../assets/images/lavar.png')} />
-            <Source
-              onPress={() =>
-                Linking.openURL('https://</Card>coronavirus.saude.gov.br')
+                Linking.openURL('https://coronavirus.saude.gov.br')
               }
             >
               https://coronavirus.saude.gov.br/
@@ -66,7 +66,7 @@ export default class Questions extends Component {
             <Info source={require('../../assets/images/manter.png')} />
             <Source
               onPress={() =>
-                Linking.openURL('https://</Card>coronavirus.saude.gov.br')
+                Linking.openURL('https://coronavirus.saude.gov.br')
               }
             >
               https://coronavirus.saude.gov.br/
@@ -77,26 +77,16 @@ export default class Questions extends Component {
           <SimpleText>
             Para mais informaçoes, busque fontes confiáveis:
           </SimpleText>
-          <Source
-            onPress={() =>
-              Linking.openURL('https://</Card>coronavirus.saude.gov.br')
-            }
-          >
+          <Source onPress={() => Linking.openURL('https://saude.gov.br/')}>
             https://saude.gov.br/
           </Source>
           <Source
-            onPress={() =>
-              Linking.openURL('https://</Card>coronavirus.saude.gov.br')
-            }
+            onPress={() => Linking.openURL('https://coronavirus.saude.gov.br')}
           >
             https://coronavirus.saude.gov.br/
           </Source>
 
-          <Source
-            onPress={() =>
-              Linking.openURL('https://</Card>coronavirus.saude.gov.br')
-            }
-          >
+          <Source onPress={() => Linking.openURL('https://www.paho.org/bra/')}>
             https://www.paho.org/bra/
           </Source>
         </EndView>
