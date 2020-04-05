@@ -7,7 +7,8 @@ import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-community/async-storage';
 import useAuth from '../../store';
 import CheckBoxBall from '../../components/checkboxBall';
-
+import { RadioButton } from 'react-native-paper';
+import { View } from 'react-native';
 import {
   Container,
   TopCards,
@@ -21,6 +22,9 @@ import {
   SelectionView,
   QuestionText,
   CheckboxView,
+  ViewButtonYes,
+  ViewButtonNo,
+  RadioText,
 } from './styles';
 import api from '../../services/api';
 
@@ -49,6 +53,7 @@ class Home extends Component {
     yes: false,
     no: false,
     sick: '',
+    checked: 'second',
   };
 
   async componentDidMount() {
@@ -57,7 +62,7 @@ class Home extends Component {
 
     try {
       await AsyncStorage.setItem('@storage_Key', JSON.stringify(isSick));
-    } catch (e) { }
+    } catch (e) {}
 
     try {
       const value = await AsyncStorage.getItem('@storage_Key');
@@ -85,38 +90,23 @@ class Home extends Component {
   }
 
   handleYes = async () => {
-    const { yes } = this.state;
-    const { reqIsSick, userData, isSick, token } = this.props;
-    await reqIsSick(true);
-    await this.changeState(true);
-    if (isSick !== null) {
-      const body = { email: userData.email, is_sick: isSick };
-      const response = await api.put('volunteers', body, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      this.setState({ yes: !yes, no: false });
-    } else {
-      await reqIsSick(true);
-    }
+    const { userData, token } = this.props;
+    const body = { email: userData.email, is_sick: true };
+    const response = await api.put('volunteers', body, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   };
 
   handleNo = async () => {
-    const { no, sick } = this.state;
-    const { reqIsSickNo, userData, isSick, token } = this.props;
-    reqIsSickNo(false);
-    if (isSick !== null) {
-      const body = { email: userData.email, is_sick: isSick };
-      const response = await api.put('volunteers', body, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      this.setState({ yes: false, no: !no, sick: 'false' });
-    } else {
-      await reqIsSickNo(false);
-    }
+    const { userData, token } = this.props;
+    const body = { email: userData.email, is_sick: false };
+    const response = await api.put('volunteers', body, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   };
 
   handleNavigateToHelp = () => {
@@ -156,18 +146,39 @@ class Home extends Component {
   };
 
   render() {
-    const { yes, no } = this.state;
+    const { yes, no, checked } = this.state;
     const { userData } = this.props;
 
     return (
       <Container>
         <SelectionView>
-          <QuestionText>Bem-vindo {userData.name} !</QuestionText>
+          <QuestionText>Bem-vindo, {userData.name} !</QuestionText>
           <QuestionText>Você está com algum dos sintomas?</QuestionText>
-          <CheckboxView>
-            <CheckBoxBall selected={yes} onPress={this.handleYes} text="Sim" />
-            <CheckBoxBall selected={no} onPress={this.handleNo} text="Não" />
-          </CheckboxView>
+
+          <ViewButtonYes>
+            <RadioButton
+              value="first"
+              place
+              status={checked === 'first' ? 'checked' : 'unchecked'}
+              onPress={() => {
+                this.setState({ checked: 'first' });
+                this.handleYes();
+              }}
+            />
+            <RadioText>Sim, estou com sintomas.</RadioText>
+          </ViewButtonYes>
+
+          <ViewButtonNo>
+            <RadioButton
+              value="second"
+              status={checked === 'second' ? 'checked' : 'unchecked'}
+              onPress={() => {
+                this.setState({ checked: 'second' });
+                this.handleNo();
+              }}
+            />
+            <RadioText>Não, estou bem.</RadioText>
+          </ViewButtonNo>
         </SelectionView>
         <TopCards>
           <Card onPress={() => this.handleNavigateToLocal()}>

@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
+import { RadioButton } from 'react-native-paper';
 
 export const Container = styled.View`
   flex: 1;
@@ -75,4 +76,25 @@ export const QuestionText = styled.Text`
   color: #333;
   font-weight: bold;
   text-align: center;
+  margin: 5px 0;
+`;
+
+export const ViewButtonYes = styled.View`
+  flex-direction: row;
+  margin: 10px 0;
+  padding-top: 5px;
+  align-content: center;
+`;
+
+export const ViewButtonNo = styled.View`
+  flex-direction: row;
+  margin: 10px 0;
+  margin-top: 5px;
+  align-content: center;
+`;
+
+export const RadioText = styled.Text`
+  justify-content: center;
+  align-self: center;
+  font-weight: bold;
 `;
