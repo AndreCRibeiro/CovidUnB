@@ -57,7 +57,7 @@ class Home extends Component {
 
     try {
       await AsyncStorage.setItem('@storage_Key', JSON.stringify(isSick));
-    } catch (e) {}
+    } catch (e) { }
 
     try {
       const value = await AsyncStorage.getItem('@storage_Key');
@@ -162,7 +162,7 @@ class Home extends Component {
     return (
       <Container>
         <SelectionView>
-          <QuestionText>Bem-vindo !</QuestionText>
+          <QuestionText>Bem-vindo {userData.name} !</QuestionText>
           <QuestionText>Você está com algum dos sintomas?</QuestionText>
           <CheckboxView>
             <CheckBoxBall selected={yes} onPress={this.handleYes} text="Sim" />
