@@ -5,10 +5,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-community/async-storage';
-import useAuth from '../../store';
-import CheckBoxBall from '../../components/checkboxBall';
 import { RadioButton } from 'react-native-paper';
 import { View } from 'react-native';
+import useAuth from '../../store';
+import CheckBoxBall from '../../components/checkboxBall';
+import { colors } from '../../styles';
+
 import {
   Container,
   TopCards,
@@ -50,44 +52,8 @@ class Home extends Component {
   };
 
   state = {
-    yes: false,
-    no: false,
-    sick: '',
     checked: 'second',
   };
-
-  async componentDidMount() {
-    const { sick } = this.state;
-    const { isSick } = this.props;
-
-    try {
-      await AsyncStorage.setItem('@storage_Key', JSON.stringify(isSick));
-    } catch (e) {}
-
-    try {
-      const value = await AsyncStorage.getItem('@storage_Key');
-      if (value !== null) {
-      }
-    } catch (e) {
-      // error reading value
-    }
-
-    if (isSick === true) {
-      this.setState({ yes: true, no: false });
-    }
-    if (isSick === false) {
-      this.setState({ yes: false, no: true });
-    } else {
-      this.setState({ yes: false, no: false });
-    }
-  }
-
-  UNSAFE_componentWillReceiveProps(nextprops) {
-    const { isSick } = this.props;
-    if (isSick !== nextprops.isSick) {
-      this.componentDidMount();
-    }
-  }
 
   handleYes = async () => {
     const { userData, token } = this.props;
@@ -146,7 +112,7 @@ class Home extends Component {
   };
 
   render() {
-    const { yes, no, checked } = this.state;
+    const { checked } = this.state;
     const { userData } = this.props;
 
     return (
@@ -154,7 +120,6 @@ class Home extends Component {
         <SelectionView>
           <QuestionText>Bem-vindo, {userData.name} !</QuestionText>
           <QuestionText>Você está com algum dos sintomas?</QuestionText>
-
           <ViewButtonYes>
             <RadioButton
               value="first"
@@ -164,6 +129,7 @@ class Home extends Component {
                 this.setState({ checked: 'first' });
                 this.handleYes();
               }}
+              color={colors.headerBlue}
             />
             <RadioText>Sim, estou com sintomas.</RadioText>
           </ViewButtonYes>
@@ -176,6 +142,7 @@ class Home extends Component {
                 this.setState({ checked: 'second' });
                 this.handleNo();
               }}
+              color={colors.headerBlue}
             />
             <RadioText>Não, estou bem.</RadioText>
           </ViewButtonNo>

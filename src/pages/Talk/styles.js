@@ -5,7 +5,6 @@ export const Container = styled.View`
   padding: 30px;
   justify-content: center;
   background: #fff;
-  margin-bottom: 25px;
 `;
 
 export const CenterView = styled.View`

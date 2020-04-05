@@ -7,7 +7,6 @@ export const Container = styled.View`
   justify-content: center;
   align-items: center;
   background: #fff;
-  margin-bottom: 20px;
 `;
 
 export const TopCards = styled.View`
