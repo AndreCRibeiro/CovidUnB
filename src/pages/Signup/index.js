@@ -127,7 +127,7 @@ export default class Signup extends Component {
         this.setState({ riskGroup, asma: !asma });
         break;
       }
-      case 'Sistema Imunológico Enfraquencido': {
+      case 'Sistema Imunológico Enfraquecido': {
         this.setState({ riskGroup, sistema: !sistema });
         break;
       }
