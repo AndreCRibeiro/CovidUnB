@@ -81,7 +81,7 @@ class Home extends Component {
     }
   }
 
-  componentWillReceiveProps(nextprops) {
+  UNSAFE_componentWillReceiveProps(nextprops) {
     const { isSick } = this.props;
     if (isSick !== nextprops.isSick) {
       this.componentDidMount();

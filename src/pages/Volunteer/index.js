@@ -2,7 +2,8 @@
 /* eslint-disable global-require */
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
-import { ActivityIndicator, ScrollView } from 'react-native';
+import { ActivityIndicator, Alert } from 'react-native';
+import { Picker } from '@react-native-community/picker';
 import PropTypes from 'prop-types';
 import api from '../../services/api';
 import useAuth from '../../store';
@@ -11,6 +12,7 @@ import {
   Container,
   Form,
   Input,
+  PickerView,
   ButtonVolunteer,
   VolunteerButtonText,
   CenterView,
@@ -56,7 +58,7 @@ class Volunteer extends Component {
       administrativeRegion,
       activities,
     } = this.state;
-    const { navigation, token, isSick } = this.props;
+    const { navigation, token } = this.props;
 
     const body = {
       name: userName,
@@ -68,8 +70,8 @@ class Volunteer extends Component {
       specialty,
       administrative_region: administrativeRegion,
       activities,
-      user_location: '',
-      is_sick: isSick,
+      user_location: ' ',
+      is_sick: false,
     };
     try {
       const response = await api.post('volunteers', body, {
@@ -77,12 +79,15 @@ class Volunteer extends Component {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response);
     } catch (error) {
-      console.tron.log(error);
+      console.log(error);
     }
-
-    // navigation.navigate('Home');
+    Alert.alert(
+      'Voluntário cadastrado',
+      'Obrigado por se voluntariar a ajudar o próximo!',
+      [{ text: 'OK', onPress: () => navigation.navigate('Home') }],
+      { cancelable: false }
+    );
   };
 
   render() {
@@ -105,84 +110,120 @@ class Volunteer extends Component {
           <SimpleText>Candidate-se como voluntário:</SimpleText>
         </CenterView>
         <Form>
-          <ScrollView>
-            <Input
-              autoCorrect={false}
-              autoCapitalize="none"
-              placeholder="Nome"
-              value={userName}
-              onChangeText={(text) => this.setState({ userName: text })}
-            />
-            <Input
-              autoCorrect={false}
-              autoCapitalize="none"
-              placeholder="Email"
-              value={userEmail}
-              onChangeText={(text) => this.setState({ userEmail: text })}
-            />
-            <Input
-              autoCorrect={false}
-              autoCapitalize="none"
-              keyboardType="numeric"
-              placeholder="whatsapp"
-              value={whatsapp}
-              onChangeText={(text) => this.setState({ whatsapp: text })}
-            />
-            <Input
-              autoCorrect={false}
-              autoCapitalize="none"
-              keyboardType="numeric"
-              placeholder="CPF"
-              value={userCPF}
-              onChangeText={(text) => this.setState({ userCPF: text })}
-            />
-            <Input
-              autoCorrect={false}
-              autoCapitalize="none"
-              placeholder="Unidade da Federação"
-              value={uf}
-              onChangeText={(text) => this.setState({ uf: text })}
-            />
-            <Input
-              autoCorrect={false}
-              autoCapitalize="none"
-              placeholder="Região Administrativa"
-              value={administrativeRegion}
-              onChangeText={(text) =>
-                this.setState({ administrativeRegion: text })
+          <Input
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholder="Nome"
+            value={userName}
+            onChangeText={(text) => this.setState({ userName: text })}
+          />
+          <Input
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholder="Email"
+            value={userEmail}
+            onChangeText={(text) => this.setState({ userEmail: text })}
+          />
+          <Input
+            autoCorrect={false}
+            autoCapitalize="none"
+            keyboardType="numeric"
+            placeholder="Telefone"
+            value={whatsapp}
+            onChangeText={(text) => this.setState({ whatsapp: text })}
+          />
+          <Input
+            autoCorrect={false}
+            autoCapitalize="none"
+            keyboardType="numeric"
+            placeholder="CPF"
+            value={userCPF}
+            onChangeText={(text) => this.setState({ userCPF: text })}
+          />
+          <Input
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholder="Unidade da Federação"
+            value={uf}
+            onChangeText={(text) => this.setState({ uf: text })}
+          />
+          <Input
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholder="N Registro Profissional"
+            keyboardType="numeric"
+            value={userNRP}
+            onChangeText={(text) => this.setState({ userNRP: text })}
+          />
+          <Input
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholder="Especialidade"
+            value={specialty}
+            onChangeText={(text) => this.setState({ specialty: text })}
+          />
+          <Input
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholder="Atividades voluntárias"
+            value={activities}
+            onChangeText={(text) => this.setState({ activities: text })}
+          />
+          <PickerView>
+            <Picker
+              selectedValue={administrativeRegion}
+              onValueChange={(label) =>
+                this.setState({ administrativeRegion: label })
               }
-            />
-            <Input
-              autoCorrect={false}
-              autoCapitalize="none"
-              placeholder="N Registro Profissional"
-              keyboardType="numeric"
-              value={userNRP}
-              onChangeText={(text) => this.setState({ userNRP: text })}
-            />
-            <Input
-              autoCorrect={false}
-              autoCapitalize="none"
-              placeholder="Especialidade"
-              value={specialty}
-              onChangeText={(text) => this.setState({ specialty: text })}
-            />
-            <Input
-              autoCorrect={false}
-              autoCapitalize="none"
-              placeholder="Atividades voluntárias"
-              value={activities}
-              onChangeText={(text) => this.setState({ activities: text })}
-            />
+            >
+              <Picker.Item label="Sua Região Administrativa" value="" />
+              <Picker.Item label="Plano Piloto" value="Plano Piloto" />
+              <Picker.Item label="Águas Claras" value="Águas Claras" />
+              <Picker.Item label="Brazlândia" value="Brazlândia" />
+              <Picker.Item label="Candangolândia" value="Candangolândia" />
+              <Picker.Item label="Ceilândia" value="Ceilândia" />
+              <Picker.Item label="Cruzeiro" value="Cruzeiro" />
+              <Picker.Item label="Fercal" value="Fercal" />
+              <Picker.Item label="Gama" value="Gama" />
+              <Picker.Item label="Guará" value="Guará" />
+              <Picker.Item label="Itapoã" value="Itapoã" />
+              <Picker.Item label="Jardim Botânico" value="Jardim Botânico" />
+              <Picker.Item label="Lago Norte" value="Lago Norte" />
+              <Picker.Item label="Lago Sul" value="Lago Sul" />
+              <Picker.Item
+                label="Núcleo Bandeirante"
+                value="Núcleo Bandeirante"
+              />
+              <Picker.Item label="Paranoá" value="Paranoá" />
+              <Picker.Item label="Park Way" value="Park Way" />
+              <Picker.Item label="Planaltina" value="Planaltina" />
+              <Picker.Item label="Recanto das Emas" value="Recanto das Emas" />
+              <Picker.Item label="Riacho Fundo I" value="Riacho Fundo I" />
+              <Picker.Item label="Riacho Fundo II" value="Riacho Fundo II" />
+              <Picker.Item label="Samambaia" value="Samambaia" />
+              <Picker.Item label="Santa Maria" value="Santa Maria" />
+              <Picker.Item label="São Sebastião" value="São Sebastião" />
+              <Picker.Item label="SCIA/Estrutural" value="SCIA/Estrutural" />
+              <Picker.Item label="SIA" value="SIA" />
+              <Picker.Item label="Sobradinho" value="Sobradinho" />
+              <Picker.Item label="Sobradinho II" value="Sobradinho II" />
+              <Picker.Item
+                label="Sudoeste/Octogonal"
+                value="Sudoeste/Octogonal"
+              />
+              <Picker.Item label="Taguatinga" value="Taguatinga" />
+              <Picker.Item label="Varjão" value="Varjão" />
+              <Picker.Item label="Vicente Pires" value="Vicente Pires" />
+            </Picker>
+          </PickerView>
 
-            <ButtonVolunteer loading={loading} onPress={this.handleSubmit}>
-              {loading ? (
-                <ActivityIndicator color={colors.white} />
-              ) : (
-                  <VolunteerButtonText>CANDITAR-SE</VolunteerButtonText>
-                )}
-            </ButtonVolunteer>
-          </ScrollView>
+          <ButtonVolunteer loading={loading} onPress={this.handleSubmit}>
+            {loading ? (
+              <ActivityIndicator color={colors.white} />
+            ) : (
+                <VolunteerButtonText>CANDIDATAR-SE</VolunteerButtonText>
+              )}
+          </ButtonVolunteer>
         </Form>
       </Container>
     );
