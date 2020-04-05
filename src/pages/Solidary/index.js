@@ -8,6 +8,8 @@ import {
   ScrollView,
   TouchableOpacity,
   Linking,
+  SafeAreaView,
+  Flat,
 } from 'react-native';
 import { Picker } from '@react-native-community/picker';
 import PropTypes from 'prop-types';
@@ -142,13 +144,13 @@ class Solidary extends Component {
             {loading ? (
               <ActivityIndicator color={colors.white} />
             ) : (
-                <VolunteerButtonText>Buscar Voluntários</VolunteerButtonText>
-              )}
+              <VolunteerButtonText>Buscar Voluntários</VolunteerButtonText>
+            )}
           </ButtonVolunteer>
         </Form>
 
         <ProfileList>
-          <ScrollView>
+          <ScrollView showsVerticalScrollIndicator={false}>
             {data.map((profile) =>
               !profile.is_sick ? (
                 <Profile key={profile.id}>

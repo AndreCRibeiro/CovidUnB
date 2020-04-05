@@ -78,9 +78,7 @@ class Volunteer extends Component {
         },
       });
       console.log(response);
-    } catch (error) {
-      console.tron.log(error);
-    }
+    } catch (error) {}
 
     // navigation.navigate('Home');
   };
@@ -179,8 +177,8 @@ class Volunteer extends Component {
               {loading ? (
                 <ActivityIndicator color={colors.white} />
               ) : (
-                  <VolunteerButtonText>CANDITAR-SE</VolunteerButtonText>
-                )}
+                <VolunteerButtonText>CANDITAR-SE</VolunteerButtonText>
+              )}
             </ButtonVolunteer>
           </ScrollView>
         </Form>

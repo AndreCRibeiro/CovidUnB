@@ -57,15 +57,11 @@ class Home extends Component {
 
     try {
       await AsyncStorage.setItem('@storage_Key', JSON.stringify(isSick));
-      console.tron.log('entrei');
-    } catch (e) {
-      // console.tron.log('aqui');
-    }
+    } catch (e) {}
 
     try {
       const value = await AsyncStorage.getItem('@storage_Key');
       if (value !== null) {
-        console.tron.log(value);
       }
     } catch (e) {
       // error reading value

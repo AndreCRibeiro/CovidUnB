@@ -50,6 +50,7 @@ export const ProfileList = styled.View`
   width: 100%;
   align-self: center;
   margin: 10px 0;
+  flex: 1;
 `;
 
 export const Profile = styled.View`

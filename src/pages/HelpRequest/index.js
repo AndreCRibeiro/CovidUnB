@@ -74,18 +74,13 @@ class HelpRequest extends Component {
 
     if (other !== '') {
       allSymptoms.push(other);
-    } else {
-      console.tron.log('entrei aqui');
     }
-
     const body = {
       name: userData.name,
       sintoms: allSymptoms.toString(),
       user_location: '',
       whatsapp: userData.whatsapp,
     };
-
-    // await Geolocation.getCurrentPosition((info) => console.tron.log(info));
 
     try {
       const response = await api.post('/help', body, {
@@ -99,7 +94,7 @@ class HelpRequest extends Component {
         [{ text: 'OK', onPress: () => navigation.navigate('Home') }],
         { cancelable: false }
       );
-    } catch (err) { }
+    } catch (err) {}
   };
 
   render() {
