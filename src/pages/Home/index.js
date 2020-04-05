@@ -118,7 +118,9 @@ class Home extends Component {
     return (
       <Container>
         <SelectionView>
-          <QuestionText>Bem-vindo, {userData.name} !</QuestionText>
+          <QuestionText>
+            Bem-vindo, {userData ? userData.name : 'Usuário'} !
+          </QuestionText>
           <QuestionText>Você está com algum dos sintomas?</QuestionText>
           <ViewButtonYes>
             <RadioButton
