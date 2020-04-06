@@ -26,7 +26,7 @@ const CheckBoxBall = ({
         name={selected ? 'radio-button-checked' : 'radio-button-unchecked'}
       />
 
-      <Text style={textStyle}> {text} </Text>
+      <Text style={styles.textOptionStyle}> {text} </Text>
     </TouchableOpacity>
   );
 

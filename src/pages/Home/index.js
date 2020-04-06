@@ -6,9 +6,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-community/async-storage';
 import { RadioButton } from 'react-native-paper';
-import { View } from 'react-native';
 import useAuth from '../../store';
-import CheckBoxBall from '../../components/checkboxBall';
 import { colors } from '../../styles';
 
 import {
@@ -22,8 +20,9 @@ import {
   MediumImage,
   LargeImage,
   SelectionView,
+  TextView,
   QuestionText,
-  CheckboxView,
+  ViewButtons,
   ViewButtonYes,
   ViewButtonNo,
   RadioText,
@@ -118,36 +117,39 @@ class Home extends Component {
     return (
       <Container>
         <SelectionView>
-          <QuestionText>
-            Bem-vindo, {userData ? userData.name : 'Usuário'} !
-          </QuestionText>
-          <QuestionText>Você está com algum dos sintomas?</QuestionText>
-          <ViewButtonYes>
-            <RadioButton
-              value="first"
-              place
-              status={checked === 'first' ? 'checked' : 'unchecked'}
-              onPress={() => {
-                this.setState({ checked: 'first' });
-                this.handleYes();
-              }}
-              color={colors.headerBlue}
-            />
-            <RadioText>Sim, estou com sintomas.</RadioText>
-          </ViewButtonYes>
-
-          <ViewButtonNo>
-            <RadioButton
-              value="second"
-              status={checked === 'second' ? 'checked' : 'unchecked'}
-              onPress={() => {
-                this.setState({ checked: 'second' });
-                this.handleNo();
-              }}
-              color={colors.headerBlue}
-            />
-            <RadioText>Não, estou bem.</RadioText>
-          </ViewButtonNo>
+          <TextView>
+            <QuestionText>
+              Bem-vindo, {userData ? userData.name : 'Usuário'} !
+            </QuestionText>
+          </TextView>
+          <QuestionText>Está com sintomas de Covid-19?</QuestionText>
+          <ViewButtons>
+            <ViewButtonYes>
+              <RadioButton
+                value="first"
+                place
+                status={checked === 'first' ? 'checked' : 'unchecked'}
+                onPress={() => {
+                  this.setState({ checked: 'first' });
+                  this.handleYes();
+                }}
+                color={colors.headerBlue}
+              />
+              <RadioText>Sim, estou com sintomas.</RadioText>
+            </ViewButtonYes>
+            <ViewButtonNo>
+              <RadioButton
+                value="second"
+                status={checked === 'second' ? 'checked' : 'unchecked'}
+                onPress={() => {
+                  this.setState({ checked: 'second' });
+                  this.handleNo();
+                }}
+                color={colors.headerBlue}
+              />
+              <RadioText>Não, estou bem.</RadioText>
+            </ViewButtonNo>
+          </ViewButtons>
         </SelectionView>
         <TopCards>
           <Card onPress={() => this.handleNavigateToLocal()}>

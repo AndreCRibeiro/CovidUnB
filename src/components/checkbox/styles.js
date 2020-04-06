@@ -4,12 +4,12 @@ const styles = StyleSheet.create({
   checkBox: {
     flexDirection: 'row',
     alignItems: 'center',
-    margin: 15,
+    margin: 8,
   },
 
   textOptionStyle: {
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 15,
   },
 });
 

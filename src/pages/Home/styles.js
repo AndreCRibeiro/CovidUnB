@@ -4,8 +4,8 @@ import { RadioButton } from 'react-native-paper';
 
 export const Container = styled.View`
   flex: 1;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   background: #fff;
 `;
 
@@ -17,10 +17,10 @@ export const Card = styled(RectButton)`
   height: 120px;
   width: 120px;
   background: #fff;
-  margin: 30px;
-  border-width: 1px;
-  border-radius: 2px;
-  border-color: #333;
+  margin: 28px;
+  border-width: 3px;
+  border-radius: 15px;
+  border-color: #000;
   justify-content: center;
   align-items: center;
   elevation: 10;
@@ -65,35 +65,36 @@ export const Text = styled.Text`
 
 export const SelectionView = styled.View``;
 
-export const CheckboxView = styled.View`
-  flex-direction: row;
-  justify-content: center;
-`;
-
 export const QuestionText = styled.Text`
-  font-size: 18px;
-  color: #333;
+  font-size: 17px;
+  color: #000;
   font-weight: bold;
   text-align: center;
-  margin: 5px 0;
+`;
+
+export const ViewButtons = styled.View`
+  flex-direction: row;
 `;
 
 export const ViewButtonYes = styled.View`
   flex-direction: row;
-  margin: 10px 0;
-  padding-top: 5px;
   align-content: center;
+  justify-content: center;
 `;
 
 export const ViewButtonNo = styled.View`
   flex-direction: row;
-  margin: 10px 0;
-  margin-top: 5px;
   align-content: center;
+  justify-content: center;
 `;
 
 export const RadioText = styled.Text`
   justify-content: center;
   align-self: center;
   font-weight: bold;
+`;
+
+export const TextView = styled.View`
+  justify-content: flex-start;
+  height: 38px;
 `;
