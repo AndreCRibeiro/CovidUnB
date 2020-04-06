@@ -11,6 +11,7 @@ import {
   SafeAreaView,
   Flat,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Picker } from '@react-native-community/picker';
 import PropTypes from 'prop-types';
 import useAuth from '../../store';
@@ -24,6 +25,13 @@ import {
   ProfileList,
   Profile,
   Text,
+  CardView,
+  IconView,
+  TopView,
+  BottomView,
+  LeftText,
+  RightText,
+  ViewTeste,
 } from './styles';
 
 import api from '../../services/api';
@@ -147,6 +155,22 @@ class Solidary extends Component {
               )}
           </ButtonVolunteer>
         </Form>
+
+        <CardView>
+          <IconView>
+            <Icon name="visibility" size={28} color={colors.black} />
+          </IconView>
+          <ViewTeste>
+            <TopView>
+              <Text>Teste</Text>
+              <RightText />
+            </TopView>
+            <BottomView>
+              <LeftText />
+              <RightText />
+            </BottomView>
+          </ViewTeste>
+        </CardView>
 
         {data ? (
           <ProfileList>
