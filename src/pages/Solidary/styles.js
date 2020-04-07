@@ -13,14 +13,6 @@ export const Form = styled.View`
   padding: 10px 20px;
 `;
 
-export const SimpleText = styled.Text`
-  font-size: 16px;
-  color: #333;
-  font-weight: bold;
-  margin-top: 4px;
-  text-align: center;
-`;
-
 export const ButtonVolunteer = styled(RectButton)`
   justify-content: center;
   align-items: center;
@@ -45,12 +37,17 @@ export const PickerView = styled.View`
   margin-top: 5px;
 `;
 
+export const SimpleText = styled.Text`
+  font-size: 15px;
+  color: #333;
+  font-weight: bold;
+  margin-top: 4px;
+  margin-bottom: 5px;
+  text-align: center;
+`;
+
 export const ProfileList = styled.View`
-  align-self: center;
-  align-items: center;
-  justify-content: center;
-  margin: 10px 0;
-  flex: 1;
+  margin-top: 10px;
 `;
 
 export const Profile = styled.View`
