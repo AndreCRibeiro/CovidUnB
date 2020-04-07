@@ -47,15 +47,17 @@ export const SimpleText = styled.Text`
 `;
 
 export const ProfileList = styled.View`
-  margin-top: 10px;
+  margin-top: 8px;
+  margin-bottom: 150px;
 `;
 
 export const Profile = styled.View`
   width: 100%;
-  margin: 10px 0;
+  margin: 30px 0;
   background-color: #eee;
   border-radius: 8px;
   font-weight: bold;
+  margin-bottom: 30px;
 `;
 
 export const Text = styled.Text`
