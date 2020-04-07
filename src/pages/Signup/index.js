@@ -86,9 +86,8 @@ export default class Signup extends Component {
           risk_group: riskGroup.toString(),
           user_location: null,
         });
-        navigation.navigate('Home');
+        navigation.navigate('Main');
       } catch (err) { }
-      navigation.navigate('Home');
     }
   };
 
