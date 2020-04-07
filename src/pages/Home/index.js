@@ -5,6 +5,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-community/async-storage';
+import Geolocation from '@react-native-community/geolocation';
+
 import { RadioButton } from 'react-native-paper';
 import useAuth from '../../store';
 import { colors } from '../../styles';
@@ -52,7 +54,39 @@ class Home extends Component {
 
   state = {
     checked: 'second',
+    region: 'unknown',
   };
+
+  async componentDidMount() {
+    await Geolocation.getCurrentPosition(
+      ({ coords: { latitude, longitude } }) => {
+        this.setState({
+          region: {
+            latitude,
+            longitude,
+            latitudeDelta: 0.0143,
+            longitudeDelta: 0.0134,
+          },
+        });
+      }, //sucesso
+      (err) => {
+        console.tron.log(err);
+        this.setState({
+          region: {
+            latitude: -15.813976,
+            longitude: -47.965921,
+            latitudeDelta: 0.0143,
+            longitudeDelta: 0.0134,
+          },
+        });
+      }, //erro
+      {
+        timeout: 5000,
+        enableHighAccuracy: true,
+        maximumAge: 1000,
+      }
+    );
+  }
 
   handleYes = async () => {
     const { userData, token } = this.props;
@@ -113,6 +147,8 @@ class Home extends Component {
   render() {
     const { checked } = this.state;
     const { userData } = this.props;
+
+    console.tron.log(this.state.region);
 
     return (
       <Container>
