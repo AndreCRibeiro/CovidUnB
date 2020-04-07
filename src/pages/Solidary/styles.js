@@ -3,34 +3,25 @@ import { RectButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   flex: 1;
-  padding: 30px;
+  padding: 15px;
   background: #fff;
 `;
 
 export const Form = styled.View`
   flex-direction: column;
-  border-color: #fff;
+  border-color: #000;
   padding: 10px 20px;
-  margin-top: 5px;
-`;
-
-export const SimpleText = styled.Text`
-  font-size: 16px;
-  color: #333;
-  font-weight: bold;
-  margin-top: 4px;
-  text-align: center;
 `;
 
 export const ButtonVolunteer = styled(RectButton)`
   justify-content: center;
   align-items: center;
   background: #0039a6;
-  border-radius: 10px;
+  border-radius: 20px;
   padding: 0 12px;
   opacity: ${(props) => (props.loading ? 0.7 : 1)};
   height: 45px;
-  margin-top: 20px;
+  margin-top: 15px;
 `;
 
 export const VolunteerButtonText = styled.Text`
@@ -43,14 +34,20 @@ export const VolunteerButtonText = styled.Text`
 `;
 
 export const PickerView = styled.View`
-  margin-top: 20px;
+  margin-top: 5px;
+`;
+
+export const SimpleText = styled.Text`
+  font-size: 15px;
+  color: #333;
+  font-weight: bold;
+  margin-top: 4px;
+  margin-bottom: 5px;
+  text-align: center;
 `;
 
 export const ProfileList = styled.View`
-  width: 100%;
-  align-self: center;
-  margin: 10px 0;
-  flex: 1;
+  margin-top: 10px;
 `;
 
 export const Profile = styled.View`
@@ -67,3 +64,22 @@ export const Text = styled.Text`
   font-weight: bold;
   color: #000;
 `;
+
+export const CardView = styled.View`
+  flex-direction: row;
+`;
+
+export const ViewTeste = styled.View`
+  background: #123456;
+  flex: 7;
+`;
+
+export const IconView = styled.View`
+  background: #321321;
+  border-radius: 5px;
+  flex: 1;
+`;
+export const TopView = styled.View``;
+export const BottomView = styled.View``;
+export const LeftText = styled.View``;
+export const RightText = styled.View``;

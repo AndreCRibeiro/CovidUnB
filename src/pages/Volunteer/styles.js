@@ -47,7 +47,6 @@ export const SimpleText = styled.Text`
   font-size: 15px;
   color: #333;
   font-weight: bold;
-  margin-top: 4px;
   margin-bottom: 5px;
   text-align: center;
 `;
