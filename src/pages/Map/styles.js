@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components/native';
 import { Platform } from 'react-native';
+import { ActivityIndicator } from 'react-native-paper';
 
 export const LocationBox = styled.View`
   background: #fff;
@@ -49,4 +50,10 @@ export const Back = styled.TouchableOpacity`
   position: absolute;
   top: ${Platform.select({ ios: 60, android: 40 })};
   left: 20px;
+`;
+
+export const Loading = styled(ActivityIndicator)`
+  justify-content: center;
+  align-items: center;
+  color: #0039a6;
 `;

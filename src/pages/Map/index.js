@@ -6,12 +6,11 @@ import { ActivityIndicator } from 'react-native-paper';
 
 export default class Map extends Component {
   state = {
-    region: null,
-    mapAvaible: true,
+    region: '',
   };
 
-  componentDidMount() {
-    const location = Geolocation.getCurrentPosition(
+  async componentDidMount() {
+    await Geolocation.getCurrentPosition(
       ({ coords: { latitude, longitude } }) => {
         this.setState({
           mapAvaible: false,
@@ -22,37 +21,31 @@ export default class Map extends Component {
             longitudeDelta: 0.0134,
           },
         });
-        console.tron.log('deu certo', location);
       }, //sucesso
-      (err) => {
-        console.tron.log(err);
+      () => {
         this.setState({
+          mapAvaible: false,
           region: {
-            mapAvaible: false,
-
-            latitude: -15.813976,
-            longitude: -47.965921,
+            latitude: -15.763847,
+            longitude: -47.8721,
             latitudeDelta: 0.0143,
             longitudeDelta: 0.0134,
           },
         });
       }, //erro
       {
-        timeout: 6000,
-        enableHighAccuracy: true,
+        timeout: 5000,
+        enableHighAccuracy: false,
         maximumAge: 1000,
       }
     );
   }
-  setLocation(coord) {
-    console.tron.log('deu certo', latitude, longitude);
-  }
+
   render() {
     const { region, mapAvaible } = this.state;
-
     return (
       <View style={{ flex: 1 }}>
-        {mapAvaible ? (
+        {region ? (
           <MapView
             style={{ flex: 1 }}
             region={region}

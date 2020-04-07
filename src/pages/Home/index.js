@@ -54,13 +54,19 @@ class Home extends Component {
 
   state = {
     checked: 'second',
-    region: 'unknown',
+    region: {
+      latitude: '',
+      longitude: '',
+      latitudeDelta: 0.0143,
+      longitudeDelta: 0.0134,
+    },
   };
 
   async componentDidMount() {
     await Geolocation.getCurrentPosition(
       ({ coords: { latitude, longitude } }) => {
         this.setState({
+          mapAvaible: false,
           region: {
             latitude,
             longitude,
@@ -69,12 +75,12 @@ class Home extends Component {
           },
         });
       }, //sucesso
-      (err) => {
-        console.tron.log(err);
+      () => {
         this.setState({
+          mapAvaible: false,
           region: {
-            latitude: -15.813976,
-            longitude: -47.965921,
+            latitude: -15.763847,
+            longitude: -47.8721,
             latitudeDelta: 0.0143,
             longitudeDelta: 0.0134,
           },
@@ -82,7 +88,7 @@ class Home extends Component {
       }, //erro
       {
         timeout: 5000,
-        enableHighAccuracy: true,
+        enableHighAccuracy: false,
         maximumAge: 1000,
       }
     );
@@ -147,8 +153,6 @@ class Home extends Component {
   render() {
     const { checked } = this.state;
     const { userData } = this.props;
-
-    console.tron.log(this.state.region);
 
     return (
       <Container>
