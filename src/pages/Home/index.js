@@ -32,15 +32,15 @@ import {
 import api from '../../services/api';
 
 const withZustand = (Comp) => (props) => {
-  const { token, userData, reqIsSick, reqIsSickNo, isSick } = useAuth();
+  const { token, userData, isSick, changeGeolocation, geolocation } = useAuth();
   return (
     <Comp
       {...props}
       token={token}
       userData={userData}
-      reqIsSick={reqIsSick}
-      reqIsSickNo={reqIsSickNo}
       isSick={isSick}
+      changeGeolocation={changeGeolocation}
+      geolocation={geolocation}
     />
   );
 };
@@ -85,7 +85,7 @@ class Home extends Component {
             longitudeDelta: 0.0134,
           },
         });
-      }, //erro
+      }, // erro
       {
         timeout: 5000,
         enableHighAccuracy: false,
@@ -115,9 +115,10 @@ class Home extends Component {
   };
 
   handleNavigateToHelp = () => {
+    const { region } = this.state;
     const { navigation } = this.props;
 
-    navigation.navigate('HelpRequest');
+    navigation.navigate('HelpRequest', { region });
   };
 
   handleNavigateToLocal = () => {

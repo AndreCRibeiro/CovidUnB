@@ -21,29 +21,19 @@ const reqAuth = async (set, params) => {
   }
 };
 
-const reqIsSick = (set, params) => {
-  set((state) => ({ ...state, isSick: params }));
-};
-
-const reqIsSickNo = (set, params) => {
-  set((state) => ({ ...state, isSick: params }));
-};
-
 const [useAuth] = create((set) => ({
   userData: null, // variavel reducer
   token: null, // variavel reducer
   error: null,
   loading: null,
   isSick: null,
+  geolocation: [],
   fetchAuth: (params) => {
     set((state) => ({ ...state, loading: true }));
     reqAuth(set, params);
   },
-  reqIsSick: (params) => {
-    reqIsSick(set, params);
-  },
-  reqIsSickNo: (params) => {
-    reqIsSickNo(set, params);
+  changeGeolocation: (params) => {
+    set((state) => ({ ...state, geolocation: params }));
   },
 }));
 

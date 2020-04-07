@@ -32,7 +32,7 @@ export default class Map extends Component {
             longitudeDelta: 0.0134,
           },
         });
-      }, //erro
+      }, // erro
       {
         timeout: 5000,
         enableHighAccuracy: false,
@@ -40,6 +40,8 @@ export default class Map extends Component {
       }
     );
   }
+
+  setLocation(coord) { }
 
   render() {
     const { region, mapAvaible } = this.state;
@@ -53,8 +55,8 @@ export default class Map extends Component {
             loadingEnabled
           />
         ) : (
-          <ActivityIndicator />
-        )}
+            <ActivityIndicator />
+          )}
       </View>
     );
   }

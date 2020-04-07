@@ -31,8 +31,25 @@ class HelpRequest extends Component {
       faltaAr: false,
       cansaco: false,
       other: '',
+      latitude: '',
+      longitude: '',
+      geolocation: [],
       allSymptoms: [],
     };
+  }
+
+  componentDidMount() {
+    const { geolocation, latitude, longitude } = this.state;
+
+    const isLatitude = this.props.route.params.region.latitude;
+    const isLongitude = this.props.route.params.region.longitude;
+
+    if (this.props.route.params.region.latitude) {
+      geolocation.push(isLatitude);
+    }
+    if (this.props.route.params.region.longitude) {
+      geolocation.push(isLongitude);
+    }
   }
 
   handleCheck = (group) => {
@@ -69,7 +86,7 @@ class HelpRequest extends Component {
   };
 
   sendHelpRequest = async () => {
-    const { other, allSymptoms } = this.state;
+    const { other, allSymptoms, geolocation } = this.state;
     const { token, userData, navigation } = this.props;
 
     if (other !== '') {
@@ -78,7 +95,7 @@ class HelpRequest extends Component {
     const body = {
       name: userData.name,
       sintoms: allSymptoms.toString(),
-      user_location: '',
+      user_location: geolocation.toString(),
       whatsapp: userData.whatsapp,
     };
 
@@ -94,7 +111,7 @@ class HelpRequest extends Component {
         [{ text: 'OK', onPress: () => navigation.navigate('Home') }],
         { cancelable: false }
       );
-    } catch (err) {}
+    } catch (err) { }
   };
 
   render() {
