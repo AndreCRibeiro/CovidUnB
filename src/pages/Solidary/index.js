@@ -8,9 +8,9 @@ import {
   ScrollView,
   TouchableOpacity,
   Linking,
-  SafeAreaView,
-  Flat,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Avatar, Card, Title, Paragraph } from 'react-native-paper';
 import { Picker } from '@react-native-community/picker';
 import PropTypes from 'prop-types';
 import useAuth from '../../store';
@@ -22,8 +22,7 @@ import {
   VolunteerButtonText,
   PickerView,
   ProfileList,
-  Profile,
-  Text,
+  SimpleText,
 } from './styles';
 
 import api from '../../services/api';
@@ -81,18 +80,20 @@ class Solidary extends Component {
     this.setState({ data: response.data, loading: false });
   };
 
-  handleSubmit = () => {
-    const { navigation } = this.props;
-
-    navigation.navigate('Home');
-  };
-
   render() {
     const { region, task, loading, data } = this.state;
+    const LeftContent = (props) => (
+      <Avatar.Icon
+        {...props}
+        icon={require('../../assets/images/volunteer.png')}
+        style={{ backgroundColor: '#0039A6' }}
+      />
+    );
 
     return (
       <Container>
         <Form>
+          <SimpleText>Entre em contato com um voluntários:</SimpleText>
           <PickerView>
             <Picker
               selectedValue={region}
@@ -153,14 +154,32 @@ class Solidary extends Component {
             <ScrollView showsVerticalScrollIndicator={false}>
               {data.map((profile) =>
                 !profile.is_sick ? (
-                  <Profile key={profile.id}>
-                    <TouchableOpacity onPress={(profile) => this.sendwhatsapp}>
-                      <Text>{profile.name}</Text>
-                      <Text>{profile.administrative_region}</Text>
-                      <Text>{profile.whatsapp}</Text>
-                      <Text>Atividades: {profile.activities}</Text>
-                    </TouchableOpacity>
-                  </Profile>
+                  <TouchableOpacity onPress={(profile) => this.sendwhatsapp}>
+                    <Card
+                      elevation={10}
+                      style={{
+                        backgroundColor: '#C8CFD5',
+                        margin: 10,
+                        borderRadius: 20,
+                        borderColor: '#000',
+                      }}
+                      key={profile.id}
+                    >
+                      <Card.Title
+                        title={`${profile.name}, ${profile.whatsapp}`}
+                        subtitle={profile.administrative_region}
+                        left={LeftContent}
+                        style={{
+                          backgroundColor: '#fff',
+                          borderRadius: 15,
+                        }}
+                      />
+                      <Card.Content>
+                        <Title>Atividades</Title>
+                        <Paragraph>{profile.activities}</Paragraph>
+                      </Card.Content>
+                    </Card>
+                  </TouchableOpacity>
                 ) : null
               )}
             </ScrollView>
