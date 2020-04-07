@@ -2,7 +2,7 @@
 /* eslint-disable global-require */
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, Alert } from 'react-native';
 import PropTypes from 'prop-types';
 import CheckBox from '../../components/checkbox';
 import CheckBoxBall from '../../components/checkboxBall';
@@ -86,7 +86,12 @@ export default class Signup extends Component {
           risk_group: riskGroup.toString(),
           user_location: null,
         });
-        navigation.navigate('Main');
+        Alert.alert(
+          'Atenção',
+          'Usuário cadastrado com sucesso!',
+          [{ text: 'OK', onPress: () => navigation.navigate('Main') }],
+          { cancelable: false }
+        );
       } catch (err) { }
     }
   };
