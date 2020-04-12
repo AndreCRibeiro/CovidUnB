@@ -1,9 +1,11 @@
 import create from 'zustand';
+import { Alert } from 'react-native';
 import api from '../services/api';
 
 const reqAuth = async (set, params) => {
   try {
     const response = await api.post('/sessions', params);
+
     set((state) => ({
       ...state,
       loading: false,
@@ -11,6 +13,10 @@ const reqAuth = async (set, params) => {
       token: response.data.token,
     }));
   } catch (error) {
+    Alert.alert(
+      'Falha na autenticação',
+      'Houve um erro no login, verifique suas credenciais'
+    );
     set((state) => ({
       ...state,
       loading: false,

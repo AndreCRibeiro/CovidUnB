@@ -144,8 +144,8 @@ class Solidary extends Component {
             {loading ? (
               <ActivityIndicator color={colors.white} />
             ) : (
-                <VolunteerButtonText>Buscar Voluntários</VolunteerButtonText>
-              )}
+              <VolunteerButtonText>Buscar Voluntários</VolunteerButtonText>
+            )}
           </ButtonVolunteer>
         </Form>
 
@@ -156,6 +156,7 @@ class Solidary extends Component {
                 !profile.is_sick ? (
                   <TouchableOpacity onPress={(profile) => this.sendwhatsapp}>
                     <Card
+                      key={profile.id}
                       elevation={10}
                       style={{
                         backgroundColor: '#C8CFD5',
@@ -163,7 +164,6 @@ class Solidary extends Component {
                         borderRadius: 20,
                         borderColor: '#000',
                       }}
-                      key={profile.id}
                     >
                       <Card.Title
                         title={`${profile.name}, ${profile.whatsapp}`}

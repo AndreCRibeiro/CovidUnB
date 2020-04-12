@@ -53,7 +53,7 @@ export default class Signup extends Component {
     loading: false,
   };
 
-  checkState = () => { };
+  checkState = () => {};
 
   handleSignUp = async () => {
     const {
@@ -73,6 +73,7 @@ export default class Signup extends Component {
     }
 
     if (userPass !== userPassConfirmed) {
+      Alert.alert('Atenção', 'As senhas informadas não são iguais');
     } else {
       try {
         const response = await api.post('/users', {
@@ -92,7 +93,9 @@ export default class Signup extends Component {
           [{ text: 'OK', onPress: () => navigation.navigate('Main') }],
           { cancelable: false }
         );
-      } catch (err) { }
+      } catch (err) {
+        Alert.alert('Falha no cadastro', 'Verifique os dados informados');
+      }
     }
   };
 
@@ -226,6 +229,14 @@ export default class Signup extends Component {
             value={userBirth}
             onChangeText={(text) => this.setState({ userBirth: text })}
           />
+
+          <Input
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholder="Matrícula UnB"
+            value={userBirth}
+            onChangeText={(text) => this.setState({ userBirth: text })}
+          />
           <SecondCenterView>
             <SimpleText>QUAL SEU VÍNCULO COM A UNB?</SimpleText>
           </SecondCenterView>
@@ -308,8 +319,8 @@ export default class Signup extends Component {
             {loading ? (
               <ActivityIndicator color={colors.white} />
             ) : (
-                <ButtonText>Registrar</ButtonText>
-              )}
+              <ButtonText>Registrar</ButtonText>
+            )}
           </Button>
         </Form>
       </Container>

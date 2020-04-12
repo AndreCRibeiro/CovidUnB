@@ -2,7 +2,7 @@
 /* eslint-disable global-require */
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
 import api from '../../services/api';
@@ -43,8 +43,8 @@ class Main extends Component {
   };
 
   state = {
-    userMail: '',
-    userPass: '',
+    userMail: null,
+    userPass: null,
     showingPass: true,
   };
 
@@ -58,8 +58,21 @@ class Main extends Component {
   handleLogin = async () => {
     const { userMail, userPass } = this.state;
     const { fetchAuth, navigation } = this.props;
-    const body = { email: userMail, password: userPass };
-    fetchAuth(body);
+
+    if (!userMail || !userPass) {
+      Alert.alert(
+        'Falha na Autenticação',
+        'É necessário informar email e senha!'
+      );
+    } else {
+      try {
+        const body = { email: userMail, password: userPass };
+        fetchAuth(body);
+        navigation.navigate('Home');
+      } catch (err) {
+        Alert.alert('Verifique sua conexão com a Internet!');
+      }
+    }
   };
 
   handleNavigationToSignUp = () => {
@@ -104,8 +117,8 @@ class Main extends Component {
               {showingPass ? (
                 <Icon name="visibility" size={28} color={colors.black} />
               ) : (
-                  <Eye source={require('../../assets/images/eye.png')} />
-                )}
+                <Eye source={require('../../assets/images/eye.png')} />
+              )}
             </HideNShowPassword>
           </Teste>
 
@@ -113,8 +126,8 @@ class Main extends Component {
             {loading ? (
               <ActivityIndicator color={colors.white} />
             ) : (
-                <LoginButtonText>Login</LoginButtonText>
-              )}
+              <LoginButtonText>Login</LoginButtonText>
+            )}
           </ButtonLogin>
           <Slash>
             <LineLeft />
