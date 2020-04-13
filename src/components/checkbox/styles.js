@@ -1,15 +1,19 @@
 import { StyleSheet } from 'react-native';
+import { 
+  checkFont,
+  checkMargin
+} from '../../styles/responsividade';
 
 const styles = StyleSheet.create({
   checkBox: {
     flexDirection: 'row',
     alignItems: 'center',
-    margin: 15,
+    margin: checkMargin,
   },
 
   textOptionStyle: {
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: checkFont,
   },
 });
 

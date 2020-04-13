@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 import { RectButton } from 'react-native-gesture-handler';
+import normalize from 'react-native-normalize';
+import{
+  paddingButton
+} from '../../styles/responsividade';
 
 export const Container = styled.View`
   flex: 1;
@@ -8,12 +12,12 @@ export const Container = styled.View`
 `;
 
 export const Logo = styled.Image`
-  width: 160px;
-  height: 160px;
+  width: ${normalize(120)};
+  height: ${normalize(120)};
   background: #fff;
   align-self: center;
   margin-top: 8px;
-  margin-bottom: 40px;
+  margin-bottom: ${normalize(20, 'height')}px;
 `;
 
 export const Form = styled.View`
@@ -27,7 +31,7 @@ export const Form = styled.View`
 export const Input = styled.TextInput.attrs({
   placeholderTextColor: '#000',
 })`
-  height: 50px;
+  height: ${normalize(40)};
   background: #fff;
   border-radius: 11px;
   padding: 0 15px;
@@ -54,7 +58,7 @@ export const HideNShowPassword = styled.TouchableOpacity`
 `;
 
 export const Eye = styled.Image`
-  width: 28px;
+  width: ${normalize(20)};
 `;
 
 export const Slash = styled.View`
@@ -91,12 +95,11 @@ export const ButtonLogin = styled(RectButton)`
   align-items: center;
   background: #0039a6;
   border-radius: 10px;
-  margin-top: 5px;
   padding: 0 12px;
   opacity: ${(props) => (props.loading ? 0.7 : 1)};
   height: 45px;
-  margin-top: 50px;
-  margin-bottom: 5px;
+  margin-top: ${normalize(20)}px;
+  margin-bottom: ${normalize(5)}px;
 `;
 
 export const LoginButtonText = styled.Text`

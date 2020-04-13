@@ -60,6 +60,9 @@ export const LineLeft = styled.View`
   width: 135px;
   margin-right: 5px;
 `;
+export const ButtonArea = styled.View`
+  height: 20px;
+`;
 
 export const LineRight = styled.View`
   background: #000;
@@ -76,7 +79,7 @@ export const ButtonVolunteer = styled(RectButton)`
   margin-top: 5px;
   padding: 0 12px;
   opacity: ${(props) => (props.loading ? 0.7 : 1)};
-  height: 45px;
+  height: 20px;
   margin-top: 20px;
 `;
 

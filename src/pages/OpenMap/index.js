@@ -9,6 +9,8 @@ import {
   PermissionsAndroid,
   Platform
 } from 'react-native';
+import normalize from 'react-native-normalize';
+
 
 import {
   WebView
@@ -17,7 +19,7 @@ import Geolocation from '@react-native-community/geolocation';
 
 import html_script from './html_script'
 
-class Map extends React.Component {
+class OpenMap extends React.Component {
 
   state = {
     currentLongitude: 'unknown',//Initial Longitude
@@ -108,7 +110,7 @@ callLocation(that){
            />
            <View style={styles.ButtonArea}>
             <TouchableOpacity style={styles.Button} onPress={() => this._goToMyPosition(this.state.currentLatitude, this.state.currentLongitude)}>
-              <Text style={styles.ButtonText}>Ir para Minha Posição</Text>
+              <Text style={styles.ButtonText}>Minha Posição</Text>
             </TouchableOpacity>
             </View>
        
@@ -133,22 +135,27 @@ const styles = StyleSheet.create({
   },
   ButtonArea: {
     flex: 1,
+    top: normalize(400),
+    right: normalize(14),
+    position: 'absolute',
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center'
   },
   Button: {
-    width: 80,
+    width: normalize(100),
     padding: 10,
     borderRadius: 10,
-    backgroundColor: 'black',
+    borderColor: '#668cff',
+    borderWidth: normalize(3),
+    backgroundColor: '#ffffff',
     alignItems: 'center'
   },
   ButtonText: {
-    color: 'white',
+    color: '#1f1f14',
     fontWeight: 'bold',
     fontSize: 14,
   }
 });
 
-export default Map;
+export default OpenMap;

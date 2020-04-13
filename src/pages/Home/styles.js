@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
+import normalize from 'react-native-normalize';
 
 export const Container = styled.View`
   flex: 1;
@@ -14,10 +15,10 @@ export const TopCards = styled.View`
 `;
 
 export const Card = styled(RectButton)`
-  height: 120px;
+  height: ${normalize(120)}px;
   width: 120px;
   background: #fff;
-  margin: 30px;
+  margin: ${normalize(20)}px;
   border-width: 1px;
   border-radius: 2px;
   border-color: #333;

@@ -12,7 +12,7 @@ import Talk from './pages/Talk';
 import Questions from './pages/Questions';
 import Solidary from './pages/Solidary';
 import HelpRequest from './pages/HelpRequest';
-import Map from './pages/Map';
+import OpenMap from './pages/OpenMap';
 
 
 const AppStack = createStackNavigator();
@@ -44,7 +44,7 @@ export default function Routes() {
         <AppStack.Screen name="HelpRequest" component={HelpRequest} />
         <AppStack.Screen name="Questions" component={Questions} />
         <AppStack.Screen name="Solidary" component={Solidary} />
-        <AppStack.Screen name="Local" component={Map} />
+        <AppStack.Screen name="Local" component={OpenMap} />
 
       </AppStack.Navigator>
     </NavigationContainer>

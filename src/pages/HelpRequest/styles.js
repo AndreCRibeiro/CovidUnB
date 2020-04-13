@@ -1,5 +1,10 @@
 import styled from 'styled-components/native';
 import { Alert } from 'react-native';
+import {
+  paddingImage,
+  HelpTitle,
+  heightOutros
+} from '../../styles/responsividade';
 
 export const Container = styled.View`
   flex: 1;
@@ -7,12 +12,13 @@ export const Container = styled.View`
 `;
 
 export const TextHeader = styled.Text`
-  font-size: 18px;
+  font-size: ${HelpTitle};
   color: #333;
   font-weight: bold;
   margin-top: 4px;
   text-align: center;
 `;
+
 
 export const CheckBoxField = styled.View`
   padding: 10px;
@@ -22,7 +28,7 @@ export const Others = styled.TextInput`
   align-self: center;
   padding: 5px;
   width: 90%;
-  height: 60px;
+  height: ${heightOutros};
   margin-top: 10px;
   font-size: 16px;
   background-color: #ddd;
@@ -31,7 +37,7 @@ export const Others = styled.TextInput`
 
 export const ButtonArea = styled.TouchableOpacity`
   padding: 10px;
-  padding-top: 80px;
+  padding-top: ${paddingImage};
   align-self: center;
   align-content: center;
   flex-direction: column;

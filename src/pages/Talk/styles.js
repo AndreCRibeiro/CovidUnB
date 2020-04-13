@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import normalize from 'react-native-normalize';
+
 
 export const Container = styled.View`
   flex: 1;
@@ -11,8 +13,8 @@ export const CenterView = styled.View`
 `;
 
 export const LogoUnB = styled.Image`
-  width: 180px;
-  height: 180px;
+  width: ${normalize(180)};
+  height: ${normalize(180, 'height')};
   background: #fff;
   align-self: center;
   margin-top: 40px;
@@ -24,8 +26,8 @@ export const SimpleText = styled.Text`
 `;
 
 export const LogoLatitude = styled.Image`
-  width: 300px;
-  height: 160px;
+  width: ${normalize(300)};
+  height: ${normalize(160)};
   background: #fff;
   align-self: center;
   margin-top: 8px;

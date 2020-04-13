@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import normalize from 'react-native-normalize';
+
 
 export const Container = styled.View`
   flex: 1;
@@ -16,8 +18,8 @@ export const CardList = styled.ScrollView.attrs(() => ({
 `;
 
 export const Card = styled.View`
-  height: 440px;
-  width: 340px;
+  height: ${normalize(420)};
+  width: ${normalize(320)};
   background-color: #fff;
   margin-left: 18px;
   border-width: 3px;
@@ -45,8 +47,8 @@ export const Source = styled.Text`
 `;
 
 export const Info = styled.Image`
-  width: 330px;
-  height: 415px;
+  width: ${normalize(300)};
+  height: ${normalize(380)};
   align-self: center;
   border-radius: 30px;
 `;
