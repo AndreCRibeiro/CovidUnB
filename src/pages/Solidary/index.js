@@ -44,7 +44,7 @@ class Solidary extends Component {
   state = {
     region: '',
     task: false,
-    loading: false,
+    loading: true,
   };
 
   componentDidMount = async () => {
@@ -68,6 +68,7 @@ class Solidary extends Component {
   };
 
   filterByCity = async () => {
+    this.setState({ loading: true });
     const { region } = this.state;
     const { token } = this.props;
 

@@ -39,6 +39,7 @@ export default class Signup extends Component {
     userPassConfirmed: '',
     userAddress: '',
     userBirth: '',
+    matriculaUnb: '',
     linkUnb: '',
     docente: false,
     servidor: false,
@@ -56,6 +57,7 @@ export default class Signup extends Component {
   checkState = () => {};
 
   handleSignUp = async () => {
+    this.setState({ loading: true });
     const {
       userName,
       userMail,
@@ -66,6 +68,7 @@ export default class Signup extends Component {
       userBirth,
       linkUnb,
       riskGroup,
+      matriculaUnb,
     } = this.state;
     const { navigation } = this.props;
     if (this.state.diabetes === true) {
@@ -73,6 +76,8 @@ export default class Signup extends Component {
     }
 
     if (userPass !== userPassConfirmed) {
+      this.setState({ loading: false });
+
       Alert.alert('Atenção', 'As senhas informadas não são iguais');
     } else {
       try {
@@ -86,7 +91,9 @@ export default class Signup extends Component {
           link_unb: linkUnb,
           risk_group: riskGroup.toString(),
           user_location: null,
+          // matricula_unb: matriculaUnb
         });
+
         Alert.alert(
           'Atenção',
           'Usuário cadastrado com sucesso!',
@@ -94,6 +101,7 @@ export default class Signup extends Component {
           { cancelable: false }
         );
       } catch (err) {
+        this.setState({ loading: false });
         Alert.alert('Falha no cadastro', 'Verifique os dados informados');
       }
     }
@@ -162,6 +170,7 @@ export default class Signup extends Component {
       servidor,
       discente,
       riskGroup,
+      matriculaUnb,
       diabetes,
       hipertensao,
       bronquite,
@@ -234,8 +243,8 @@ export default class Signup extends Component {
             autoCorrect={false}
             autoCapitalize="none"
             placeholder="Matrícula UnB"
-            value={userBirth}
-            onChangeText={(text) => this.setState({ userBirth: text })}
+            value={matriculaUnb}
+            onChangeText={(text) => this.setState({ matriculaUnb: text })}
           />
           <SecondCenterView>
             <SimpleText>QUAL SEU VÍNCULO COM A UNB?</SimpleText>

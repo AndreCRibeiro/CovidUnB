@@ -47,6 +47,7 @@ class Volunteer extends Component {
   };
 
   handleSubmit = async () => {
+    this.setState({ loading: true });
     const {
       userName,
       userEmail,
@@ -79,15 +80,17 @@ class Volunteer extends Component {
           Authorization: `Bearer ${token}`,
         },
       });
+      Alert.alert(
+        'Voluntário cadastrado',
+        'Obrigado por se voluntariar a ajudar o próximo!',
+        [{ text: 'OK', onPress: () => navigation.navigate('Home') }],
+        { cancelable: false }
+      );
+      this.setState({ loading: false });
     } catch (error) {
       console.log(error);
+      this.setState({ loading: false });
     }
-    Alert.alert(
-      'Voluntário cadastrado',
-      'Obrigado por se voluntariar a ajudar o próximo!',
-      [{ text: 'OK', onPress: () => navigation.navigate('Home') }],
-      { cancelable: false }
-    );
   };
 
   render() {
@@ -221,8 +224,8 @@ class Volunteer extends Component {
             {loading ? (
               <ActivityIndicator color={colors.white} />
             ) : (
-                <VolunteerButtonText>CANDIDATAR-SE</VolunteerButtonText>
-              )}
+              <VolunteerButtonText>CANDIDATAR-SE</VolunteerButtonText>
+            )}
           </ButtonVolunteer>
         </Form>
       </Container>
