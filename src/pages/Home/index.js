@@ -6,6 +6,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-community/async-storage';
 import Geolocation from '@react-native-community/geolocation';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 import { RadioButton } from 'react-native-paper';
 import useAuth from '../../store';
@@ -28,6 +30,8 @@ import {
   ViewButtonYes,
   ViewButtonNo,
   RadioText,
+  LogoutView,
+  LogoutButton,
 } from './styles';
 import api from '../../services/api';
 
@@ -60,6 +64,7 @@ class Home extends Component {
       latitudeDelta: 0.0143,
       longitudeDelta: 0.0134,
     },
+    showAlert: false,
   };
 
   async componentDidMount() {
@@ -74,7 +79,7 @@ class Home extends Component {
             longitudeDelta: 0.0134,
           },
         });
-      }, //sucesso
+      }, // sucesso
       () => {
         this.setState({
           mapAvaible: false,
@@ -102,6 +107,7 @@ class Home extends Component {
         Authorization: `Bearer ${token}`,
       },
     });
+    this.setState({ showAlert: true });
   };
 
   handleNo = async () => {
@@ -111,6 +117,12 @@ class Home extends Component {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+    });
+  };
+
+  hideAlert = () => {
+    this.setState({
+      showAlert: false,
     });
   };
 
@@ -151,8 +163,14 @@ class Home extends Component {
     navigation.navigate('Volunteer');
   };
 
+  handleLogout = () => {
+    const { navigation } = this.props;
+
+    navigation.navigate('Main');
+  };
+
   render() {
-    const { checked } = this.state;
+    const { checked, showAlert } = this.state;
     const { userData } = this.props;
 
     return (
@@ -192,6 +210,21 @@ class Home extends Component {
             </ViewButtonNo>
           </ViewButtons>
         </SelectionView>
+        <AwesomeAlert
+          show={showAlert}
+          showProgress={false}
+          message="Desejamos-lhe uma boa recuperação!"
+          closeOnTouchOutside
+          closeOnHardwareBackPress
+          showConfirmButton
+          confirmText="Entendido"
+          confirmButtonColor="#0039a6"
+          onConfirmPressed={() => {
+            this.hideAlert();
+          }}
+          alertContainerStyle={{ elevation: 20 }}
+          messageStyle={{ color: '#000' }}
+        />
         <TopCards>
           <Card onPress={() => this.handleNavigateToLocal()}>
             <Image source={require('../../assets/images/destination.png')} />
@@ -222,6 +255,11 @@ class Home extends Component {
             <Text>Fale Conosco</Text>
           </Card>
         </BottomCards>
+        <LogoutView>
+          <LogoutButton onPress={() => this.handleLogout()}>
+            <Icon name="exit-to-app" size={33} color={colors.white} />
+          </LogoutButton>
+        </LogoutView>
       </Container>
     );
   }

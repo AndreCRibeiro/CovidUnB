@@ -117,8 +117,8 @@ class Main extends Component {
               {showingPass ? (
                 <Icon name="visibility" size={28} color={colors.black} />
               ) : (
-                <Eye source={require('../../assets/images/eye.png')} />
-              )}
+                  <Eye source={require('../../assets/images/eye.png')} />
+                )}
             </HideNShowPassword>
           </Teste>
 
@@ -126,8 +126,8 @@ class Main extends Component {
             {loading ? (
               <ActivityIndicator color={colors.white} />
             ) : (
-              <LoginButtonText>Login</LoginButtonText>
-            )}
+                <LoginButtonText>Login</LoginButtonText>
+              )}
           </ButtonLogin>
           <Slash>
             <LineLeft />
