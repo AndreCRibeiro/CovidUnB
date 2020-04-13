@@ -3,7 +3,6 @@ import { Alert } from 'react-native';
 
 export const Container = styled.View`
   flex: 1;
-  padding: 18px;
 `;
 
 export const TextHeader = styled.Text`
@@ -34,7 +33,7 @@ export const Others = styled.TextInput.attrs({
 
 export const ButtonArea = styled.TouchableOpacity`
   padding: 10px;
-  padding-top: 40px;
+  margin-top: 50px;
   align-self: center;
   align-content: center;
   flex-direction: column;
@@ -42,12 +41,12 @@ export const ButtonArea = styled.TouchableOpacity`
 
 export const Image = styled.Image`
   margin: 0 50%;
-  width: 100px;
-  height: 100px;
+  width: 110px;
+  height: 110px;
 `;
 
 export const TextArea = styled.Text`
-  margin: 5px 50%;
+  margin: 5px 51%;
   color: #ff0000;
   font-weight: bold;
   font-size: 20px;
