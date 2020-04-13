@@ -57,7 +57,7 @@ class Home extends Component {
   };
 
   state = {
-    checked: 'second',
+    checked: null,
     region: {
       latitude: '',
       longitude: '',
@@ -68,6 +68,14 @@ class Home extends Component {
   };
 
   async componentDidMount() {
+    const checkedAsync = await AsyncStorage.getItem('checked');
+
+    if (checkedAsync) {
+      this.setState({ checked: checkedAsync });
+    } else {
+      this.setState({ checked: 'second' });
+    }
+
     await Geolocation.getCurrentPosition(
       ({ coords: { latitude, longitude } }) => {
         this.setState({
@@ -107,6 +115,9 @@ class Home extends Component {
         Authorization: `Bearer ${token}`,
       },
     });
+    AsyncStorage.setItem('checked', 'first');
+    const teste = await AsyncStorage.getItem('checked');
+    console.tron.log(teste);
     this.setState({ showAlert: true });
   };
 
@@ -118,6 +129,9 @@ class Home extends Component {
         Authorization: `Bearer ${token}`,
       },
     });
+    AsyncStorage.setItem('checked', 'second');
+    const teste = await AsyncStorage.getItem('checked');
+    console.tron.log(teste);
   };
 
   hideAlert = () => {
@@ -214,6 +228,7 @@ class Home extends Component {
           show={showAlert}
           showProgress={false}
           message="Desejamos-lhe uma boa recuperação!"
+          useNativeDriver
           closeOnTouchOutside
           closeOnHardwareBackPress
           showConfirmButton
@@ -222,7 +237,10 @@ class Home extends Component {
           onConfirmPressed={() => {
             this.hideAlert();
           }}
-          alertContainerStyle={{ elevation: 20 }}
+          alertContainerStyle={{
+            elevation: 20,
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+          }}
           messageStyle={{ color: '#000' }}
         />
         <TopCards>
