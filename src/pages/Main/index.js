@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { ActivityIndicator, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
-import api from '../../services/api';
+import AsyncStorage from '@react-native-community/async-storage';
 import useAuth from '../../store';
 
 import { colors } from '../../styles';
@@ -26,6 +26,11 @@ import {
   Teste,
   HideNShowPassword,
   Eye,
+  OptionsView,
+  RememberButton,
+  ForgotPassword,
+  PasswordText,
+  RememberText,
 } from './styles';
 
 const withZustand = (Comp) => (props) => {
@@ -46,6 +51,7 @@ class Main extends Component {
     userMail: null,
     userPass: null,
     showingPass: true,
+    checked: null,
   };
 
   UNSAFE_componentWillReceiveProps(nextprops) {
@@ -55,8 +61,29 @@ class Main extends Component {
     }
   }
 
+  async componentDidMount() {
+    const checkedAsync = await AsyncStorage.getItem('check');
+    const checkedUserAsync = await AsyncStorage.getItem('userNameAsync');
+    const checkedPassAsync = await AsyncStorage.getItem('userPassAsync');
+
+    console.tron.log('User', checkedUserAsync);
+    console.tron.log('Pass', checkedPassAsync);
+
+    if (checkedAsync === 'true') {
+      this.setState({
+        checked: true,
+        userMail: JSON.parse(checkedUserAsync),
+        userPass: JSON.parse(checkedPassAsync),
+      });
+    } else {
+      this.setState({ checked: false });
+      await AsyncStorage.multiRemove('userNameAsync');
+      await AsyncStorage.multiRemove('userPassAsync');
+    }
+  }
+
   handleLogin = async () => {
-    const { userMail, userPass } = this.state;
+    const { userMail, userPass, checked } = this.state;
     const { fetchAuth, navigation } = this.props;
 
     if (!userMail || !userPass) {
@@ -68,7 +95,13 @@ class Main extends Component {
       try {
         const body = { email: userMail, password: userPass };
         fetchAuth(body);
-        navigation.navigate('Home');
+        if (checked) {
+          AsyncStorage.setItem('check', JSON.stringify(checked));
+          AsyncStorage.setItem('userNameAsync', JSON.stringify(userMail));
+          AsyncStorage.setItem('userPassAsync', JSON.stringify(userPass));
+        } else {
+          AsyncStorage.setItem('check', JSON.stringify(checked));
+        }
       } catch (err) {
         Alert.alert('Verifique sua conexão com a Internet!');
       }
@@ -87,8 +120,12 @@ class Main extends Component {
     this.setState({ showingPass: !showingPass });
   };
 
+  handleSavecredentials = () => {
+    const { userMail, userPass } = this.state;
+  };
+
   render() {
-    const { userMail, userPass, showingPass } = this.state;
+    const { userMail, userPass, showingPass, checked } = this.state;
     const { loading } = this.props;
 
     return (
@@ -121,7 +158,27 @@ class Main extends Component {
                 )}
             </HideNShowPassword>
           </Teste>
-
+          <OptionsView>
+            <RememberButton
+              onPress={() => {
+                this.setState({ checked: !checked });
+              }}
+            >
+              {checked ? (
+                <Icon name="check-box" size={17} color={colors.black} />
+              ) : (
+                  <Icon
+                    name="check-box-outline-blank"
+                    size={17}
+                    color={colors.black}
+                  />
+                )}
+              <RememberText>Lembrar-me</RememberText>
+            </RememberButton>
+            <ForgotPassword>
+              <PasswordText>Esqueceu sua senha?</PasswordText>
+            </ForgotPassword>
+          </OptionsView>
           <ButtonLogin loading={loading} onPress={this.handleLogin}>
             {loading ? (
               <ActivityIndicator color={colors.white} />

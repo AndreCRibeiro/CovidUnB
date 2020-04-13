@@ -57,6 +57,31 @@ export const Eye = styled.Image`
   width: 28px;
 `;
 
+export const OptionsView = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const RememberButton = styled.TouchableOpacity`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-left: 3px;
+`;
+
+export const RememberText = styled.Text`
+  margin-left: 5px;
+`;
+
+export const ForgotPassword = styled.TouchableOpacity``;
+
+export const PasswordText = styled.Text`
+  font-style: italic;
+  font-weight: bold;
+  color: #0039a6;
+`;
+
 export const Slash = styled.View`
   flex-direction: row;
   justify-content: center;
@@ -68,7 +93,6 @@ export const SimpleText = styled.Text`
   font-size: 16px;
   color: #333;
   font-weight: bold;
-  margin-top: 4px;
   text-align: center;
 `;
 
