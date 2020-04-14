@@ -224,8 +224,8 @@ class Volunteer extends Component {
             {loading ? (
               <ActivityIndicator color={colors.white} />
             ) : (
-              <VolunteerButtonText>CANDIDATAR-SE</VolunteerButtonText>
-            )}
+                <VolunteerButtonText>CANDIDATAR-SE</VolunteerButtonText>
+              )}
           </ButtonVolunteer>
         </Form>
       </Container>

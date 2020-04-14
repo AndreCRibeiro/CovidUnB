@@ -85,3 +85,16 @@ export const TopView = styled.View``;
 export const BottomView = styled.View``;
 export const LeftText = styled.View``;
 export const RightText = styled.View``;
+
+export const RowView = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const StartText = styled.Text``;
+
+export const StarView = styled.View`
+  flex-direction: row;
+  justify-content: flex-end;
+  flex: 1;
+`;
