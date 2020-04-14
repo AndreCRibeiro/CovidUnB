@@ -23,6 +23,9 @@ import {
   PickerView,
   ProfileList,
   SimpleText,
+  RowView,
+  StartText,
+  StarView,
 } from './styles';
 
 import api from '../../services/api';
@@ -91,6 +94,8 @@ class Solidary extends Component {
       />
     );
 
+    const starts = 4.5;
+
     return (
       <Container>
         <Form>
@@ -145,8 +150,8 @@ class Solidary extends Component {
             {loading ? (
               <ActivityIndicator color={colors.white} />
             ) : (
-              <VolunteerButtonText>Buscar Voluntários</VolunteerButtonText>
-            )}
+                <VolunteerButtonText>Buscar Voluntários</VolunteerButtonText>
+              )}
           </ButtonVolunteer>
         </Form>
 
@@ -176,7 +181,21 @@ class Solidary extends Component {
                         }}
                       />
                       <Card.Content>
-                        <Title>Atividades</Title>
+                        <RowView>
+                          <Title>Atividades</Title>
+                          <StarView>
+                            {starts <= 4.4 ? (
+                              <>
+                                <Icon name="star" size={16} color="#0039A6" />
+                                <Icon name="star" size={16} color="#0039A6" />
+                                <Icon name="star" size={16} color="#0039A6" />
+                              </>
+                            ) : (
+                                <Icon name="star" size={18} color="#0039A6" />
+                              )}
+                            <StartText>{starts}</StartText>
+                          </StarView>
+                        </RowView>
                         <Paragraph>{profile.activities}</Paragraph>
                       </Card.Content>
                     </Card>

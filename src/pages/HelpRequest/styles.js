@@ -3,6 +3,7 @@ import { Alert } from 'react-native';
 
 export const Container = styled.View`
   flex: 1;
+  padding: ${(props) => (props.showAlert ? '0px' : '15px')};
 `;
 
 export const TextHeader = styled.Text`
@@ -33,7 +34,7 @@ export const Others = styled.TextInput.attrs({
 
 export const ButtonArea = styled.TouchableOpacity`
   padding: 10px;
-  margin-top: 50px;
+  margin-top: 60px;
   align-self: center;
   align-content: center;
   flex-direction: column;

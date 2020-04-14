@@ -3,6 +3,7 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
 import { ActivityIndicator, Alert } from 'react-native';
+import { TextInputMask } from 'react-native-masked-text';
 import PropTypes from 'prop-types';
 import CheckBox from '../../components/checkbox';
 import CheckBoxBall from '../../components/checkboxBall';
@@ -12,6 +13,7 @@ import {
   Container,
   Form,
   Input,
+  InputDifferent,
   Button,
   ButtonText,
   SimpleText,
@@ -52,9 +54,19 @@ export default class Signup extends Component {
     sistema: false,
     paciente: false,
     loading: false,
+    check: true,
   };
 
-  checkState = () => {};
+  checkPass = (confirmedText) => {
+    const { userPass } = this.state;
+    const userPassConfirm = confirmedText;
+
+    if (userPass === userPassConfirm) {
+      this.setState({ check: true });
+    } else {
+      this.setState({ check: false });
+    }
+  };
 
   handleSignUp = async () => {
     this.setState({ loading: true });
@@ -62,7 +74,6 @@ export default class Signup extends Component {
       userName,
       userMail,
       userTel,
-      userPass,
       userPassConfirmed,
       userAddress,
       userBirth,
@@ -74,36 +85,30 @@ export default class Signup extends Component {
     if (this.state.diabetes === true) {
       this.setState({ riskGroup: [...riskGroup, 'Diabetes'] });
     }
+    try {
+      const response = await api.post('/users', {
+        name: userName,
+        email: userMail,
+        whatsapp: userTel,
+        password: userPassConfirmed,
+        address: userAddress,
+        birth_date: userBirth,
+        link_unb: linkUnb,
+        risk_group: riskGroup.toString(),
+        user_location: '',
+        matricula_unb: matriculaUnb,
+      });
 
-    if (userPass !== userPassConfirmed) {
+      Alert.alert(
+        'Atenção',
+        'Usuário cadastrado com sucesso!',
+        [{ text: 'OK', onPress: () => navigation.navigate('Main') }],
+        { cancelable: false }
+      );
+    } catch (err) {
       this.setState({ loading: false });
-
-      Alert.alert('Atenção', 'As senhas informadas não são iguais');
-    } else {
-      try {
-        const response = await api.post('/users', {
-          name: userName,
-          email: userMail,
-          whatsapp: userTel,
-          password: userPassConfirmed,
-          address: userAddress,
-          birth_date: userBirth,
-          link_unb: linkUnb,
-          risk_group: riskGroup.toString(),
-          user_location: null,
-          // matricula_unb: matriculaUnb
-        });
-
-        Alert.alert(
-          'Atenção',
-          'Usuário cadastrado com sucesso!',
-          [{ text: 'OK', onPress: () => navigation.navigate('Main') }],
-          { cancelable: false }
-        );
-      } catch (err) {
-        this.setState({ loading: false });
-        Alert.alert('Falha no cadastro', 'Verifique os dados informados');
-      }
+      console.tron.log(err);
+      Alert.alert('Falha no cadastro', 'Verifique os dados informados');
     }
   };
 
@@ -177,6 +182,7 @@ export default class Signup extends Component {
       asma,
       sistema,
       paciente,
+      check,
     } = this.state;
 
     return (
@@ -186,7 +192,7 @@ export default class Signup extends Component {
             <SimpleText>CRIE SUA CONTA</SimpleText>
           </CenterView>
           <Input
-            autoCorrect
+            autoCorrect={false}
             autoCapitalize="none"
             placeholder="Nome"
             value={userName}
@@ -195,15 +201,27 @@ export default class Signup extends Component {
           <Input
             autoCorrect={false}
             autoCapitalize="none"
+            keyboardType="email-address"
             placeholder="Email"
             value={userMail}
             onChangeText={(text) => this.setState({ userMail: text })}
           />
-          <Input
+          <TextInputMask
+            type="cel-phone"
+            style={{
+              height: 45,
+              borderRadius: 11,
+              padding: 13,
+              borderWidth: 2,
+              marginTop: 8,
+              marginBottom: 15,
+              elevation: 2,
+            }}
             autoCorrect={false}
             autoCapitalize="none"
             keyboardType="numeric"
             placeholder="Telefone"
+            placeholderTextColor="#000"
             value={userTel}
             onChangeText={(text) => this.setState({ userTel: text })}
           />
@@ -216,13 +234,17 @@ export default class Signup extends Component {
             value={userPass}
             onChangeText={(text) => this.setState({ userPass: text })}
           />
-          <Input
+          <InputDifferent
             autoCorrect={false}
             autoCapitalize="none"
             secureTextEntry
             placeholder="Confirmação de senha"
             value={userPassConfirmed}
-            onChangeText={(text) => this.setState({ userPassConfirmed: text })}
+            onChangeText={(text) => {
+              this.setState({ userPassConfirmed: text });
+              this.checkPass(text);
+            }}
+            check={check}
           />
           <Input
             autoCorrect={false}
@@ -231,10 +253,22 @@ export default class Signup extends Component {
             value={userAddress}
             onChangeText={(text) => this.setState({ userAddress: text })}
           />
-          <Input
+          <TextInputMask
+            type="datetime"
+            options={{ format: 'DD/MM/YYYY' }}
+            style={{
+              height: 45,
+              borderRadius: 11,
+              padding: 13,
+              borderWidth: 2,
+              marginTop: 8,
+              marginBottom: 15,
+              elevation: 2,
+            }}
             autoCorrect={false}
             autoCapitalize="none"
             placeholder="Data de nascimento"
+            placeholderTextColor="#000"
             value={userBirth}
             onChangeText={(text) => this.setState({ userBirth: text })}
           />
@@ -242,6 +276,7 @@ export default class Signup extends Component {
           <Input
             autoCorrect={false}
             autoCapitalize="none"
+            keyboardType="numeric"
             placeholder="Matrícula UnB"
             value={matriculaUnb}
             onChangeText={(text) => this.setState({ matriculaUnb: text })}
@@ -328,8 +363,8 @@ export default class Signup extends Component {
             {loading ? (
               <ActivityIndicator color={colors.white} />
             ) : (
-              <ButtonText>Registrar</ButtonText>
-            )}
+                <ButtonText>Registrar</ButtonText>
+              )}
           </Button>
         </Form>
       </Container>

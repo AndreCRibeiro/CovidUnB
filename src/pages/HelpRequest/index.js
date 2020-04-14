@@ -123,7 +123,7 @@ class HelpRequest extends Component {
     const { febre, tosse, faltaAr, cansaco, other, showAlert } = this.state;
 
     return (
-      <Container>
+      <Container showAlert={showAlert}>
         <TextHeader>
           Para pedir ajuda informe seus sintomas e toque no botão:
         </TextHeader>
