@@ -186,28 +186,12 @@ class Solidary extends Component {
                           <StarView>
                             {starts <= 4.4 ? (
                               <>
-                                <Icon
-                                  name="star"
-                                  size={16}
-                                  color={colors.black}
-                                />
-                                <Icon
-                                  name="star"
-                                  size={16}
-                                  color={colors.black}
-                                />
-                                <Icon
-                                  name="star"
-                                  size={16}
-                                  color={colors.black}
-                                />
+                                <Icon name="star" size={16} color="#0039A6" />
+                                <Icon name="star" size={16} color="#0039A6" />
+                                <Icon name="star" size={16} color="#0039A6" />
                               </>
                             ) : (
-                                <Icon
-                                  name="star"
-                                  size={18}
-                                  color={colors.black}
-                                />
+                                <Icon name="star" size={18} color="#0039A6" />
                               )}
                             <StartText>{starts}</StartText>
                           </StarView>

@@ -35,6 +35,19 @@ export const Input = styled.TextInput.attrs({
   elevation: 6;
 `;
 
+export const InputDifferent = styled.TextInput.attrs({
+  placeholderTextColor: '#000',
+})`
+  height: 45px;
+  background: #fff;
+  border-radius: 11px;
+  padding: 0 15px;
+  border: ${(props) => (props.check ? '2px solid #000' : '4px solid #ff0000')};
+  margin-top: 8px;
+  margin-bottom: 15px;
+  elevation: 6;
+`;
+
 export const FirstSelect = styled.View`
   flex-direction: row;
   justify-content: space-around;

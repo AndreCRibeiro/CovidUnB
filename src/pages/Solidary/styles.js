@@ -91,10 +91,15 @@ export const RowView = styled.View`
   align-items: center;
 `;
 
-export const StartText = styled.Text``;
+export const StartText = styled.Text`
+  color: #0039a6;
+  font-style: italic;
+  font-weight: bold;
+`;
 
 export const StarView = styled.View`
+  flex: 1;
   flex-direction: row;
   justify-content: flex-end;
-  flex: 1;
+  padding-right: 20px;
 `;

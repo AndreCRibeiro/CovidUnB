@@ -12,6 +12,7 @@ import {
   Container,
   Form,
   Input,
+  InputDifferent,
   Button,
   ButtonText,
   SimpleText,
@@ -52,9 +53,19 @@ export default class Signup extends Component {
     sistema: false,
     paciente: false,
     loading: false,
+    check: true,
   };
 
-  checkState = () => {};
+  checkPass = (confirmedText) => {
+    const { userPass } = this.state;
+    const userPassConfirm = confirmedText;
+
+    if (userPass === userPassConfirm) {
+      this.setState({ check: true });
+    } else {
+      this.setState({ check: false });
+    }
+  };
 
   handleSignUp = async () => {
     this.setState({ loading: true });
@@ -177,6 +188,7 @@ export default class Signup extends Component {
       asma,
       sistema,
       paciente,
+      check,
     } = this.state;
 
     return (
@@ -216,13 +228,17 @@ export default class Signup extends Component {
             value={userPass}
             onChangeText={(text) => this.setState({ userPass: text })}
           />
-          <Input
+          <InputDifferent
             autoCorrect={false}
             autoCapitalize="none"
             secureTextEntry
             placeholder="Confirmação de senha"
             value={userPassConfirmed}
-            onChangeText={(text) => this.setState({ userPassConfirmed: text })}
+            onChangeText={(text) => {
+              this.setState({ userPassConfirmed: text });
+              this.checkPass(text);
+            }}
+            check={check}
           />
           <Input
             autoCorrect={false}
@@ -242,6 +258,7 @@ export default class Signup extends Component {
           <Input
             autoCorrect={false}
             autoCapitalize="none"
+            keyboardType="numeric"
             placeholder="Matrícula UnB"
             value={matriculaUnb}
             onChangeText={(text) => this.setState({ matriculaUnb: text })}
@@ -328,8 +345,8 @@ export default class Signup extends Component {
             {loading ? (
               <ActivityIndicator color={colors.white} />
             ) : (
-              <ButtonText>Registrar</ButtonText>
-            )}
+                <ButtonText>Registrar</ButtonText>
+              )}
           </Button>
         </Form>
       </Container>
