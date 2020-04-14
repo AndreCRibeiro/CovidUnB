@@ -107,7 +107,6 @@ export default class Signup extends Component {
       );
     } catch (err) {
       this.setState({ loading: false });
-      console.tron.log(err);
       Alert.alert('Falha no cadastro', 'Verifique os dados informados');
     }
   };
