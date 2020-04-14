@@ -66,9 +66,6 @@ class Main extends Component {
     const checkedUserAsync = await AsyncStorage.getItem('userNameAsync');
     const checkedPassAsync = await AsyncStorage.getItem('userPassAsync');
 
-    console.tron.log('User', checkedUserAsync);
-    console.tron.log('Pass', checkedPassAsync);
-
     if (checkedAsync === 'true') {
       this.setState({
         checked: true,

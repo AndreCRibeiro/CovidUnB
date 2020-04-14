@@ -26,7 +26,6 @@ const reqAuth = async (set, params) => {
       error,
       worked: false,
     }));
-    console.tron.log(error);
   }
 };
 

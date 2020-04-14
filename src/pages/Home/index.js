@@ -116,8 +116,6 @@ class Home extends Component {
       },
     });
     AsyncStorage.setItem('checked', 'first');
-    const teste = await AsyncStorage.getItem('checked');
-    console.tron.log(teste);
     this.setState({ showAlert: true });
   };
 
@@ -130,8 +128,6 @@ class Home extends Component {
       },
     });
     AsyncStorage.setItem('checked', 'second');
-    const teste = await AsyncStorage.getItem('checked');
-    console.tron.log(teste);
   };
 
   hideAlert = () => {
