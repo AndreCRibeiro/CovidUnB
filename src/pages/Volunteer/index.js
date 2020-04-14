@@ -3,7 +3,9 @@
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
 import { ActivityIndicator, Alert } from 'react-native';
+import { TextInputMask } from 'react-native-masked-text';
 import { Picker } from '@react-native-community/picker';
+import AwesomeAlert from 'react-native-awesome-alerts';
 import PropTypes from 'prop-types';
 import api from '../../services/api';
 import useAuth from '../../store';
@@ -22,8 +24,8 @@ import {
 import { colors } from '../../styles';
 
 const withZustand = (Comp) => (props) => {
-  const { token, isSick } = useAuth();
-  return <Comp {...props} token={token} isSick={isSick} />;
+  const { token, isSick, userData } = useAuth();
+  return <Comp {...props} token={token} isSick={isSick} userData={userData} />;
 };
 
 class Volunteer extends Component {
@@ -47,11 +49,10 @@ class Volunteer extends Component {
   };
 
   handleSubmit = async () => {
+    const { userData } = this.props;
+
     this.setState({ loading: true });
     const {
-      userName,
-      userEmail,
-      whatsapp,
       userCPF,
       userNRP,
       uf,
@@ -62,9 +63,9 @@ class Volunteer extends Component {
     const { navigation, token } = this.props;
 
     const body = {
-      name: userName,
-      email: userEmail,
-      whatsapp,
+      name: userData.name,
+      email: userData.email,
+      whatsapp: userData.whatsapp,
       cpf: userCPF,
       professional_id: userNRP,
       uf,
@@ -113,33 +114,22 @@ class Volunteer extends Component {
           <SimpleText>Candidate-se como voluntário:</SimpleText>
         </CenterView>
         <Form>
-          <Input
-            autoCorrect={false}
-            autoCapitalize="none"
-            placeholder="Nome"
-            value={userName}
-            onChangeText={(text) => this.setState({ userName: text })}
-          />
-          <Input
-            autoCorrect={false}
-            autoCapitalize="none"
-            placeholder="Email"
-            value={userEmail}
-            onChangeText={(text) => this.setState({ userEmail: text })}
-          />
-          <Input
-            autoCorrect={false}
-            autoCapitalize="none"
-            keyboardType="numeric"
-            placeholder="Telefone"
-            value={whatsapp}
-            onChangeText={(text) => this.setState({ whatsapp: text })}
-          />
-          <Input
+          <TextInputMask
+            type="cpf"
+            style={{
+              height: 45,
+              borderRadius: 11,
+              padding: 13,
+              borderWidth: 2,
+              marginTop: 8,
+              marginBottom: 15,
+              elevation: 2,
+            }}
             autoCorrect={false}
             autoCapitalize="none"
             keyboardType="numeric"
             placeholder="CPF"
+            placeholderTextColor="#000"
             value={userCPF}
             onChangeText={(text) => this.setState({ userCPF: text })}
           />
