@@ -62,6 +62,8 @@ class Main extends Component {
   }
 
   async componentDidMount() {
+    const { fetchAuth } = this.props;
+
     const checkedAsync = await AsyncStorage.getItem('check');
     const checkedUserAsync = await AsyncStorage.getItem('userNameAsync');
     const checkedPassAsync = await AsyncStorage.getItem('userPassAsync');
@@ -72,6 +74,11 @@ class Main extends Component {
         userMail: JSON.parse(checkedUserAsync),
         userPass: JSON.parse(checkedPassAsync),
       });
+      const body = {
+        email: JSON.parse(checkedUserAsync),
+        password: JSON.parse(checkedPassAsync),
+      };
+      fetchAuth(body);
     } else {
       this.setState({ checked: false });
       await AsyncStorage.multiRemove('userNameAsync');
