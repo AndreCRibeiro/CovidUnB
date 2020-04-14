@@ -98,3 +98,21 @@ export const TextView = styled.View`
   justify-content: flex-start;
   height: 38px;
 `;
+
+export const LogoutView = styled.View`
+  align-self: flex-end;
+`;
+
+export const LogoutButton = styled(RectButton)`
+  height: 55px;
+  width: 55px;
+  background: #fff;
+  margin-right: 10px;
+  border-width: 3px;
+  border-radius: 35px;
+  border-color: #000;
+  justify-content: center;
+  align-items: center;
+  elevation: 12;
+  background: #0039a6;
+`;

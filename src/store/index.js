@@ -11,6 +11,7 @@ const reqAuth = async (set, params) => {
       loading: false,
       userData: response.data.user,
       token: response.data.token,
+      worked: response.data.token,
     }));
   } catch (error) {
     Alert.alert(
@@ -23,14 +24,16 @@ const reqAuth = async (set, params) => {
       userData: null,
       token: null,
       error,
+      worked: false,
     }));
   }
 };
 
 const [useAuth] = create((set) => ({
-  userData: null, // variavel reducer
-  token: null, // variavel reducer
+  userData: null,
+  token: null,
   error: null,
+  worked: false,
   loading: null,
   isSick: null,
   geolocation: [],

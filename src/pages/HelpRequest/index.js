@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
-import { Alert } from 'react-native';
+import AwesomeAlert from 'react-native-awesome-alerts';
 import CheckBox from '../../components/checkbox';
 
 import {
@@ -35,6 +35,7 @@ class HelpRequest extends Component {
       longitude: '',
       geolocation: [],
       allSymptoms: [],
+      showAlert: false,
     };
   }
 
@@ -105,17 +106,21 @@ class HelpRequest extends Component {
           Authorization: `Bearer ${token}`,
         },
       });
-      Alert.alert(
-        'Atenção',
-        'Fique em casa e com o celular próximo!',
-        [{ text: 'OK', onPress: () => navigation.navigate('Home') }],
-        { cancelable: false }
-      );
+      this.setState({ showAlert: true });
     } catch (err) { }
   };
 
+  hideAlert = () => {
+    const { navigation } = this.props;
+
+    this.setState({
+      showAlert: false,
+    });
+    navigation.navigate('Home');
+  };
+
   render() {
-    const { febre, tosse, faltaAr, cansaco, other } = this.state;
+    const { febre, tosse, faltaAr, cansaco, other, showAlert } = this.state;
 
     return (
       <Container>
@@ -150,6 +155,25 @@ class HelpRequest extends Component {
             onChangeText={(text) => this.setState({ other: text })}
           />
         </CheckBoxField>
+        <AwesomeAlert
+          show={showAlert}
+          showProgress={false}
+          title="Atenção!"
+          message="Fique em casa e com o celular próximo!"
+          closeOnTouchOutside
+          closeOnHardwareBackPress
+          showConfirmButton
+          confirmText="Entendido"
+          confirmButtonColor="#0039a6"
+          onConfirmPressed={() => {
+            this.hideAlert();
+          }}
+          alertContainerStyle={{
+            elevation: 25,
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+          }}
+          messageStyle={{ color: '#000' }}
+        />
         <ButtonArea
           onPress={() => {
             this.sendHelpRequest();
