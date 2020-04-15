@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, BackHandler } from 'react-native';
 import MapView from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import { ActivityIndicator } from 'react-native-paper';
@@ -21,7 +21,7 @@ export default class Map extends Component {
             longitudeDelta: 0.0134,
           },
         });
-      }, //sucesso
+      }, // sucesso
       () => {
         this.setState({
           mapAvaible: false,
@@ -39,7 +39,18 @@ export default class Map extends Component {
         maximumAge: 1000,
       }
     );
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
   }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  handleBackButton = () => {
+    const { navigation } = this.props;
+    navigation.navigate('Home');
+    return true;
+  };
 
   setLocation(coord) { }
 

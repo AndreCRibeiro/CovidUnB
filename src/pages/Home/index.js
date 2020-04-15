@@ -3,7 +3,7 @@
 /* eslint-disable react/static-property-placement */
 /* eslint-disable global-require */
 import React, { Component } from 'react';
-import { Modal } from 'react-native';
+import { Modal, BackHandler } from 'react-native';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-community/async-storage';
 import Geolocation from '@react-native-community/geolocation';
@@ -89,6 +89,8 @@ class Home extends Component {
       this.setState({ checked: 'second' });
     }
 
+    console.tron.log(this.props.route.params);
+
     await Geolocation.getCurrentPosition(
       ({ coords: { latitude, longitude } }) => {
         this.setState({
@@ -118,6 +120,11 @@ class Home extends Component {
         maximumAge: 1000,
       }
     );
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
   }
 
   handleYes = async () => {
@@ -193,6 +200,11 @@ class Home extends Component {
 
   closeModal = (param) => {
     this.setState({ modalLogout: param });
+  };
+
+  handleBackButton = () => {
+    this.setState({ modalLogout: true });
+    return true;
   };
 
   render() {

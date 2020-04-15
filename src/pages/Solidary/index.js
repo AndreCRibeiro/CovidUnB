@@ -8,6 +8,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Linking,
+  BackHandler,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Avatar, Card, Title, Paragraph } from 'react-native-paper';
@@ -58,8 +59,18 @@ class Solidary extends Component {
         Authorization: `Bearer ${token}`,
       },
     });
-
     this.setState({ data: response.data, loading: false });
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+  };
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  handleBackButton = () => {
+    const { navigation } = this.props;
+    navigation.navigate('Home');
+    return true;
   };
 
   sendwhatsapp = (profile) => {

@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
+import { BackHandler } from 'react-native';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import CheckBox from '../../components/checkbox';
 
@@ -51,7 +52,18 @@ class HelpRequest extends Component {
     if (this.props.route.params.region.longitude) {
       geolocation.push(isLongitude);
     }
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
   }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  handleBackButton = () => {
+    const { navigation } = this.props;
+    navigation.navigate('Home');
+    return true;
+  };
 
   handleCheck = (group) => {
     const { allSymptoms, febre, tosse, faltaAr, cansaco } = this.state;

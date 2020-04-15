@@ -2,7 +2,7 @@
 /* eslint-disable global-require */
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
-import { ActivityIndicator, Alert } from 'react-native';
+import { ActivityIndicator, Alert, BackHandler } from 'react-native';
 import { TextInputMask } from 'react-native-masked-text';
 import { Picker } from '@react-native-community/picker';
 import AwesomeAlert from 'react-native-awesome-alerts';
@@ -46,6 +46,20 @@ class Volunteer extends Component {
     administrativeRegion: '',
     activities: '',
     loading: false,
+  };
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  handleBackButton = () => {
+    const { navigation } = this.props;
+    navigation.navigate('Home');
+    return true;
   };
 
   handleSubmit = async () => {

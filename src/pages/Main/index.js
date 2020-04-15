@@ -55,13 +55,6 @@ class Main extends Component {
     modal: false,
   };
 
-  UNSAFE_componentWillReceiveProps(nextprops) {
-    const { token, navigation } = this.props;
-    if (token !== nextprops.token) {
-      navigation.navigate('Home');
-    }
-  }
-
   async componentDidMount() {
     const { fetchAuth } = this.props;
 
@@ -84,6 +77,16 @@ class Main extends Component {
       this.setState({ checked: false });
       await AsyncStorage.multiRemove('userNameAsync');
       await AsyncStorage.multiRemove('userPassAsync');
+    }
+  }
+
+  UNSAFE_componentWillReceiveProps(nextprops) {
+    const { token, navigation } = this.props;
+
+    const cameByLogin = true;
+
+    if (token !== nextprops.token) {
+      navigation.navigate('Home', { cameByLogin });
     }
   }
 
