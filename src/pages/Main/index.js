@@ -2,10 +2,13 @@
 /* eslint-disable global-require */
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
-import { ActivityIndicator, Alert } from 'react-native';
+import { ActivityIndicator, Alert, StatusBar, Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Lottie from 'lottie-react-native';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-community/async-storage';
+import Loading from '../../assets/animations/loading.json';
+import Grade from '../../assets/animations/grade.json';
 import useAuth from '../../store';
 
 import { colors } from '../../styles';
@@ -31,6 +34,8 @@ import {
   ForgotPassword,
   PasswordText,
   RememberText,
+  ModalContainerAnimationTop,
+  ModalContainerAnimation,
 } from './styles';
 
 const withZustand = (Comp) => (props) => {
@@ -52,7 +57,7 @@ class Main extends Component {
     userPass: null,
     showingPass: true,
     checked: null,
-    modal: false,
+    showAnimation: true,
   };
 
   async componentDidMount() {
@@ -133,77 +138,116 @@ class Main extends Component {
   };
 
   render() {
-    const { userMail, userPass, showingPass, checked } = this.state;
+    const {
+      userMail,
+      userPass,
+      showingPass,
+      checked,
+      showAnimation,
+    } = this.state;
     const { loading } = this.props;
 
     return (
-      <Container>
-        <Logo source={require('../../assets/images/logo.png')} />
-        <Form>
-          <Input
-            autoCorrect={false}
-            autoCapitalize="none"
-            placeholder="Email"
-            value={userMail}
-            onChangeText={(text) => this.setState({ userMail: text })}
-          />
-          <Teste>
+      <>
+        <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+        <Container>
+          {showAnimation ? (
+            <Modal animationType="fade" transparent visible={showAnimation}>
+              <ModalContainerAnimation />
+              <ModalContainerAnimation />
+              <ModalContainerAnimationTop>
+                <Lottie
+                  resizeMode="contain"
+                  source={Grade}
+                  autoPlay
+                  loop={false}
+                  onAnimationFinish={() =>
+                    this.setState({ showAnimation: false })
+                  }
+                />
+              </ModalContainerAnimationTop>
+              <ModalContainerAnimation>
+                <Lottie
+                  resizeMode="contain"
+                  source={Loading}
+                  autoPlay
+                  loop={false}
+                  onAnimationFinish={() =>
+                    this.setState({ showAnimation: false })
+                  }
+                />
+              </ModalContainerAnimation>
+              <ModalContainerAnimation />
+              <ModalContainerAnimation />
+            </Modal>
+          ) : null}
+          <Logo source={require('../../assets/images/logo.png')} />
+          <Form>
             <Input
               autoCorrect={false}
               autoCapitalize="none"
-              secureTextEntry={showingPass}
-              placeholder="Senha"
-              value={userPass}
-              onChangeText={(text) => this.setState({ userPass: text })}
-              returnKeyType="send"
-              onSubmitEditing={this.handleLogin}
+              placeholder="Email"
+              value={userMail}
+              onChangeText={(text) => this.setState({ userMail: text })}
             />
-            <HideNShowPassword onPress={this.showPass}>
-              {showingPass ? (
-                <Icon name="visibility" size={28} color={colors.black} />
+            <Teste>
+              <Input
+                autoCorrect={false}
+                autoCapitalize="none"
+                secureTextEntry={showingPass}
+                placeholder="Senha"
+                value={userPass}
+                onChangeText={(text) => this.setState({ userPass: text })}
+                returnKeyType="send"
+                onSubmitEditing={this.handleLogin}
+              />
+              <HideNShowPassword onPress={this.showPass}>
+                {showingPass ? (
+                  <Icon name="visibility" size={28} color={colors.black} />
+                ) : (
+                    <Eye source={require('../../assets/images/eye.png')} />
+                  )}
+              </HideNShowPassword>
+            </Teste>
+            <OptionsView>
+              <RememberButton
+                onPress={() => {
+                  this.setState({ checked: !checked });
+                }}
+              >
+                {checked ? (
+                  <Icon name="check-box" size={17} color={colors.black} />
+                ) : (
+                    <Icon
+                      name="check-box-outline-blank"
+                      size={17}
+                      color={colors.black}
+                    />
+                  )}
+                <RememberText>Lembrar-me</RememberText>
+              </RememberButton>
+              <ForgotPassword>
+                <PasswordText>Esqueceu sua senha?</PasswordText>
+              </ForgotPassword>
+            </OptionsView>
+            <ButtonLogin loading={loading} onPress={this.handleLogin}>
+              {loading ? (
+                <ActivityIndicator color={colors.white} />
               ) : (
-                  <Eye source={require('../../assets/images/eye.png')} />
+                  <LoginButtonText>Login</LoginButtonText>
                 )}
-            </HideNShowPassword>
-          </Teste>
-          <OptionsView>
-            <RememberButton
-              onPress={() => {
-                this.setState({ checked: !checked });
-              }}
-            >
-              {checked ? (
-                <Icon name="check-box" size={17} color={colors.black} />
-              ) : (
-                  <Icon
-                    name="check-box-outline-blank"
-                    size={17}
-                    color={colors.black}
-                  />
-                )}
-              <RememberText>Lembrar-me</RememberText>
-            </RememberButton>
-            <ForgotPassword>
-              <PasswordText>Esqueceu sua senha?</PasswordText>
-            </ForgotPassword>
-          </OptionsView>
-          <ButtonLogin loading={loading} onPress={this.handleLogin}>
-            {loading ? (
-              <ActivityIndicator color={colors.white} />
-            ) : (
-                <LoginButtonText>Login</LoginButtonText>
-              )}
-          </ButtonLogin>
-          <Slash>
-            <LineLeft />
-            <SimpleText>OU</SimpleText>
-            <LineRight />
-          </Slash>
-          <ButtonSingup onPress={this.handleNavigationToSignUp}>
-            <SignupButtonText>Registre-se</SignupButtonText>
-          </ButtonSingup>
-        </Form>
-      </Container>
+            </ButtonLogin>
+            <Slash>
+              <LineLeft />
+              <SimpleText>OU</SimpleText>
+              <LineRight />
+            </Slash>
+            <ButtonSingup onPress={this.handleNavigationToSignUp}>
+              <SignupButtonText>Registre-se</SignupButtonText>
+            </ButtonSingup>
+          </Form>
+        </Container>
+      </>
     );
   }
 }

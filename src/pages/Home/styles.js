@@ -110,7 +110,7 @@ export const LogoutButton = styled(RectButton)`
   margin-right: 10px;
   border-width: 3px;
   border-radius: 35px;
-  border-color: #000;
+  border-color: #fff;
   justify-content: center;
   align-items: center;
   elevation: 12;
@@ -123,8 +123,6 @@ export const ModalContainerAnimation = styled.View`
   align-items: center;
   background: #fff;
 `;
-export const ModalAnimation = styled.View``;
-export const ModalAnimationView = styled.View``;
 
 export const ModalContainer = styled.View`
   flex: 1;

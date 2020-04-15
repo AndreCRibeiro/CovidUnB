@@ -151,3 +151,13 @@ export const SignupButtonText = styled.Text`
   text-align: center;
   text-transform: uppercase;
 `;
+
+export const ModalContainerAnimationTop = styled.View`
+  flex: 1;
+  background: #fff;
+`;
+
+export const ModalContainerAnimation = styled.View`
+  flex: 1;
+  background: #fff;
+`;
