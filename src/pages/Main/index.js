@@ -166,17 +166,6 @@ class Main extends Component {
                   }
                 />
               </ModalContainerAnimationTop>
-              <ModalContainerAnimation>
-                <Lottie
-                  resizeMode="contain"
-                  source={Loading}
-                  autoPlay
-                  loop={false}
-                  onAnimationFinish={() =>
-                    this.setState({ showAnimation: false })
-                  }
-                />
-              </ModalContainerAnimation>
               <ModalContainerAnimation />
               <ModalContainerAnimation />
             </Modal>
