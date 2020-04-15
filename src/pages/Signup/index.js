@@ -13,7 +13,8 @@ import {
   Container,
   Form,
   Input,
-  InputDifferent,
+  InputPass,
+  InputConfirmedPass,
   Button,
   ButtonText,
   SimpleText,
@@ -22,6 +23,7 @@ import {
   CenterView,
   SecondCenterView,
   ThirdCenterView,
+  ErrorText,
 } from './styles';
 
 import { colors } from '../../styles';
@@ -55,6 +57,19 @@ export default class Signup extends Component {
     paciente: false,
     loading: false,
     check: true,
+    passLengthCheck: true,
+  };
+
+  checkPassLength = (text) => {
+    const checkUserPassLength = text.length;
+
+    console.tron.log(checkUserPassLength);
+
+    if (checkUserPassLength <= 5) {
+      this.setState({ passLengthCheck: false });
+    } else {
+      this.setState({ passLengthCheck: true });
+    }
   };
 
   checkPass = (confirmedText) => {
@@ -173,7 +188,6 @@ export default class Signup extends Component {
       docente,
       servidor,
       discente,
-      riskGroup,
       matriculaUnb,
       diabetes,
       hipertensao,
@@ -182,6 +196,7 @@ export default class Signup extends Component {
       sistema,
       paciente,
       check,
+      passLengthCheck,
     } = this.state;
 
     return (
@@ -224,16 +239,23 @@ export default class Signup extends Component {
             value={userTel}
             onChangeText={(text) => this.setState({ userTel: text })}
           />
-          <Input
+          <InputPass
             autoCorrect={false}
             caretHidden
             autoCapitalize="none"
             secureTextEntry
             placeholder="Senha"
             value={userPass}
-            onChangeText={(text) => this.setState({ userPass: text })}
+            onChangeText={(text) => {
+              this.setState({ userPass: text });
+              this.checkPassLength(text);
+            }}
+            passLengthCheck={passLengthCheck}
           />
-          <InputDifferent
+          {!passLengthCheck ? (
+            <ErrorText>A senha deve possuir no mínimo 6 caracteres</ErrorText>
+          ) : null}
+          <InputConfirmedPass
             autoCorrect={false}
             autoCapitalize="none"
             secureTextEntry
