@@ -3,13 +3,15 @@
 /* eslint-disable react/static-property-placement */
 /* eslint-disable global-require */
 import React, { Component } from 'react';
+import { Modal } from 'react-native';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-community/async-storage';
 import Geolocation from '@react-native-community/geolocation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AwesomeAlert from 'react-native-awesome-alerts';
-
+import Lottie from 'lottie-react-native';
 import { RadioButton } from 'react-native-paper';
+import leave from '../../assets/animations/leave.json';
 import useAuth from '../../store';
 import { colors } from '../../styles';
 
@@ -32,6 +34,15 @@ import {
   RadioText,
   LogoutView,
   LogoutButton,
+  ModalContainer,
+  ModalView,
+  RowView,
+  ModalText,
+  ModalButtonSair,
+  ModalButtonCancel,
+  ModalButtonText,
+  ModalButtonTextSair,
+  ModalViewAnimation,
 } from './styles';
 import api from '../../services/api';
 
@@ -65,6 +76,8 @@ class Home extends Component {
       longitudeDelta: 0.0134,
     },
     showAlert: false,
+    modalLogout: false,
+    modalchecked: false,
   };
 
   async componentDidMount() {
@@ -175,16 +188,49 @@ class Home extends Component {
 
   handleLogout = () => {
     const { navigation } = this.props;
-
     navigation.navigate('Main');
   };
 
+  closeModal = (param) => {
+    this.setState({ modalLogout: param });
+  };
+
   render() {
-    const { checked, showAlert } = this.state;
+    const { checked, showAlert, modalLogout, modalchecked } = this.state;
     const { userData } = this.props;
 
     return (
       <Container>
+        <Modal
+          animationType="fade"
+          transparent
+          visible={modalLogout}
+          onRequestClose={() => this.setState({ modalLogout: false })}
+        >
+          <ModalContainer>
+            <ModalView>
+              <ModalText>Deseja realmente sair?</ModalText>
+              <RowView>
+                <ModalButtonCancel
+                  onPress={() => this.setState({ modalLogout: false })}
+                >
+                  <ModalButtonText>Cancelar</ModalButtonText>
+                </ModalButtonCancel>
+                <ModalButtonSair
+                  onPress={() => {
+                    this.setState({ modalLogout: false });
+                    this.handleLogout();
+                  }}
+                >
+                  <ModalButtonTextSair>Sair</ModalButtonTextSair>
+                </ModalButtonSair>
+              </RowView>
+              <ModalViewAnimation>
+                <Lottie resizeMode="contain" source={leave} autoPlay loop />
+              </ModalViewAnimation>
+            </ModalView>
+          </ModalContainer>
+        </Modal>
         <SelectionView>
           <TextView>
             <QuestionText>
@@ -270,7 +316,7 @@ class Home extends Component {
           </Card>
         </BottomCards>
         <LogoutView>
-          <LogoutButton onPress={() => this.handleLogout()}>
+          <LogoutButton onPress={() => this.setState({ modalLogout: true })}>
             <Icon name="exit-to-app" size={33} color={colors.white} />
           </LogoutButton>
         </LogoutView>

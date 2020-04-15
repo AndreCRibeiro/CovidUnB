@@ -52,6 +52,7 @@ class Main extends Component {
     userPass: null,
     showingPass: true,
     checked: null,
+    modal: false,
   };
 
   UNSAFE_componentWillReceiveProps(nextprops) {
