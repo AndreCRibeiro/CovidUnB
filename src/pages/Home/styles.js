@@ -117,6 +117,15 @@ export const LogoutButton = styled(RectButton)`
   background: #0039a6;
 `;
 
+export const ModalContainerAnimation = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+`;
+export const ModalAnimation = styled.View``;
+export const ModalAnimationView = styled.View``;
+
 export const ModalContainer = styled.View`
   flex: 1;
   justify-content: center;

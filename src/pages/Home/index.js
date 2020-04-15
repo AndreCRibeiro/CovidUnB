@@ -12,6 +12,7 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 import Lottie from 'lottie-react-native';
 import { RadioButton } from 'react-native-paper';
 import leave from '../../assets/animations/leave.json';
+import stay from '../../assets/animations/stay.json';
 import useAuth from '../../store';
 import { colors } from '../../styles';
 
@@ -34,6 +35,9 @@ import {
   RadioText,
   LogoutView,
   LogoutButton,
+  ModalContainerAnimation,
+  ModalAnimation,
+  ModalAnimationView,
   ModalContainer,
   ModalView,
   RowView,
@@ -78,9 +82,12 @@ class Home extends Component {
     showAlert: false,
     modalLogout: false,
     modalchecked: false,
+    showAnimation: true,
   };
 
   async componentDidMount() {
+    const { showAnimation } = this.state;
+
     const checkedAsync = await AsyncStorage.getItem('checked');
 
     if (checkedAsync) {
@@ -89,7 +96,13 @@ class Home extends Component {
       this.setState({ checked: 'second' });
     }
 
-    console.tron.log(this.props.route.params);
+    /* const showAnimationFromLogin = this.props.route.params.cameByLogin;
+
+    if (this.props.route.params.cameByLogin) {
+      showAnimation.push(showAnimationFromLogin);
+    } */
+
+    console.tron.log(showAnimation);
 
     await Geolocation.getCurrentPosition(
       ({ coords: { latitude, longitude } }) => {
@@ -208,11 +221,39 @@ class Home extends Component {
   };
 
   render() {
-    const { checked, showAlert, modalLogout, modalchecked } = this.state;
+    const {
+      checked,
+      showAlert,
+      modalLogout,
+      modalchecked,
+      showAnimation,
+    } = this.state;
     const { userData } = this.props;
+
+    console.tron.log(showAnimation);
 
     return (
       <Container>
+        {showAnimation ? (
+          <Modal
+            animationType="fade"
+            transparent
+            visible={showAnimation}
+            onRequestClose={() => this.setState({ modalLogout: false })}
+          >
+            <ModalContainerAnimation>
+              <Lottie
+                resizeMode="contain"
+                source={stay}
+                autoPlay
+                loop={false}
+                onAnimationFinish={() =>
+                  this.setState({ showAnimation: false })
+                }
+              />
+            </ModalContainerAnimation>
+          </Modal>
+        ) : null}
         <Modal
           animationType="fade"
           transparent
