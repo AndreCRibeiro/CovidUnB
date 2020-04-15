@@ -8,11 +8,15 @@ import {
   ScrollView,
   TouchableOpacity,
   Linking,
+  BackHandler,
+  Text,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Avatar, Card, Title, Paragraph } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+// import { Avatar, Card, Title, Paragraph } from 'react-native-paper';
+import Lottie from 'lottie-react-native';
 import { Picker } from '@react-native-community/picker';
 import PropTypes from 'prop-types';
+import Loading from '../../assets/animations/loadingVolunteers.json';
 import useAuth from '../../store';
 
 import {
@@ -23,7 +27,15 @@ import {
   PickerView,
   ProfileList,
   SimpleText,
-  RowView,
+  CardContainer,
+  CardContentTop,
+  CardContentBottom,
+  Avatar,
+  Name,
+  Number,
+  RA,
+  ActivitiesTitle,
+  ActivitiesText,
   StartText,
   StarView,
 } from './styles';
@@ -58,8 +70,18 @@ class Solidary extends Component {
         Authorization: `Bearer ${token}`,
       },
     });
-
     this.setState({ data: response.data, loading: false });
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+  };
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  handleBackButton = () => {
+    const { navigation } = this.props;
+    navigation.navigate('Home');
+    return true;
   };
 
   sendwhatsapp = (profile) => {
@@ -95,6 +117,10 @@ class Solidary extends Component {
     );
 
     const starts = 4.5;
+
+    // const profileTeste = JSON.parse(data.activities);
+
+    console.tron.log(data);
 
     return (
       <Container>
@@ -154,52 +180,40 @@ class Solidary extends Component {
               )}
           </ButtonVolunteer>
         </Form>
-
+        {loading ? (
+          <Lottie resizeMode="contain" source={Loading} autoPlay loop />
+        ) : null}
         {data ? (
           <ProfileList>
             <ScrollView showsVerticalScrollIndicator={false}>
               {data.map((profile) =>
                 !profile.is_sick ? (
-                  <TouchableOpacity onPress={(profile) => this.sendwhatsapp}>
-                    <Card
-                      key={profile.id}
-                      elevation={10}
-                      style={{
-                        backgroundColor: '#C8CFD5',
-                        margin: 10,
-                        borderRadius: 20,
-                        borderColor: '#000',
-                      }}
-                    >
-                      <Card.Title
-                        title={`${profile.name}, ${profile.whatsapp}`}
-                        subtitle={profile.administrative_region}
-                        left={LeftContent}
-                        style={{
-                          backgroundColor: '#fff',
-                          borderRadius: 15,
-                        }}
+                  <CardContainer onPress={(profile) => this.sendwhatsapp}>
+                    <StarView>
+                      {starts <= 4.4 ? (
+                        <>
+                          <Icon name="star" size={16} color="#fff" />
+                          <Icon name="star" size={16} color="#fff" />
+                          <Icon name="star" size={16} color="#fff" />
+                        </>
+                      ) : (
+                          <Icon name="star" size={18} color="#fff" />
+                        )}
+                      <StartText>{starts}</StartText>
+                    </StarView>
+                    <CardContentTop>
+                      <Avatar
+                        source={require('../../assets/images/volunteer.png')}
                       />
-                      <Card.Content>
-                        <RowView>
-                          <Title>Atividades</Title>
-                          <StarView>
-                            {starts <= 4.4 ? (
-                              <>
-                                <Icon name="star" size={16} color="#0039A6" />
-                                <Icon name="star" size={16} color="#0039A6" />
-                                <Icon name="star" size={16} color="#0039A6" />
-                              </>
-                            ) : (
-                                <Icon name="star" size={18} color="#0039A6" />
-                              )}
-                            <StartText>{starts}</StartText>
-                          </StarView>
-                        </RowView>
-                        <Paragraph>{profile.activities}</Paragraph>
-                      </Card.Content>
-                    </Card>
-                  </TouchableOpacity>
+                      <Name>{`${profile.name}, `}</Name>
+                      <Number>{profile.whatsapp}</Number>
+                    </CardContentTop>
+                    <ActivitiesTitle>Posso ajudar em</ActivitiesTitle>
+                    <CardContentBottom>
+                      <ActivitiesText>{profile.activities}</ActivitiesText>
+                    </CardContentBottom>
+                    <RA>{profile.administrative_region}</RA>
+                  </CardContainer>
                 ) : null
               )}
             </ScrollView>

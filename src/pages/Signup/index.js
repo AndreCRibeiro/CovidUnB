@@ -2,7 +2,7 @@
 /* eslint-disable global-require */
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
-import { ActivityIndicator, Alert } from 'react-native';
+import { ActivityIndicator, Alert, StatusBar } from 'react-native';
 import { TextInputMask } from 'react-native-masked-text';
 import PropTypes from 'prop-types';
 import CheckBox from '../../components/checkbox';
@@ -13,7 +13,8 @@ import {
   Container,
   Form,
   Input,
-  InputDifferent,
+  InputPass,
+  InputConfirmedPass,
   Button,
   ButtonText,
   SimpleText,
@@ -22,6 +23,7 @@ import {
   CenterView,
   SecondCenterView,
   ThirdCenterView,
+  ErrorText,
 } from './styles';
 
 import { colors } from '../../styles';
@@ -55,6 +57,16 @@ export default class Signup extends Component {
     paciente: false,
     loading: false,
     check: true,
+    passLengthCheck: true,
+  };
+
+  checkPassLength = (text) => {
+    const checkUserPassLength = text.length;
+    if (checkUserPassLength <= 5) {
+      this.setState({ passLengthCheck: false });
+    } else {
+      this.setState({ passLengthCheck: true });
+    }
   };
 
   checkPass = (confirmedText) => {
@@ -173,7 +185,6 @@ export default class Signup extends Component {
       docente,
       servidor,
       discente,
-      riskGroup,
       matriculaUnb,
       diabetes,
       hipertensao,
@@ -182,191 +193,202 @@ export default class Signup extends Component {
       sistema,
       paciente,
       check,
+      passLengthCheck,
     } = this.state;
 
     return (
-      <Container>
-        <Form>
-          <CenterView>
-            <SimpleText>CRIE SUA CONTA</SimpleText>
-          </CenterView>
-          <Input
-            autoCorrect={false}
-            autoCapitalize="none"
-            placeholder="Nome"
-            value={userName}
-            onChangeText={(text) => this.setState({ userName: text })}
-          />
-          <Input
-            autoCorrect={false}
-            autoCapitalize="none"
-            keyboardType="email-address"
-            placeholder="Email"
-            value={userMail}
-            onChangeText={(text) => this.setState({ userMail: text })}
-          />
-          <TextInputMask
-            type="cel-phone"
-            style={{
-              height: 45,
-              borderRadius: 11,
-              padding: 13,
-              borderWidth: 2,
-              marginTop: 8,
-              marginBottom: 15,
-              elevation: 2,
-            }}
-            autoCorrect={false}
-            autoCapitalize="none"
-            keyboardType="numeric"
-            placeholder="Telefone"
-            placeholderTextColor="#000"
-            value={userTel}
-            onChangeText={(text) => this.setState({ userTel: text })}
-          />
-          <Input
-            autoCorrect={false}
-            caretHidden
-            autoCapitalize="none"
-            secureTextEntry
-            placeholder="Senha"
-            value={userPass}
-            onChangeText={(text) => this.setState({ userPass: text })}
-          />
-          <InputDifferent
-            autoCorrect={false}
-            autoCapitalize="none"
-            secureTextEntry
-            placeholder="Confirmação de senha"
-            value={userPassConfirmed}
-            onChangeText={(text) => {
-              this.setState({ userPassConfirmed: text });
-              this.checkPass(text);
-            }}
-            check={check}
-          />
-          <Input
-            autoCorrect={false}
-            autoCapitalize="none"
-            placeholder="Endereço"
-            value={userAddress}
-            onChangeText={(text) => this.setState({ userAddress: text })}
-          />
-          <TextInputMask
-            type="datetime"
-            options={{ format: 'DD/MM/YYYY' }}
-            style={{
-              height: 45,
-              borderRadius: 11,
-              padding: 13,
-              borderWidth: 2,
-              marginTop: 8,
-              marginBottom: 15,
-              elevation: 2,
-            }}
-            autoCorrect={false}
-            autoCapitalize="none"
-            placeholder="Data de nascimento"
-            placeholderTextColor="#000"
-            value={userBirth}
-            onChangeText={(text) => this.setState({ userBirth: text })}
-          />
+      <>
+        <StatusBar barStyle="light-content" backgroundColor="#0039A6" />
+        <Container>
+          <Form>
+            <CenterView>
+              <SimpleText>CRIE SUA CONTA</SimpleText>
+            </CenterView>
+            <Input
+              autoCorrect={false}
+              autoCapitalize="none"
+              placeholder="Nome"
+              value={userName}
+              onChangeText={(text) => this.setState({ userName: text })}
+            />
+            <Input
+              autoCorrect={false}
+              autoCapitalize="none"
+              keyboardType="email-address"
+              placeholder="Email"
+              value={userMail}
+              onChangeText={(text) => this.setState({ userMail: text })}
+            />
+            <TextInputMask
+              type="cel-phone"
+              style={{
+                height: 45,
+                borderRadius: 11,
+                padding: 13,
+                borderWidth: 2,
+                marginTop: 8,
+                marginBottom: 15,
+                elevation: 2,
+              }}
+              autoCorrect={false}
+              autoCapitalize="none"
+              keyboardType="numeric"
+              placeholder="Telefone"
+              placeholderTextColor="#000"
+              value={userTel}
+              onChangeText={(text) => this.setState({ userTel: text })}
+            />
+            <InputPass
+              autoCorrect={false}
+              caretHidden
+              autoCapitalize="none"
+              secureTextEntry
+              placeholder="Senha"
+              value={userPass}
+              onChangeText={(text) => {
+                this.setState({ userPass: text });
+                this.checkPassLength(text);
+              }}
+              passLengthCheck={passLengthCheck}
+            />
+            {!passLengthCheck ? (
+              <ErrorText>A senha deve possuir no mínimo 6 caracteres</ErrorText>
+            ) : null}
+            <InputConfirmedPass
+              autoCorrect={false}
+              autoCapitalize="none"
+              secureTextEntry
+              placeholder="Confirmação de senha"
+              value={userPassConfirmed}
+              onChangeText={(text) => {
+                this.setState({ userPassConfirmed: text });
+                this.checkPass(text);
+              }}
+              check={check}
+            />
+            <Input
+              autoCorrect={false}
+              autoCapitalize="none"
+              placeholder="Endereço"
+              value={userAddress}
+              onChangeText={(text) => this.setState({ userAddress: text })}
+            />
+            <TextInputMask
+              type="datetime"
+              options={{ format: 'DD/MM/YYYY' }}
+              style={{
+                height: 45,
+                borderRadius: 11,
+                padding: 13,
+                borderWidth: 2,
+                marginTop: 8,
+                marginBottom: 15,
+                elevation: 2,
+              }}
+              autoCorrect={false}
+              autoCapitalize="none"
+              placeholder="Data de nascimento"
+              placeholderTextColor="#000"
+              value={userBirth}
+              onChangeText={(text) => this.setState({ userBirth: text })}
+            />
 
-          <Input
-            autoCorrect={false}
-            autoCapitalize="none"
-            keyboardType="numeric"
-            placeholder="Matrícula UnB"
-            value={matriculaUnb}
-            onChangeText={(text) => this.setState({ matriculaUnb: text })}
-          />
-          <SecondCenterView>
-            <SimpleText>QUAL SEU VÍNCULO COM A UNB?</SimpleText>
-          </SecondCenterView>
-          <FirstSelect>
-            <CheckBoxBall
-              selected={docente}
-              onPress={() =>
-                this.setState({
-                  docente: !docente,
-                  servidor: false,
-                  discente: false,
-                  linkUnb: 'Docente',
-                })
-              }
-              text="Docente"
+            <Input
+              autoCorrect={false}
+              autoCapitalize="none"
+              keyboardType="numeric"
+              placeholder="Matrícula UnB"
+              value={matriculaUnb}
+              onChangeText={(text) => this.setState({ matriculaUnb: text })}
             />
-            <CheckBoxBall
-              selected={servidor}
-              onPress={() =>
-                this.setState({
-                  docente: false,
-                  servidor: !servidor,
-                  discente: false,
-                  linkUnb: 'Servidor',
-                })
-              }
-              text="Servidor(a)"
-            />
-            <CheckBoxBall
-              selected={discente}
-              onPress={() =>
-                this.setState({
-                  docente: false,
-                  servidor: false,
-                  discente: !discente,
-                  linkUnb: 'Discente',
-                })
-              }
-              text="Discente"
-            />
-          </FirstSelect>
-          <ThirdCenterView>
-            <SimpleText>GRUPO DE RISCO?</SimpleText>
-          </ThirdCenterView>
-          <SecondSelect>
-            <CheckBox
-              selected={diabetes}
-              onPress={() => this.handleCheck('Diabetes')}
-              text="Diabetes"
-            />
-            <CheckBox
-              selected={hipertensao}
-              onPress={() => this.handleCheck('Hipertensão')}
-              text="Hipertensão"
-            />
-            <CheckBox
-              selected={bronquite}
-              onPress={() => this.handleCheck('Bronquite')}
-              text="Bronquite"
-            />
-            <CheckBox
-              selected={asma}
-              onPress={() => this.handleCheck('Asma')}
-              text="Asma"
-            />
-            <CheckBox
-              selected={sistema}
-              onPress={() =>
-                this.handleCheck('Sistema Imunológico Enfraquecido')
-              }
-              text="Sistema Imunológico Enfraquecido"
-            />
-            <CheckBox
-              selected={paciente}
-              onPress={() => this.handleCheck('Paciente Oncológico')}
-              text="Paciente Oncológico"
-            />
-          </SecondSelect>
-          <Button loading={loading} onPress={this.handleSignUp}>
-            {loading ? (
-              <ActivityIndicator color={colors.white} />
-            ) : (
-                <ButtonText>Registrar</ButtonText>
-              )}
-          </Button>
-        </Form>
-      </Container>
+            <SecondCenterView>
+              <SimpleText>QUAL SEU VÍNCULO COM A UNB?</SimpleText>
+            </SecondCenterView>
+            <FirstSelect>
+              <CheckBoxBall
+                selected={docente}
+                onPress={() =>
+                  this.setState({
+                    docente: !docente,
+                    servidor: false,
+                    discente: false,
+                    linkUnb: 'Docente',
+                  })
+                }
+                text="Docente"
+              />
+              <CheckBoxBall
+                selected={servidor}
+                onPress={() =>
+                  this.setState({
+                    docente: false,
+                    servidor: !servidor,
+                    discente: false,
+                    linkUnb: 'Servidor',
+                  })
+                }
+                text="Servidor(a)"
+              />
+              <CheckBoxBall
+                selected={discente}
+                onPress={() =>
+                  this.setState({
+                    docente: false,
+                    servidor: false,
+                    discente: !discente,
+                    linkUnb: 'Discente',
+                  })
+                }
+                text="Discente"
+              />
+            </FirstSelect>
+            <ThirdCenterView>
+              <SimpleText>GRUPO DE RISCO?</SimpleText>
+            </ThirdCenterView>
+            <SecondSelect>
+              <CheckBox
+                selected={diabetes}
+                onPress={() => this.handleCheck('Diabetes')}
+                text="Diabetes"
+              />
+              <CheckBox
+                selected={hipertensao}
+                onPress={() => this.handleCheck('Hipertensão')}
+                text="Hipertensão"
+              />
+              <CheckBox
+                selected={bronquite}
+                onPress={() => this.handleCheck('Bronquite')}
+                text="Bronquite"
+              />
+              <CheckBox
+                selected={asma}
+                onPress={() => this.handleCheck('Asma')}
+                text="Asma"
+              />
+              <CheckBox
+                selected={sistema}
+                onPress={() =>
+                  this.handleCheck('Sistema Imunológico Enfraquecido')
+                }
+                text="Sistema Imunológico Enfraquecido"
+              />
+              <CheckBox
+                selected={paciente}
+                onPress={() => this.handleCheck('Paciente Oncológico')}
+                text="Paciente Oncológico"
+              />
+            </SecondSelect>
+            <Button loading={loading} onPress={this.handleSignUp}>
+              {loading ? (
+                <ActivityIndicator color={colors.white} />
+              ) : (
+                  <ButtonText>Registrar</ButtonText>
+                )}
+            </Button>
+          </Form>
+        </Container>
+      </>
     );
   }
 }

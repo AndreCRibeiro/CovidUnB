@@ -55,6 +55,7 @@ export const HideNShowPassword = styled.TouchableOpacity`
 
 export const Eye = styled.Image`
   width: 28px;
+  margin-bottom: 3px;
 `;
 
 export const OptionsView = styled.View`
@@ -150,4 +151,14 @@ export const SignupButtonText = styled.Text`
   font-weight: bold;
   text-align: center;
   text-transform: uppercase;
+`;
+
+export const ModalContainerAnimationTop = styled.View`
+  flex: 1;
+  background: #fff;
+`;
+
+export const ModalContainerAnimation = styled.View`
+  flex: 1;
+  background: #fff;
 `;

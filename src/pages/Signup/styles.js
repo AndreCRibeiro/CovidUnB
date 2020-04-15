@@ -22,6 +22,14 @@ export const SimpleText = styled.Text`
   font-weight: bold;
 `;
 
+export const ErrorText = styled.Text`
+  font-size: 10px;
+  padding-bottom: 8px;
+  padding-left: 15px;
+  font-weight: bold;
+  color: #ff0000;
+`;
+
 export const Input = styled.TextInput.attrs({
   placeholderTextColor: '#000',
 })`
@@ -35,14 +43,28 @@ export const Input = styled.TextInput.attrs({
   elevation: 6;
 `;
 
-export const InputDifferent = styled.TextInput.attrs({
+export const InputPass = styled.TextInput.attrs({
   placeholderTextColor: '#000',
 })`
   height: 45px;
   background: #fff;
   border-radius: 11px;
   padding: 0 15px;
-  border: ${(props) => (props.check ? '2px solid #000' : '4px solid #ff0000')};
+  border: ${(props) =>
+    props.passLengthCheck ? '2px solid #000' : '2px solid #ff0000'};
+  margin-top: 8px;
+  margin-bottom: ${(props) => (props.passLengthCheck ? '15px' : '5px')};
+  elevation: 6;
+`;
+
+export const InputConfirmedPass = styled.TextInput.attrs({
+  placeholderTextColor: '#000',
+})`
+  height: 45px;
+  background: #fff;
+  border-radius: 11px;
+  padding: 0 15px;
+  border: ${(props) => (props.check ? '2px solid #000' : '2px solid #ff0000')};
   margin-top: 8px;
   margin-bottom: 15px;
   elevation: 6;

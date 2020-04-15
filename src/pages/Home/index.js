@@ -3,13 +3,16 @@
 /* eslint-disable react/static-property-placement */
 /* eslint-disable global-require */
 import React, { Component } from 'react';
+import { Modal, BackHandler, StatusBar } from 'react-native';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-community/async-storage';
 import Geolocation from '@react-native-community/geolocation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AwesomeAlert from 'react-native-awesome-alerts';
-
+import Lottie from 'lottie-react-native';
 import { RadioButton } from 'react-native-paper';
+import leave from '../../assets/animations/leave.json';
+import stay from '../../assets/animations/stay.json';
 import useAuth from '../../store';
 import { colors } from '../../styles';
 
@@ -32,6 +35,16 @@ import {
   RadioText,
   LogoutView,
   LogoutButton,
+  ModalContainerAnimation,
+  ModalContainer,
+  ModalView,
+  RowView,
+  ModalText,
+  ModalButtonSair,
+  ModalButtonCancel,
+  ModalButtonText,
+  ModalButtonTextSair,
+  ModalViewAnimation,
 } from './styles';
 import api from '../../services/api';
 
@@ -65,6 +78,9 @@ class Home extends Component {
       longitudeDelta: 0.0134,
     },
     showAlert: false,
+    modalLogout: false,
+    modalchecked: false,
+    showAnimation: true,
   };
 
   async componentDidMount() {
@@ -105,6 +121,11 @@ class Home extends Component {
         maximumAge: 1000,
       }
     );
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
   }
 
   handleYes = async () => {
@@ -175,106 +196,168 @@ class Home extends Component {
 
   handleLogout = () => {
     const { navigation } = this.props;
-
     navigation.navigate('Main');
   };
 
+  handleBackButton = () => {
+    this.setState({ modalLogout: true });
+    return true;
+  };
+
   render() {
-    const { checked, showAlert } = this.state;
+    const {
+      checked,
+      showAlert,
+      modalLogout,
+      modalchecked,
+      showAnimation,
+    } = this.state;
     const { userData } = this.props;
 
     return (
-      <Container>
-        <SelectionView>
-          <TextView>
-            <QuestionText>
-              Bem-vindo, {userData ? userData.name : 'Usuário'} !
-            </QuestionText>
-          </TextView>
-          <QuestionText>Está com sintomas de Covid-19?</QuestionText>
-          <ViewButtons>
-            <ViewButtonYes>
-              <RadioButton
-                value="first"
-                place
-                status={checked === 'first' ? 'checked' : 'unchecked'}
-                onPress={() => {
-                  this.setState({ checked: 'first' });
-                  this.handleYes();
-                }}
-                color={colors.headerBlue}
+      <>
+        <StatusBar barStyle="light-content" backgroundColor="#0039A6" />
+        <Container>
+          {showAnimation ? (
+            <Modal animationType="fade" transparent visible={showAnimation}>
+              <ModalContainerAnimation>
+                <Lottie
+                  resizeMode="contain"
+                  source={stay}
+                  autoPlay
+                  loop={false}
+                  onAnimationFinish={() =>
+                    this.setState({ showAnimation: false })
+                  }
+                />
+              </ModalContainerAnimation>
+            </Modal>
+          ) : null}
+          <Modal
+            animationType="fade"
+            transparent
+            visible={modalLogout}
+            onRequestClose={() => this.setState({ modalLogout: false })}
+          >
+            <ModalContainer>
+              <ModalView>
+                <ModalText>Deseja realmente sair?</ModalText>
+                <RowView>
+                  <ModalButtonCancel
+                    onPress={() => this.setState({ modalLogout: false })}
+                  >
+                    <ModalButtonText>Cancelar</ModalButtonText>
+                  </ModalButtonCancel>
+                  <ModalButtonSair
+                    onPress={() => {
+                      this.setState({ modalLogout: false });
+                      this.handleLogout();
+                    }}
+                  >
+                    <ModalButtonTextSair>Sair</ModalButtonTextSair>
+                  </ModalButtonSair>
+                </RowView>
+                <ModalViewAnimation>
+                  <Lottie resizeMode="contain" source={leave} autoPlay loop />
+                </ModalViewAnimation>
+              </ModalView>
+            </ModalContainer>
+          </Modal>
+          <SelectionView>
+            <TextView>
+              <QuestionText>
+                Bem-vindo, {userData ? userData.name : 'Usuário'} !
+              </QuestionText>
+            </TextView>
+            <QuestionText>Está com sintomas de Covid-19?</QuestionText>
+            <ViewButtons>
+              <ViewButtonYes>
+                <RadioButton
+                  value="first"
+                  place
+                  status={checked === 'first' ? 'checked' : 'unchecked'}
+                  onPress={() => {
+                    this.setState({ checked: 'first' });
+                    this.handleYes();
+                  }}
+                  color={colors.headerBlue}
+                />
+                <RadioText>Sim, estou com sintomas.</RadioText>
+              </ViewButtonYes>
+              <ViewButtonNo>
+                <RadioButton
+                  value="second"
+                  status={checked === 'second' ? 'checked' : 'unchecked'}
+                  onPress={() => {
+                    this.setState({ checked: 'second' });
+                    this.handleNo();
+                  }}
+                  color={colors.headerBlue}
+                />
+                <RadioText>Não, estou bem.</RadioText>
+              </ViewButtonNo>
+            </ViewButtons>
+          </SelectionView>
+          <AwesomeAlert
+            show={showAlert}
+            showProgress={false}
+            message="Desejamos-lhe uma boa recuperação!"
+            useNativeDriver
+            closeOnTouchOutside
+            closeOnHardwareBackPress
+            showConfirmButton
+            confirmText="Entendido"
+            confirmButtonColor="#0039a6"
+            onConfirmPressed={() => {
+              this.hideAlert();
+            }}
+            alertContainerStyle={{
+              elevation: 20,
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            }}
+            messageStyle={{ color: '#000' }}
+          />
+          <TopCards>
+            <Card onPress={() => this.handleNavigateToLocal()}>
+              <Image source={require('../../assets/images/destination.png')} />
+              <Text>Localização</Text>
+            </Card>
+            <Card onPress={() => this.handleNavigateToVolunteer()}>
+              <MediumImage
+                source={require('../../assets/images/charity.png')}
               />
-              <RadioText>Sim, estou com sintomas.</RadioText>
-            </ViewButtonYes>
-            <ViewButtonNo>
-              <RadioButton
-                value="second"
-                status={checked === 'second' ? 'checked' : 'unchecked'}
-                onPress={() => {
-                  this.setState({ checked: 'second' });
-                  this.handleNo();
-                }}
-                color={colors.headerBlue}
+              <Text>Voluntarie-se</Text>
+            </Card>
+          </TopCards>
+          <MiddleCards>
+            <Card onPress={() => this.handleNavigateToQuestions()}>
+              <MediumImage
+                source={require('../../assets/images/question.png')}
               />
-              <RadioText>Não, estou bem.</RadioText>
-            </ViewButtonNo>
-          </ViewButtons>
-        </SelectionView>
-        <AwesomeAlert
-          show={showAlert}
-          showProgress={false}
-          message="Desejamos-lhe uma boa recuperação!"
-          useNativeDriver
-          closeOnTouchOutside
-          closeOnHardwareBackPress
-          showConfirmButton
-          confirmText="Entendido"
-          confirmButtonColor="#0039a6"
-          onConfirmPressed={() => {
-            this.hideAlert();
-          }}
-          alertContainerStyle={{
-            elevation: 20,
-            backgroundColor: 'rgba(255, 255, 255, 0.1)',
-          }}
-          messageStyle={{ color: '#000' }}
-        />
-        <TopCards>
-          <Card onPress={() => this.handleNavigateToLocal()}>
-            <Image source={require('../../assets/images/destination.png')} />
-            <Text>Localização</Text>
-          </Card>
-          <Card onPress={() => this.handleNavigateToVolunteer()}>
-            <MediumImage source={require('../../assets/images/charity.png')} />
-            <Text>Voluntarie-se</Text>
-          </Card>
-        </TopCards>
-        <MiddleCards>
-          <Card onPress={() => this.handleNavigateToQuestions()}>
-            <MediumImage source={require('../../assets/images/question.png')} />
-            <Text>Dúvidas</Text>
-          </Card>
-          <Card onPress={() => this.handleNavigateToSolidary()}>
-            <LargeImage source={require('../../assets/images/phone.png')} />
-            <Text>Ajuda solidária</Text>
-          </Card>
-        </MiddleCards>
-        <BottomCards>
-          <Card onPress={() => this.handleNavigateToHelp()}>
-            <LargeImage source={require('../../assets/images/heart.png')} />
-            <Text>Pedir Socorro</Text>
-          </Card>
-          <Card onPress={() => this.handleNavigateToTalk()}>
-            <Image source={require('../../assets/images/reception.png')} />
-            <Text>Fale Conosco</Text>
-          </Card>
-        </BottomCards>
-        <LogoutView>
-          <LogoutButton onPress={() => this.handleLogout()}>
-            <Icon name="exit-to-app" size={33} color={colors.white} />
-          </LogoutButton>
-        </LogoutView>
-      </Container>
+              <Text>Dúvidas</Text>
+            </Card>
+            <Card onPress={() => this.handleNavigateToSolidary()}>
+              <LargeImage source={require('../../assets/images/phone.png')} />
+              <Text>Ajuda solidária</Text>
+            </Card>
+          </MiddleCards>
+          <BottomCards>
+            <Card onPress={() => this.handleNavigateToHelp()}>
+              <LargeImage source={require('../../assets/images/heart.png')} />
+              <Text>Pedir Socorro</Text>
+            </Card>
+            <Card onPress={() => this.handleNavigateToTalk()}>
+              <Image source={require('../../assets/images/reception.png')} />
+              <Text>Fale Conosco</Text>
+            </Card>
+          </BottomCards>
+          <LogoutView>
+            <LogoutButton onPress={() => this.setState({ modalLogout: true })}>
+              <Icon name="exit-to-app" size={33} color={colors.white} />
+            </LogoutButton>
+          </LogoutView>
+        </Container>
+      </>
     );
   }
 }

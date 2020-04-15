@@ -46,53 +46,92 @@ export const SimpleText = styled.Text`
   text-align: center;
 `;
 
+export const ActivitiesTitle = styled.Text`
+  font-size: 16px;
+  color: #333;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+  color: #0039a6;
+`;
+
+export const ActivitiesText = styled.Text`
+  font-size: 15px;
+  color: #333;
+  font-weight: bold;
+  text-align: center;
+  flex: 1;
+`;
+
 export const ProfileList = styled.View`
   margin-top: 8px;
   margin-bottom: 150px;
 `;
 
-export const Profile = styled.View`
-  width: 100%;
-  margin: 30px 0;
-  background-color: #eee;
-  border-radius: 8px;
-  font-weight: bold;
-  margin-bottom: 30px;
+export const CardContainer = styled.TouchableOpacity`
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 5px;
+  background: #fff;
+  flex-direction: column;
+  border-top-width: 30px;
+  margin-bottom: 20px;
+  border-width: 2px;
+  elevation: 10;
+  border-color: #0039a6;
 `;
 
-export const Text = styled.Text`
-  padding: 5px;
-  font-size: 20px;
-  font-weight: bold;
-  color: #000;
-`;
-
-export const CardView = styled.View`
+export const CardContentTop = styled.View`
   flex-direction: row;
+  margin-left: 5px;
 `;
 
-export const ViewTeste = styled.View`
-  background: #123456;
-  flex: 7;
+export const CardContentBottom = styled.View`
+  flex: 1;
+  flex-direction: row;
+  margin-left: 20px;
+  margin-right: 20px;
 `;
 
-export const IconView = styled.View`
-  background: #321321;
-  border-radius: 5px;
+export const Avatar = styled.Image`
+  width: 45px;
+  height: 40px;
+  border-radius: 20px;
+  border-width: 2px;
+  border-color: #000;
+  margin-top: -14px;
+  background: #fff;
+`;
+
+export const Name = styled.Text`
+  margin-left: 5px;
+  margin-bottom: 15px;
+  margin-top: 5px;
+  font-size: 17px;
+  font-weight: bold;
   flex: 1;
 `;
-export const TopView = styled.View``;
-export const BottomView = styled.View``;
-export const LeftText = styled.View``;
-export const RightText = styled.View``;
 
-export const RowView = styled.View`
-  flex-direction: row;
-  align-items: center;
+export const Number = styled.Text`
+  margin-left: 1px;
+  margin-bottom: 15px;
+  margin-top: 8px;
+  font-weight: bold;
+  color: #333;
+  font-size: 14.5px;
+  flex: 1;
+`;
+
+export const RA = styled.Text`
+  align-self: flex-end;
+  margin-top: 8px;
+  margin-right: 8px;
+  margin-bottom: -8px;
+  color: #aaa000;
 `;
 
 export const StartText = styled.Text`
-  color: #0039a6;
+  color: #fff;
   font-style: italic;
   font-weight: bold;
 `;
@@ -101,5 +140,7 @@ export const StarView = styled.View`
   flex: 1;
   flex-direction: row;
   justify-content: flex-end;
-  padding-right: 20px;
+  align-self: flex-end;
+  margin-top: -35px;
+  margin-right: 5px;
 `;

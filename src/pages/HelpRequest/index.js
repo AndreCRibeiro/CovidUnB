@@ -1,7 +1,10 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
+import { BackHandler, Modal } from 'react-native';
 import AwesomeAlert from 'react-native-awesome-alerts';
+import Lottie from 'lottie-react-native';
 import CheckBox from '../../components/checkbox';
+import Doctors from '../../assets/animations/doctors.json';
 
 import {
   Container,
@@ -11,6 +14,16 @@ import {
   ButtonArea,
   TextArea,
   Image,
+  ModalContainer,
+  ModalView,
+  RowView,
+  ModalText,
+  DescriptionText,
+  ModalButtonSair,
+  ModalButtonCancel,
+  ModalButtonText,
+  ModalButtonTextSair,
+  ModalViewAnimation,
 } from './styles';
 
 import useAuth from '../../store';
@@ -36,6 +49,7 @@ class HelpRequest extends Component {
       geolocation: [],
       allSymptoms: [],
       showAlert: false,
+      modal: false,
     };
   }
 
@@ -51,7 +65,18 @@ class HelpRequest extends Component {
     if (this.props.route.params.region.longitude) {
       geolocation.push(isLongitude);
     }
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
   }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  handleBackButton = () => {
+    const { navigation } = this.props;
+    navigation.navigate('Home');
+    return true;
+  };
 
   handleCheck = (group) => {
     const { allSymptoms, febre, tosse, faltaAr, cansaco } = this.state;
@@ -119,11 +144,51 @@ class HelpRequest extends Component {
     navigation.navigate('Home');
   };
 
+  handleBack = () => {
+    const { navigation } = this.props;
+
+    navigation.navigate('Home');
+  };
+
   render() {
-    const { febre, tosse, faltaAr, cansaco, other, showAlert } = this.state;
+    const {
+      febre,
+      tosse,
+      faltaAr,
+      cansaco,
+      other,
+      showAlert,
+      modal,
+    } = this.state;
 
     return (
       <Container showAlert={showAlert}>
+        <Modal
+          animationType="fade"
+          transparent
+          visible={modal}
+          onRequestClose={() => this.setState({ modal: false })}
+        >
+          <ModalContainer>
+            <ModalView>
+              <ModalText>ATENÇÃO!</ModalText>
+              <DescriptionText>
+                Fique em casa e com o celular próximo. A ajuda está a caminho!
+              </DescriptionText>
+              <ModalButtonSair
+                onPress={() => {
+                  this.setState({ modal: false });
+                  this.handleBack();
+                }}
+              >
+                <ModalButtonTextSair>Entendido</ModalButtonTextSair>
+              </ModalButtonSair>
+              <ModalViewAnimation>
+                <Lottie resizeMode="contain" source={Doctors} autoPlay loop />
+              </ModalViewAnimation>
+            </ModalView>
+          </ModalContainer>
+        </Modal>
         <TextHeader>
           Para pedir ajuda informe seus sintomas e toque no botão:
         </TextHeader>
@@ -155,28 +220,9 @@ class HelpRequest extends Component {
             onChangeText={(text) => this.setState({ other: text })}
           />
         </CheckBoxField>
-        <AwesomeAlert
-          show={showAlert}
-          showProgress={false}
-          title="Atenção!"
-          message="Fique em casa e com o celular próximo!"
-          closeOnTouchOutside
-          closeOnHardwareBackPress
-          showConfirmButton
-          confirmText="Entendido"
-          confirmButtonColor="#0039a6"
-          onConfirmPressed={() => {
-            this.hideAlert();
-          }}
-          alertContainerStyle={{
-            elevation: 25,
-            backgroundColor: 'rgba(255, 255, 255, 0.1)',
-          }}
-          messageStyle={{ color: '#000' }}
-        />
         <ButtonArea
           onPress={() => {
-            this.sendHelpRequest();
+            this.setState({ modal: true });
           }}
         >
           <Image source={require('../../assets/images/megaphone.png')} />
