@@ -55,6 +55,7 @@ export const HideNShowPassword = styled.TouchableOpacity`
 
 export const Eye = styled.Image`
   width: 28px;
+  margin-bottom: 3px;
 `;
 
 export const OptionsView = styled.View`

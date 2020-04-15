@@ -192,7 +192,12 @@ class Main extends Component {
               />
               <HideNShowPassword onPress={this.showPass}>
                 {showingPass ? (
-                  <Icon name="visibility" size={28} color={colors.black} />
+                  <Icon
+                    name="visibility"
+                    size={28}
+                    color={colors.black}
+                    style={{ paddingRigth: 3, paddingBottom: 3 }}
+                  />
                 ) : (
                     <Eye source={require('../../assets/images/eye.png')} />
                   )}

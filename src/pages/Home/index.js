@@ -199,10 +199,6 @@ class Home extends Component {
     navigation.navigate('Main');
   };
 
-  closeModal = (param) => {
-    this.setState({ modalLogout: param });
-  };
-
   handleBackButton = () => {
     this.setState({ modalLogout: true });
     return true;

@@ -54,3 +54,71 @@ export const TextArea = styled.Text`
 `;
 
 export const AlertField = styled(Alert)``;
+
+export const ModalContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  background: rgba(123, 123, 123, 0.4);
+`;
+
+export const ModalView = styled.View`
+  background: #fff;
+  border-radius: 5px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 36%;
+  width: 62%;
+  elevation: 5;
+`;
+
+export const RowView = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const ModalViewAnimation = styled.View`
+  flex: 1;
+  justify-content: flex-end;
+  height: 100%;
+  width: 100%;
+`;
+
+export const ModalButtonSair = styled.TouchableOpacity`
+  margin-left: 1%;
+  margin-top: 2%
+  justify-content: center;
+  align-items: center;
+  background: #ff0000;
+  border-radius: 10px;
+  height: 18px;
+  width: 80px;
+`;
+
+export const ModalButtonCancel = styled.TouchableOpacity`
+  justify-content: center;
+  align-items: center;
+  height: 12px;
+  margin-right: 10%;
+`;
+
+export const ModalButtonTextSair = styled.Text`
+  color: #fff;
+`;
+
+export const ModalButtonText = styled.Text``;
+
+export const ModalText = styled.Text`
+  font-weight: bold;
+  font-size: 14px;
+  padding-top: 3px;
+  color: #ff0000;
+`;
+
+export const DescriptionText = styled.Text`
+  font-weight: bold;
+  font-size: 14px;
+  padding: 5px;
+  align-self: center;
+`;
