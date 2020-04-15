@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Lottie from 'lottie-react-native';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-community/async-storage';
-import Loading from '../../assets/animations/loading.json';
+import Loading from '../../assets/animations/loadingVolunteers.json';
 import Grade from '../../assets/animations/grade.json';
 import useAuth from '../../store';
 
