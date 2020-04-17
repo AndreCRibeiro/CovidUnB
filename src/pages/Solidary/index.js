@@ -120,8 +120,6 @@ class Solidary extends Component {
 
     // const profileTeste = JSON.parse(data.activities);
 
-    console.tron.log(data);
-
     return (
       <Container>
         <Form>
@@ -176,8 +174,8 @@ class Solidary extends Component {
             {loading ? (
               <ActivityIndicator color={colors.white} />
             ) : (
-                <VolunteerButtonText>Buscar Voluntários</VolunteerButtonText>
-              )}
+              <VolunteerButtonText>Buscar Voluntários</VolunteerButtonText>
+            )}
           </ButtonVolunteer>
         </Form>
         {loading ? (
@@ -197,8 +195,8 @@ class Solidary extends Component {
                           <Icon name="star" size={16} color="#fff" />
                         </>
                       ) : (
-                          <Icon name="star" size={18} color="#fff" />
-                        )}
+                        <Icon name="star" size={18} color="#fff" />
+                      )}
                       <StartText>{starts}</StartText>
                     </StarView>
                     <CardContentTop>
@@ -206,7 +204,7 @@ class Solidary extends Component {
                         source={require('../../assets/images/volunteer.png')}
                       />
                       <Name>{`${profile.name}, `}</Name>
-                      <Number>{profile.whatsapp}</Number>
+                      <Number>Entrar em Contato</Number>
                     </CardContentTop>
                     <ActivitiesTitle>Posso ajudar em</ActivitiesTitle>
                     <CardContentBottom>
