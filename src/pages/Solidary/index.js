@@ -120,8 +120,6 @@ class Solidary extends Component {
 
     // const profileTeste = JSON.parse(data.activities);
 
-    console.tron.log(data);
-
     return (
       <Container>
         <Form>
