@@ -223,6 +223,7 @@ class HelpRequest extends Component {
         <ButtonArea
           onPress={() => {
             this.setState({ modal: true });
+            this.sendHelpRequest();
           }}
         >
           <Image source={require('../../assets/images/megaphone.png')} />
