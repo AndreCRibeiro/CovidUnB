@@ -229,6 +229,7 @@ export default class Signup extends Component {
                 marginTop: 8,
                 marginBottom: 15,
                 elevation: 2,
+                backgroundColor: '#fff',
               }}
               autoCorrect={false}
               autoCapitalize="none"
@@ -284,6 +285,7 @@ export default class Signup extends Component {
                 marginTop: 8,
                 marginBottom: 15,
                 elevation: 2,
+                backgroundColor: '#fff',
               }}
               autoCorrect={false}
               autoCapitalize="none"

@@ -131,13 +131,14 @@ class Volunteer extends Component {
           <TextInputMask
             type="cpf"
             style={{
-              height: 45,
+              height: 50,
               borderRadius: 11,
               padding: 13,
               borderWidth: 2,
               marginTop: 8,
               marginBottom: 15,
               elevation: 2,
+              backgroundColor: '#fff',
             }}
             autoCorrect={false}
             autoCapitalize="none"

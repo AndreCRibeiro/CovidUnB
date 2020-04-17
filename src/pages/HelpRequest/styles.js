@@ -22,7 +22,7 @@ export const Others = styled.TextInput.attrs({
   placeholderTextColor: '#000',
 })`
   align-self: center;
-  padding: 5px;
+  padding: 10px;
   width: 90%;
   height: 60px;
   margin-top: 10px;
