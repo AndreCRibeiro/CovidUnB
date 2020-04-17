@@ -33,11 +33,9 @@ export default class Talk extends Component {
       <Container>
         <CenterView>
           <LogoUnB source={require('../../assets/images/logo.png')} />
-          <SimpleText>Telefone: (61) 3107-3300</SimpleText>
         </CenterView>
         <CenterView>
           <LogoLatitude source={require('../../assets/images/latitude.png')} />
-          <SimpleText>Telefone: (61) 3107-5597</SimpleText>
         </CenterView>
       </Container>
     );
