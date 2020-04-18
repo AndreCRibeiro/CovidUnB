@@ -51,10 +51,9 @@ export default class Signup extends Component {
     riskGroup: [],
     diabetes: false,
     hipertensao: false,
-    bronquite: false,
-    asma: false,
+    drc: false,
     sistema: false,
-    paciente: false,
+    ddi: false,
     loading: false,
     check: true,
     passLengthCheck: true,
@@ -124,15 +123,7 @@ export default class Signup extends Component {
   };
 
   handleCheck = (group) => {
-    const {
-      riskGroup,
-      diabetes,
-      hipertensao,
-      bronquite,
-      asma,
-      sistema,
-      paciente,
-    } = this.state;
+    const { riskGroup, diabetes, hipertensao, drc, sistema, ddi } = this.state;
 
     const index = riskGroup.findIndex((gp) => gp === group);
 
@@ -150,20 +141,16 @@ export default class Signup extends Component {
         this.setState({ riskGroup, hipertensao: !hipertensao });
         break;
       }
-      case 'Bronquite': {
-        this.setState({ riskGroup, bronquite: !bronquite });
-        break;
-      }
-      case 'Asma': {
-        this.setState({ riskGroup, asma: !asma });
+      case 'Doença Respiratória Crônica': {
+        this.setState({ riskGroup, drc: !drc });
         break;
       }
       case 'Sistema Imunológico Enfraquecido': {
         this.setState({ riskGroup, sistema: !sistema });
         break;
       }
-      case 'Paciente Oncológico': {
-        this.setState({ riskGroup, paciente: !paciente });
+      case 'Doenças com Depressão Imunológica': {
+        this.setState({ riskGroup, ddi: !ddi });
         break;
       }
       default: {
@@ -188,10 +175,9 @@ export default class Signup extends Component {
       matriculaUnb,
       diabetes,
       hipertensao,
-      bronquite,
-      asma,
+      drc,
       sistema,
-      paciente,
+      ddi,
       check,
       passLengthCheck,
     } = this.state;
@@ -359,14 +345,9 @@ export default class Signup extends Component {
                 text="Hipertensão"
               />
               <CheckBox
-                selected={bronquite}
-                onPress={() => this.handleCheck('Bronquite')}
-                text="Bronquite"
-              />
-              <CheckBox
-                selected={asma}
-                onPress={() => this.handleCheck('Asma')}
-                text="Asma"
+                selected={drc}
+                onPress={() => this.handleCheck('Doença Respiratória Crônica')}
+                text="Doença Respiratória Crônica"
               />
               <CheckBox
                 selected={sistema}
@@ -376,9 +357,11 @@ export default class Signup extends Component {
                 text="Sistema Imunológico Enfraquecido"
               />
               <CheckBox
-                selected={paciente}
-                onPress={() => this.handleCheck('Paciente Oncológico')}
-                text="Paciente Oncológico"
+                selected={ddi}
+                onPress={() =>
+                  this.handleCheck('Doenças com Depressão Imunológica')
+                }
+                text="Doenças com Depressão Imunológica"
               />
             </SecondSelect>
             <Button loading={loading} onPress={this.handleSignUp}>
