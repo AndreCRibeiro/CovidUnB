@@ -1,6 +1,13 @@
 import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 import { RadioButton } from 'react-native-paper';
+import normalize from 'react-native-normalize';
+import {
+  cardHeight,
+  cardWidth,
+  cardMargin,
+  fontHome
+} from '../../styles/responsividade'
 
 export const Container = styled.View`
   flex: 1;
@@ -14,13 +21,13 @@ export const TopCards = styled.View`
 `;
 
 export const Card = styled(RectButton)`
-  height: 120px;
-  width: 120px;
+  height: ${cardHeight};
+  width: ${cardWidth};
   background: #fff;
-  margin: 28px;
-  border-width: 3px;
-  border-radius: 15px;
-  border-color: #000;
+  margin: ${cardMargin}px;
+  border-width: 1px;
+  border-radius: 2px;
+  border-color: #333;
   justify-content: center;
   align-items: center;
   elevation: 10;
@@ -66,7 +73,7 @@ export const Text = styled.Text`
 export const SelectionView = styled.View``;
 
 export const QuestionText = styled.Text`
-  font-size: 17px;
+  font-size: ${fontHome};
   color: #000;
   font-weight: bold;
   text-align: center;
@@ -92,6 +99,7 @@ export const RadioText = styled.Text`
   justify-content: center;
   align-self: center;
   font-weight: bold;
+  font-size: ${fontHome};
 `;
 
 export const TextView = styled.View`
@@ -182,3 +190,4 @@ export const ModalText = styled.Text`
   font-size: 14px;
   padding: 5px;
 `;
+

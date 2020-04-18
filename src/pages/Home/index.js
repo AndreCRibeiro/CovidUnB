@@ -15,6 +15,12 @@ import leave from '../../assets/animations/leave.json';
 import stay from '../../assets/animations/stay.json';
 import useAuth from '../../store';
 import { colors } from '../../styles';
+import{
+
+  titleMargin,
+  altura_tela,
+  largura_tela
+} from '../../styles/responsividade';
 
 import {
   Container,
@@ -85,6 +91,9 @@ class Home extends Component {
 
   async componentDidMount() {
     const checkedAsync = await AsyncStorage.getItem('checked');
+    console.log(titleMargin)
+    console.log(altura_tela)
+
 
     if (checkedAsync) {
       this.setState({ checked: checkedAsync });
