@@ -52,7 +52,6 @@ export default class Signup extends Component {
     diabetes: false,
     hipertensao: false,
     drc: false,
-    sistema: false,
     ddi: false,
     loading: false,
     check: true,
@@ -123,7 +122,7 @@ export default class Signup extends Component {
   };
 
   handleCheck = (group) => {
-    const { riskGroup, diabetes, hipertensao, drc, sistema, ddi } = this.state;
+    const { riskGroup, diabetes, hipertensao, drc, ddi } = this.state;
 
     const index = riskGroup.findIndex((gp) => gp === group);
 
@@ -143,10 +142,6 @@ export default class Signup extends Component {
       }
       case 'Doença Respiratória Crônica': {
         this.setState({ riskGroup, drc: !drc });
-        break;
-      }
-      case 'Sistema Imunológico Enfraquecido': {
-        this.setState({ riskGroup, sistema: !sistema });
         break;
       }
       case 'Doenças com Depressão Imunológica': {
@@ -176,7 +171,6 @@ export default class Signup extends Component {
       diabetes,
       hipertensao,
       drc,
-      sistema,
       ddi,
       check,
       passLengthCheck,
@@ -348,13 +342,6 @@ export default class Signup extends Component {
                 selected={drc}
                 onPress={() => this.handleCheck('Doença Respiratória Crônica')}
                 text="Doença Respiratória Crônica"
-              />
-              <CheckBox
-                selected={sistema}
-                onPress={() =>
-                  this.handleCheck('Sistema Imunológico Enfraquecido')
-                }
-                text="Sistema Imunológico Enfraquecido"
               />
               <CheckBox
                 selected={ddi}
