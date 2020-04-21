@@ -13,13 +13,13 @@ import Lottie from 'lottie-react-native';
 import { RadioButton } from 'react-native-paper';
 import leave from '../../assets/animations/leave.json';
 import stay from '../../assets/animations/stay.json';
+import question from '../../assets/animations/question.json';
 import useAuth from '../../store';
 import { colors } from '../../styles';
-import{
-
+import {
   titleMargin,
   altura_tela,
-  largura_tela
+  largura_tela,
 } from '../../styles/responsividade';
 
 import {
@@ -46,11 +46,15 @@ import {
   ModalView,
   RowView,
   ModalText,
+  ModalTextVolunteer,
   ModalButtonSair,
+  ModalButtonSairVolunteer,
   ModalButtonCancel,
   ModalButtonText,
   ModalButtonTextSair,
   ModalViewAnimation,
+  VolunteerButton,
+  VolunteerButtonText,
 } from './styles';
 import api from '../../services/api';
 
@@ -87,13 +91,13 @@ class Home extends Component {
     modalLogout: false,
     modalchecked: false,
     showAnimation: true,
+    exitVolunteer: false,
   };
 
   async componentDidMount() {
-    const checkedAsync = await AsyncStorage.getItem('checked');
-    console.log(titleMargin)
-    console.log(altura_tela)
+    const { userData } = this.props;
 
+    const checkedAsync = await AsyncStorage.getItem('checked');
 
     if (checkedAsync) {
       this.setState({ checked: checkedAsync });
@@ -208,6 +212,16 @@ class Home extends Component {
     navigation.navigate('Main');
   };
 
+  handleLeaveVolunteer = async () => {
+    const { userData, token } = this.props;
+    const body = { email: userData.email, is_sick: true };
+    const response = await api.put('volunteers', body, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  };
+
   handleBackButton = () => {
     this.setState({ modalLogout: true });
     return true;
@@ -220,6 +234,7 @@ class Home extends Component {
       modalLogout,
       modalchecked,
       showAnimation,
+      exitVolunteer,
     } = this.state;
     const { userData } = this.props;
 
@@ -268,6 +283,43 @@ class Home extends Component {
                 </RowView>
                 <ModalViewAnimation>
                   <Lottie resizeMode="contain" source={leave} autoPlay loop />
+                </ModalViewAnimation>
+              </ModalView>
+            </ModalContainer>
+          </Modal>
+          <Modal
+            animationType="fade"
+            transparent
+            visible={exitVolunteer}
+            onRequestClose={() => this.setState({ exitVolunteer: false })}
+          >
+            <ModalContainer>
+              <ModalView>
+                <ModalTextVolunteer>
+                  Deseja deixar de ser voluntário?
+                </ModalTextVolunteer>
+                <RowView>
+                  <ModalButtonCancel
+                    onPress={() => this.setState({ exitVolunteer: false })}
+                  >
+                    <ModalButtonText>Cancelar</ModalButtonText>
+                  </ModalButtonCancel>
+                  <ModalButtonSairVolunteer
+                    onPress={() => {
+                      this.setState({ exitVolunteer: false });
+                      this.handleLeaveVolunteer();
+                    }}
+                  >
+                    <ModalButtonTextSair>Sim</ModalButtonTextSair>
+                  </ModalButtonSairVolunteer>
+                </RowView>
+                <ModalViewAnimation>
+                  <Lottie
+                    resizeMode="contain"
+                    source={question}
+                    autoPlay
+                    loop
+                  />
                 </ModalViewAnimation>
               </ModalView>
             </ModalContainer>
@@ -361,6 +413,17 @@ class Home extends Component {
             </Card>
           </BottomCards>
           <LogoutView>
+            {userData.volunteer_id ? (
+              <VolunteerButton
+                onPress={() => {
+                  this.setState({ exitVolunteer: true });
+                }}
+              >
+                <VolunteerButtonText>
+                  Deixar de ser voluntário
+                </VolunteerButtonText>
+              </VolunteerButton>
+            ) : null}
             <LogoutButton onPress={() => this.setState({ modalLogout: true })}>
               <Icon name="exit-to-app" size={33} color={colors.white} />
             </LogoutButton>

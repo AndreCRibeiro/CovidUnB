@@ -199,8 +199,8 @@ class Main extends Component {
                     style={{ paddingRigth: 3, paddingBottom: 3 }}
                   />
                 ) : (
-                  <Eye source={require('../../assets/images/eye.png')} />
-                )}
+                    <Eye source={require('../../assets/images/eye.png')} />
+                  )}
               </HideNShowPassword>
             </Teste>
             <OptionsView>
@@ -212,12 +212,12 @@ class Main extends Component {
                 {checked ? (
                   <Icon name="check-box" size={17} color={colors.black} />
                 ) : (
-                  <Icon
-                    name="check-box-outline-blank"
-                    size={17}
-                    color={colors.black}
-                  />
-                )}
+                    <Icon
+                      name="check-box-outline-blank"
+                      size={17}
+                      color={colors.black}
+                    />
+                  )}
                 <RememberText>Lembrar-me</RememberText>
               </RememberButton>
               <ForgotPassword>
@@ -228,8 +228,8 @@ class Main extends Component {
               {loading ? (
                 <ActivityIndicator color={colors.white} />
               ) : (
-                <LoginButtonText>Login</LoginButtonText>
-              )}
+                  <LoginButtonText>Login</LoginButtonText>
+                )}
             </ButtonLogin>
             <Slash>
               <LineLeft />

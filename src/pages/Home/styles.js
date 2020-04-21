@@ -6,8 +6,8 @@ import {
   cardHeight,
   cardWidth,
   cardMargin,
-  fontHome
-} from '../../styles/responsividade'
+  fontHome,
+} from '../../styles/responsividade';
 
 export const Container = styled.View`
   flex: 1;
@@ -109,6 +109,12 @@ export const TextView = styled.View`
 
 export const LogoutView = styled.View`
   align-self: flex-end;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 2%;
+  margin-top: 3%;
 `;
 
 export const LogoutButton = styled(RectButton)`
@@ -123,6 +129,19 @@ export const LogoutButton = styled(RectButton)`
   align-items: center;
   elevation: 12;
   background: #0039a6;
+`;
+
+export const VolunteerButton = styled.TouchableOpacity`
+  margin-right: 17%;
+  padding-top: 1%;
+`;
+
+export const VolunteerButtonText = styled.Text`
+  color: #0039a6;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 16.5px;
+  text-decoration-line: underline;
 `;
 
 export const ModalContainerAnimation = styled.View`
@@ -141,11 +160,11 @@ export const ModalContainer = styled.View`
 
 export const ModalView = styled.View`
   background: #fff;
-  border-radius: 5px;
+  border-radius: 8px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 36%;
+  height: 37.7%;
   width: 62%;
   elevation: 5;
 `;
@@ -172,6 +191,16 @@ export const ModalButtonSair = styled.TouchableOpacity`
   width: 50px;
 `;
 
+export const ModalButtonSairVolunteer = styled.TouchableOpacity`
+  margin-left: 1%;
+  justify-content: center;
+  align-items: center;
+  background: #0039a6;
+  border-radius: 10px;
+  height: 18px;
+  width: 50px;
+`;
+
 export const ModalButtonCancel = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
@@ -191,3 +220,9 @@ export const ModalText = styled.Text`
   padding: 5px;
 `;
 
+export const ModalTextVolunteer = styled.Text`
+  font-weight: bold;
+  font-size: 14px;
+  padding: 11px;
+  align-self: flex-end;
+`;

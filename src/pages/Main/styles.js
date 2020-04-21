@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 import { RectButton } from 'react-native-gesture-handler';
 import normalize from 'react-native-normalize';
-import{
-  paddingButton
-} from '../../styles/responsividade';
+import { paddingButton } from '../../styles/responsividade';
 
 export const Container = styled.View`
   flex: 1;
