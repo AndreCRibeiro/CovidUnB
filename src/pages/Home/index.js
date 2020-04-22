@@ -95,8 +95,6 @@ class Home extends Component {
   };
 
   async componentDidMount() {
-    const { userData } = this.props;
-
     const checkedAsync = await AsyncStorage.getItem('checked');
 
     if (checkedAsync) {
@@ -214,8 +212,8 @@ class Home extends Component {
 
   handleLeaveVolunteer = async () => {
     const { userData, token } = this.props;
-    const body = { email: userData.email, is_sick: true };
-    const response = await api.put('volunteers', body, {
+    const body = { email: userData.email, quit: true };
+    const response = await api.put('quitVolunteer', body, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
