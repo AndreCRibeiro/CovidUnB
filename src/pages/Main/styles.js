@@ -14,7 +14,7 @@ export const Logo = styled.Image`
   height: ${normalize(120)};
   background: #fff;
   align-self: center;
-  margin-top: 8px;
+  margin-top: 15px;
   margin-bottom: ${normalize(20, 'height')}px;
 `;
 
@@ -63,6 +63,7 @@ export const OptionsView = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-top: ${normalize(10, 'height')}px;
 `;
 
 export const RememberButton = styled.TouchableOpacity`
@@ -120,7 +121,7 @@ export const ButtonLogin = styled(RectButton)`
   padding: 0 12px;
   opacity: ${(props) => (props.loading ? 0.7 : 1)};
   height: 45px;
-  margin-top: ${normalize(20)}px;
+  margin-top: ${normalize(70)}px;
   margin-bottom: ${normalize(5)}px;
 `;
 

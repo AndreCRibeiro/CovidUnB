@@ -6,6 +6,7 @@ import { colors } from './styles';
 import Main from './pages/Main';
 import Home from './pages/Home';
 import Signup from './pages/Signup';
+import Camera from './pages/Camera';
 import Volunteer from './pages/Volunteer';
 import Talk from './pages/Talk';
 import Questions from './pages/Questions';
@@ -36,7 +37,7 @@ export default function Routes() {
             },
           }}
         />
-
+        <AppStack.Screen name="Camera" component={Camera} />
         <AppStack.Screen name="Register" component={Signup} />
         <AppStack.Screen name="Home" component={Home} />
         <AppStack.Screen name="Map" component={Map} headerMode="none" />

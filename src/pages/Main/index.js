@@ -127,6 +127,12 @@ class Main extends Component {
     navigation.navigate('Register');
   };
 
+  handleCamera = () => {
+    const { navigation } = this.props;
+
+    navigation.navigate('Camera');
+  };
+
   showPass = () => {
     const { showingPass } = this.state;
 
@@ -220,7 +226,7 @@ class Main extends Component {
                   )}
                 <RememberText>Lembrar-me</RememberText>
               </RememberButton>
-              <ForgotPassword>
+              <ForgotPassword onPress={this.handleCamera}>
                 <PasswordText>Esqueceu sua senha?</PasswordText>
               </ForgotPassword>
             </OptionsView>

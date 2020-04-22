@@ -5,6 +5,8 @@ import React, { Component } from 'react';
 import { ActivityIndicator, Alert, StatusBar } from 'react-native';
 import { TextInputMask } from 'react-native-masked-text';
 import PropTypes from 'prop-types';
+import ImagePicker from 'react-native-image-picker';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import CheckBox from '../../components/checkbox';
 import CheckBoxBall from '../../components/checkboxBall';
 import api from '../../services/api';
@@ -24,6 +26,10 @@ import {
   SecondCenterView,
   ThirdCenterView,
   ErrorText,
+  AvatarView,
+  ButtonChangeAvatar,
+  AvatarText,
+  Avatar,
 } from './styles';
 
 import { colors } from '../../styles';
@@ -56,6 +62,12 @@ export default class Signup extends Component {
     loading: false,
     check: true,
     passLengthCheck: true,
+    filepath: {
+      data: '',
+      uri: '',
+    },
+    fileData: '',
+    fileUri: '',
   };
 
   checkPassLength = (text) => {
@@ -154,6 +166,40 @@ export default class Signup extends Component {
     }
   };
 
+  changeAvatar = () => {
+    const options = {
+      title: 'Escolha uma das opções',
+      cancelButtonTitle: 'Cancelar',
+      takePhotoButtonTitle: 'Tirar uma foto',
+      chooseFromLibraryButtonTitle: 'Escolher uma foto',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+        const source = { uri: response.uri };
+
+        // You can also display the image using data:
+        // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+        // alert(JSON.stringify(response));
+        console.log('Teste', JSON.stringify(response));
+        this.setState({
+          filePath: response,
+          fileData: response.data,
+          fileUri: response.uri,
+        });
+      }
+    });
+  };
+
   render() {
     const {
       userName,
@@ -174,6 +220,7 @@ export default class Signup extends Component {
       ddi,
       check,
       passLengthCheck,
+      fileUri,
     } = this.state;
 
     return (
@@ -283,6 +330,18 @@ export default class Signup extends Component {
               value={matriculaUnb}
               onChangeText={(text) => this.setState({ matriculaUnb: text })}
             />
+            <AvatarView>
+              <ButtonChangeAvatar onPress={this.changeAvatar}>
+                {fileUri ? (
+                  <Avatar source={{ uri: fileUri }} />
+                ) : (
+                    <>
+                      <Icon name="camera-alt" size={38} />
+                      <AvatarText>Escolha uma foto</AvatarText>
+                    </>
+                  )}
+              </ButtonChangeAvatar>
+            </AvatarView>
             <SecondCenterView>
               <SimpleText>QUAL SEU VÍNCULO COM A UNB?</SimpleText>
             </SecondCenterView>
