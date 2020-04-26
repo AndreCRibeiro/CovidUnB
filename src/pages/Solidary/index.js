@@ -84,6 +84,25 @@ class Solidary extends Component {
     return true;
   };
 
+  handleProfile = () =>{
+/*
+    try {
+      const response = await api.get('/help', body, {
+        headers: {
+          Authorization: Bearer ${token},
+        }
+      });
+      Alert.alert(
+        'Atenção',
+        'Fique em casa e com o celular próximo!',
+        [{ text: 'OK', onPress: () => navigation.navigate('Profile') }],
+        { cancelable: false }
+      );
+    } catch (err) { }
+  };
+  */
+  }
+
   handleNavigateToProfile = () => {
     const { navigation } = this.props;
 

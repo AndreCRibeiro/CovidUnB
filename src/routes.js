@@ -28,7 +28,6 @@ export default function Routes() {
         }}
         headerMode="none"
       >
-        <AppStack.Screen name="Profile" component={Profile} />
 
         <AppStack.Screen
           name="Main"
@@ -49,6 +48,8 @@ export default function Routes() {
         <AppStack.Screen name="Solidary" component={Solidary} />
         <AppStack.Screen name="Questions" component={Questions} />
         <AppStack.Screen name="HelpRequest" component={HelpRequest} />
+        <AppStack.Screen name="Profile" component={Profile} />
+
 
       </AppStack.Navigator>
     </NavigationContainer>

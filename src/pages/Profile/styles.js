@@ -1,13 +1,7 @@
 import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
-import { RadioButton } from 'react-native-paper';
 import normalize from 'react-native-normalize';
-import {
-  cardHeight,
-  cardWidth,
-  cardMargin,
-  fontHome
-} from '../../styles/responsividade'
+
 
 export const Container = styled.View`
   flex: 1;
@@ -17,28 +11,31 @@ export const Container = styled.View`
 `;
 
 export const Card = styled.View`
-  height: ${normalize(180)};
+  height: ${normalize(150)};
   width: ${normalize(320)};
   background: #fff;
   border-top-width: 2px;
-  margin-bottom: 20px;
   border-width: 2px;
   elevation: 10;
   border-color: #0039a6;
   borderRadius: 10;
-
-
   align-items: center;
-
-
-  margin: ${normalize(10)}px;
+  margin-top: ${normalize(10)}px;
+`;
+export const CardComment = styled.View`
+  width: ${normalize(300)};
+  background: #fff;
+  margin-bottom: 20px;
+  padding: ${normalize(10)}px;
+  elevation: 10;
+  borderRadius: 10;
+  align-items: center;
 `;
 
 export const Avaliation = styled.View`
-  height: ${normalize(80)};
+  height: ${normalize(200)};
   width: ${normalize(280)};
-  background: blue;
-  margin: ${normalize(10)}px;
+  margin: ${normalize(5)}px;
 `;
 export const Stars = styled.View`
   height: ${normalize(30)};
@@ -59,6 +56,7 @@ export const Info = styled.View`
   align-self: flex-start;
   margin-top: 15px;
   margin-bottom: ${normalize(8)}px;
+  
 `;
 export const TextContainer = styled.View`
   width: ${normalize(200)};
@@ -92,14 +90,38 @@ export const ActivitiesTitle = styled.Text`
 `;
 
 export const Comments = styled.ScrollView`
-height: ${normalize(180)};
-width: ${normalize(320)};
-background: #fff;
-border-top-width: 2px;
-margin-bottom: 20px;
-border-width: 2px;
-elevation: 10;
-border-color: #0039a6;
-borderRadius: 10;
-margin: ${normalize(10)}px;
+  margin-top:${normalize(15)}px;
+
 `;
+
+export const ButtonComment = styled(RectButton)`
+  justify-content: center;
+  align-items: center;
+  background: #0039a6;
+  border-radius: 10px;
+  opacity: ${(props) => (props.loading ? 0.7 : 1)};
+  width: ${normalize(100)};
+  padding: 0 ${normalize(6)}px;
+  height: ${normalize(40)};
+  align-self: flex-end;
+  margin-top: ${normalize(10)}px;
+  margin-bottom: ${normalize(5)}px;
+`;
+
+export const ButtonCommentText = styled.Text`
+  text-transform: uppercase;
+  font-size: ${normalize(15)};
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+`;
+
+export const Opinion = styled.View`
+height: ${normalize(150)};
+margin-top: ${normalize(8)}px;
+background: #fff;
+align-items: center;
+elevation: 10;
+
+`;
+
