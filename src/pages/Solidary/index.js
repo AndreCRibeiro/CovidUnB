@@ -84,6 +84,12 @@ class Solidary extends Component {
     return true;
   };
 
+  handleNavigateToProfile = () => {
+    const { navigation } = this.props;
+
+    navigation.navigate('Profile');
+  };
+
   sendwhatsapp = (profile) => {
     const message = `Olá ${profile.name}, ví que você se voluntariou para ${profile.activities} e gostaria da sua ajuda! Podemos falar a respeito?`;
 
@@ -186,7 +192,7 @@ class Solidary extends Component {
             <ScrollView showsVerticalScrollIndicator={false}>
               {data.map((profile) =>
                 !profile.is_sick ? (
-                  <CardContainer onPress={(profile) => this.sendwhatsapp}>
+                  <CardContainer onPress={() => this.handleNavigateToProfile()}>
                     <StarView>
                       {starts <= 4.4 ? (
                         <>
