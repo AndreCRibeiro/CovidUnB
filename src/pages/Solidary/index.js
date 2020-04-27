@@ -10,13 +10,27 @@ import {
   Linking,
   BackHandler,
   Text,
+  Alert,
+  View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 // import { Avatar, Card, Title, Paragraph } from 'react-native-paper';
 import Lottie from 'lottie-react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import {
+  Avatar,
+  Card,
+  Title,
+  Paragraph,
+  Appbar,
+  Button,
+} from 'react-native-paper';
 import { Picker } from '@react-native-community/picker';
 import PropTypes from 'prop-types';
 import Loading from '../../assets/animations/loadingVolunteers.json';
+import { nanoid } from 'nanoid/non-secure';
+import firestore from '@react-native-firebase/firestore';
+
 import useAuth from '../../store';
 
 import {
@@ -130,8 +144,41 @@ class Solidary extends Component {
     this.setState({ data: response.data, loading: false });
   };
 
+  handleChat = (profile) => {
+    const { token } = this.props;
+
+    const chatId = nanoid();
+    firestore()
+      .collection('Chats')
+      .doc(chatId)
+      .set({ messages: [] })
+      .then(() => {
+        api
+          .post(
+            '/chats',
+            {
+              user1_id: 16, //TODO : mudar pro id do user atual
+              user2_id: profile.id,
+              chat_id: chatId,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then(() => {
+            const { navigation } = this.props;
+            navigation.navigate('Chat', { chatId });
+          })
+          .catch(() => Alert.alert('Falha ao criar chat'));
+      })
+      .catch(() => Alert.alert('Falha ao criar chat'));
+  };
+
   render() {
     const { region, task, loading, data } = this.state;
+    const { navigation } = this.props;
     const LeftContent = (props) => (
       <Avatar.Icon
         {...props}
@@ -148,6 +195,21 @@ class Solidary extends Component {
 
     return (
       <Container>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginTop: 20,
+          }}
+        >
+          <Button color="blue" onPress={() => {}}>
+            Novo chat
+          </Button>
+          <Button color="blue" onPress={() => navigation.navigate('ChatList')}>
+            Meus chats
+          </Button>
+        </View>
         <Form>
           <SimpleText>Entre em contato com um voluntários:</SimpleText>
           <PickerView>

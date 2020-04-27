@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "151166599722",
+    "firebase_url": "https://unbcovid.firebaseio.com",
+    "project_id": "unbcovid",
+    "storage_bucket": "unbcovid.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:151166599722:android:74a90e6227a53aeb24b953",
+        "android_client_info": {
+          "package_name": "com.chatfirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "151166599722-vb31s2ds4obr4hct2i38800u63stl8j1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiTwAveVSkdL7KsxOV1DC7TzcJIDHxm5M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "151166599722-vb31s2ds4obr4hct2i38800u63stl8j1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "151166599722-a29llqlkck1pff1pto7fcmul56r241jk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.CovidUnB"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:151166599722:android:8788d565f2236ebb24b953",
+        "android_client_info": {
+          "package_name": "com.covidunb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "151166599722-vb31s2ds4obr4hct2i38800u63stl8j1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiTwAveVSkdL7KsxOV1DC7TzcJIDHxm5M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "151166599722-vb31s2ds4obr4hct2i38800u63stl8j1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "151166599722-a29llqlkck1pff1pto7fcmul56r241jk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.CovidUnB"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

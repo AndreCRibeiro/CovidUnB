@@ -14,6 +14,8 @@ import Solidary from './pages/Solidary';
 import HelpRequest from './pages/HelpRequest';
 import Map from './pages/Map';
 import Profile from './pages/Profile';
+import Chat from './pages/Chat';
+import ChatList from './pages/ChatsList';
 
 
 const AppStack = createStackNavigator();
@@ -50,6 +52,8 @@ export default function Routes() {
         <AppStack.Screen name="Questions" component={Questions} />
         <AppStack.Screen name="HelpRequest" component={HelpRequest} />
         <AppStack.Screen name="Profile" component={Profile} />
+        <AppStack.Screen name="Chat" component={Chat} />
+        <AppStack.Screen name="ChatList" component={ChatList} />
 
 
       </AppStack.Navigator>

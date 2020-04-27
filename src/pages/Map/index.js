@@ -54,6 +54,14 @@ export default class Map extends Component {
 
   setLocation(coord) { }
 
+  handleBackButton = () => {
+    const { navigation } = this.props;
+    navigation.navigate('Home');
+    return true;
+  };
+
+  setLocation(coord) {}
+
   render() {
     const { region, mapAvaible } = this.state;
     return (
@@ -66,8 +74,8 @@ export default class Map extends Component {
             loadingEnabled
           />
         ) : (
-            <ActivityIndicator />
-          )}
+          <ActivityIndicator />
+        )}
       </View>
     );
   }
