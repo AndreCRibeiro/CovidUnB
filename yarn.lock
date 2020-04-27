@@ -729,10 +729,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.7.5.tgz#77211291c1900a700b8a78cfafda3160d76949ed"
   integrity sha512-OWORNpfjMsSSUBVrRBVGECkhWcULOAJz9ZW8uK9qgxD+87M7jHRcvh/A96XXNhXTLmKcoYSQtBEX7lHMO7YRwg==
 
-"@expo/react-native-action-sheet@3.4.1":
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/@expo/react-native-action-sheet/-/react-native-action-sheet-3.4.1.tgz#af1397d3b1c446f77b3ece531ce87aab5a8777d2"
-  integrity sha512-N2NXBYI8MZrmpi2G2cKDgE6K4F3MfwnUTpOJpo03BexLSlb7oNcXYpVReD2zxATlfjalTTjYdQ/7EYZdn/Z/sg==
+"@expo/react-native-action-sheet@3.6.0":
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/@expo/react-native-action-sheet/-/react-native-action-sheet-3.6.0.tgz#8207ff460c8795ca9040e6d85daed63db6b3ac58"
+  integrity sha512-sAxQZ57iGkn/nKHvJoj51KIvnVx9RdMTpk2lKlo3FKPaezLWsdK0P9zLI/xG3NrD6CRr9tt3oK0silYi61VvZA==
   dependencies:
     "@types/hoist-non-react-statics" "^3.3.1"
     hoist-non-react-statics "^3.3.0"
@@ -5951,12 +5951,11 @@ react-native-gesture-handler@^1.6.1:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
-react-native-gifted-chat@^0.13.0:
+"react-native-gifted-chat@https://github.com/StagasaurusRex/react-native-gifted-chat.git#upgrade-action-sheet":
   version "0.13.0"
-  resolved "https://registry.yarnpkg.com/react-native-gifted-chat/-/react-native-gifted-chat-0.13.0.tgz#0151a092a2e8b3c3a754f2b6ffe3ca3069d8dac8"
-  integrity sha512-vUFQTX1bIaKgabaQW5E8frLGbzxJFVoUR/Mvpu619dimp2CnmFgmDsq0K7rCzramYF3U+cCuhhHAmjTFYImXhA==
+  resolved "https://github.com/StagasaurusRex/react-native-gifted-chat.git#95f83d5cf14fb5a9170412d51a82aed60f28bbb7"
   dependencies:
-    "@expo/react-native-action-sheet" "3.4.1"
+    "@expo/react-native-action-sheet" "3.6.0"
     moment "^2.19.0"
     prop-types "15.7.2"
     react-native-communications "2.2.1"
