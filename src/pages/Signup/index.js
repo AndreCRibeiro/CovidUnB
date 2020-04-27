@@ -68,6 +68,7 @@ export default class Signup extends Component {
     },
     fileData: '',
     fileUri: '',
+    fileType: '',
   };
 
   checkPassLength = (text) => {
@@ -91,6 +92,8 @@ export default class Signup extends Component {
   };
 
   handleSignUp = async () => {
+    const { fileUri, fileData, fileType } = this.state;
+
     this.setState({ loading: true });
     const {
       userName,
@@ -102,11 +105,36 @@ export default class Signup extends Component {
       linkUnb,
       riskGroup,
       matriculaUnb,
+      diabetes,
     } = this.state;
     const { navigation } = this.props;
-    if (this.state.diabetes === true) {
+
+    if (diabetes === true) {
       this.setState({ riskGroup: [...riskGroup, 'Diabetes'] });
     }
+
+    const data = new FormData();
+    data.append({
+      uri: fileUri,
+      name: 'photo.jpg',
+      data: fileData,
+      type: fileType,
+    });
+    try {
+      const res = await api.post(
+        '/files',
+        { file: data },
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            email: 'andre_ribeiro97@hotmail.com',
+          },
+        }
+      );
+    } catch (error) {
+      console.tron.log(error);
+    }
+
     try {
       const response = await api.post('/users', {
         name: userName,
@@ -166,7 +194,9 @@ export default class Signup extends Component {
     }
   };
 
-  changeAvatar = () => {
+  changeAvatar = async () => {
+    const { fileUri, fileData } = this.state;
+
     const options = {
       title: 'Escolha uma das opções',
       cancelButtonTitle: 'Cancelar',
@@ -176,6 +206,7 @@ export default class Signup extends Component {
         skipBackup: true,
         path: 'images',
       },
+      mediaType: 'mixed',
     };
     ImagePicker.showImagePicker(options, (response) => {
       console.log('Response = ', response);
@@ -190,11 +221,12 @@ export default class Signup extends Component {
         // You can also display the image using data:
         // const source = { uri: 'data:image/jpeg;base64,' + response.data };
         // alert(JSON.stringify(response));
-        console.log('Teste', JSON.stringify(response));
+        console.tron.log(response);
         this.setState({
           filePath: response,
           fileData: response.data,
           fileUri: response.uri,
+          fileType: response.type,
         });
       }
     });
@@ -333,7 +365,10 @@ export default class Signup extends Component {
             <AvatarView>
               <ButtonChangeAvatar onPress={this.changeAvatar}>
                 {fileUri ? (
-                  <Avatar source={{ uri: fileUri }} />
+                  <Avatar
+                    source={{ uri: fileUri }}
+                    style={{ resizeMode: 'cover' }}
+                  />
                 ) : (
                     <>
                       <Icon name="camera-alt" size={38} />

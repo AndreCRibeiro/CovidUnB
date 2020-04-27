@@ -12,7 +12,7 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 import Lottie from 'lottie-react-native';
 import { RadioButton } from 'react-native-paper';
 import leave from '../../assets/animations/leave.json';
-import stay from '../../assets/animations/stay.json';
+import stay from '../../assets/animations/stayPTBR.json';
 import question from '../../assets/animations/question.json';
 import useAuth from '../../store';
 import { colors } from '../../styles';
@@ -251,6 +251,8 @@ class Home extends Component {
                   onAnimationFinish={() =>
                     this.setState({ showAnimation: false })
                   }
+                  style={{ backgroundColor: '#fff' }}
+                  speed={1.5}
                 />
               </ModalContainerAnimation>
             </Modal>

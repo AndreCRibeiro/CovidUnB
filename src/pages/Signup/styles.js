@@ -15,7 +15,7 @@ export const Form = styled.View`
   border-bottom-width: 1px;
   border-color: #fff;
   padding: 5px;
-  margin-bottom: 135px;
+  margin-bottom: 175px;
 `;
 
 export const SimpleText = styled.Text`
@@ -130,9 +130,9 @@ export const AvatarView = styled.View`
   justify-content: center;
 `;
 export const ButtonChangeAvatar = styled.TouchableOpacity`
-  width: 51%;
-  height: 80%;
-  border-radius: 95px;
+  width: 53%;
+  height: 95%;
+  border-radius: 100px;
   border-width: 4px;
   border-color: #000;
   align-items: center;
