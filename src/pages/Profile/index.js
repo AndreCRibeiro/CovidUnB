@@ -4,9 +4,8 @@ import { TextInput, BackHandler } from 'react-native';
 import normalize from 'react-native-normalize';
 
 import PropTypes from 'prop-types';
-import Icon, {
-  mdiStarOutline,
-} from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { colors } from '../../styles';
 import {
   Container,
   Card,
@@ -28,6 +27,8 @@ import {
   Opinion,
   ButtonsAvaliation,
   Input,
+  ChatButtonView,
+  ChatButton,
 } from './styles';
 
 class Profile extends Component {
@@ -48,7 +49,7 @@ class Profile extends Component {
   };
 
   ratingCompleted(rating) {
-    console.log(`Rating is: ${rating}`);
+    // console.tron.log(`Rating is: ${rating}`);
   }
 
   handlePress() {
@@ -134,6 +135,11 @@ class Profile extends Component {
             </CardComment>
           </Comments>
         </Opinion>
+        <ChatButtonView>
+          <ChatButton onPress={() => { }}>
+            <Icon name="chat" size={33} color={colors.white} />
+          </ChatButton>
+        </ChatButtonView>
       </Container>
     );
   }

@@ -122,11 +122,11 @@ export const ButtonCommentText = styled.Text`
 `;
 
 export const Opinion = styled.View`
-  height: ${normalize(300)};
   width: 90%;
   margin-top: ${normalize(8)}px;
   background: #fff;
   align-items: center;
+  flex: 1;
 `;
 
 export const CardComment = styled.View`
@@ -148,4 +148,27 @@ export const Text = styled.Text`
 export const TextCard = styled.Text`
   font-size: ${normalize(13)}px;
   padding-top: 5px;
+`;
+
+export const ChatButtonView = styled.View`
+  align-self: flex-end;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 3%;
+  flex: 0.15;
+`;
+
+export const ChatButton = styled(RectButton)`
+  height: 55px;
+  width: 55px;
+  background: #fff;
+  border-width: 3px;
+  border-radius: 35px;
+  border-color: #fff;
+  justify-content: center;
+  align-items: center;
+  elevation: 12;
+  background: #0039a6;
 `;
