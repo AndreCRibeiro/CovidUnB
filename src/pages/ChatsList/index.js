@@ -16,7 +16,7 @@ const App: () => React$Node = (props) => {
   const fetchChat = async () => {
     const { token } = props;
     const res = await api.get('/chats?user=16', {
-      //TODO: botar id do user
+      // TODO: botar id do user
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -44,7 +44,7 @@ const App: () => React$Node = (props) => {
         >
           Novo chat
         </Button>
-        <Button color="blue" onPress={() => {}}>
+        <Button color="blue" onPress={() => { }}>
           {' '}
           Meus chats{' '}
         </Button>

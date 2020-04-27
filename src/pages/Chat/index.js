@@ -41,7 +41,7 @@ const App: () => React$Node = (props) => {
         messages={messages}
         onSend={(messages) => onSend(messages)}
         user={{
-          _id: 16, //TODO : mudar pro id do user atual
+          _id: 16, // TODO : mudar pro id do user atual
         }}
         renderAvatar={() => null}
       />
