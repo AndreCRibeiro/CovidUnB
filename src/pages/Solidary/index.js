@@ -8,11 +8,17 @@ import {
   ScrollView,
   TouchableOpacity,
   Linking,
+  Alert,
+  View,
+  Button,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Avatar, Card, Title, Paragraph } from 'react-native-paper';
+import { Avatar, Card, Title, Paragraph, Appbar } from 'react-native-paper';
 import { Picker } from '@react-native-community/picker';
 import PropTypes from 'prop-types';
+import { nanoid } from 'nanoid/non-secure';
+import firestore from '@react-native-firebase/firestore';
+
 import useAuth from '../../store';
 
 import {
@@ -81,8 +87,41 @@ class Solidary extends Component {
     this.setState({ data: response.data, loading: false });
   };
 
+  handleChat = (profile) => {
+    const { token } = this.props;
+
+    const chatId = nanoid();
+    firestore()
+      .collection('Chats')
+      .doc(chatId)
+      .set({ messages: [] })
+      .then(() => {
+        api
+          .post(
+            '/chats',
+            {
+              user1_id: 16, //TODO : mudar pro id do user atual
+              user2_id: profile.id,
+              chat_id: chatId,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then(() => {
+            const { navigation } = this.props;
+            navigation.navigate('Chat', { chatId });
+          })
+          .catch(() => Alert.alert('Falha ao criar chat'));
+      })
+      .catch(() => Alert.alert('Falha ao criar chat'));
+  };
+
   render() {
     const { region, task, loading, data } = this.state;
+    const { navigation } = this.props;
     const LeftContent = (props) => (
       <Avatar.Icon
         {...props}
@@ -93,6 +132,20 @@ class Solidary extends Component {
 
     return (
       <Container>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginTop: 20,
+          }}
+        >
+          <Button title="Novo chat" onPress={() => {}} />
+          <Button
+            title="Meus chats"
+            onPress={() => navigation.navigate('ChatList')}
+          />
+        </View>
         <Form>
           <SimpleText>Entre em contato com um voluntários:</SimpleText>
           <PickerView>
@@ -155,7 +208,7 @@ class Solidary extends Component {
             <ScrollView showsVerticalScrollIndicator={false}>
               {data.map((profile) =>
                 !profile.is_sick ? (
-                  <TouchableOpacity onPress={(profile) => this.sendwhatsapp}>
+                  <TouchableOpacity onPress={() => this.handleChat(profile)}>
                     <Card
                       key={profile.id}
                       elevation={10}
