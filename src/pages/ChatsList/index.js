@@ -1,30 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, Text, View, Button } from 'react-native';
-import { Card, Appbar } from 'react-native-paper';
+import { SafeAreaView, Text, View } from 'react-native';
+import { Card, Appbar, Button } from 'react-native-paper';
 
 import api from '../../services/api';
 
 const App: () => React$Node = (props) => {
-  const [chats, setChats] = useState([
-    {
-      chat_id: 'aaa',
-      user_id: 2,
-    },
-  ]);
+  const [chats, setChats] = useState([]);
 
-  // const fetchChat = async () => {
-  //   const { token } = props;
-  //   const res = await api.get('/chats', {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   });
-  //   // setChats(res);
-  // };
+  const fetchChat = async () => {
+    const { token } = props;
+    const res = await api.get('/chats', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    // setChats(res);
+  };
 
-  // useEffect(() => {
-  //   fetchChat();
-  // }, []);
+  useEffect(() => {
+    fetchChat();
+  }, []);
 
   return (
     <SafeAreaView>
@@ -36,10 +31,15 @@ const App: () => React$Node = (props) => {
         }}
       >
         <Button
-          title="Novo chat"
+          color="blue"
           onPress={() => props.navigation.navigate('Solidary')}
-        />
-        <Button title="Meus chats" onPress={() => {}} />
+        >
+          Novo chat
+        </Button>
+        <Button color="blue" onPress={() => {}}>
+          {' '}
+          Meus chats{' '}
+        </Button>
       </View>
       <Text
         style={{

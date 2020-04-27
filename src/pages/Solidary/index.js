@@ -10,10 +10,16 @@ import {
   Linking,
   Alert,
   View,
-  Button,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Avatar, Card, Title, Paragraph, Appbar } from 'react-native-paper';
+import {
+  Avatar,
+  Card,
+  Title,
+  Paragraph,
+  Appbar,
+  Button,
+} from 'react-native-paper';
 import { Picker } from '@react-native-community/picker';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid/non-secure';
@@ -140,11 +146,12 @@ class Solidary extends Component {
             marginTop: 20,
           }}
         >
-          <Button title="Novo chat" onPress={() => {}} />
-          <Button
-            title="Meus chats"
-            onPress={() => navigation.navigate('ChatList')}
-          />
+          <Button color="blue" onPress={() => {}}>
+            Novo chat
+          </Button>
+          <Button color="blue" onPress={() => navigation.navigate('ChatList')}>
+            Meus chats
+          </Button>
         </View>
         <Form>
           <SimpleText>Entre em contato com um voluntários:</SimpleText>
