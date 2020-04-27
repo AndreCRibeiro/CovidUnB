@@ -21,7 +21,7 @@ const App: () => React$Node = (props) => {
       const formattedMessages = documentSnapshot
         .data()
         .messages.map((obj) => ({ ...obj, createdAt: obj.createdAt.toDate() }));
-      setMessages(formattedMessages);
+      setMessages(formattedMessages.reverse());
     }); // subscreve pra todas as mudanças no doc, daí só setar o estado das mensagens
 
     // Stop listening for updates when no longer required
