@@ -15,7 +15,7 @@ export const Form = styled.View`
   border-bottom-width: 1px;
   border-color: #fff;
   padding: 5px;
-  margin-bottom: 175px;
+  margin-bottom: 100px;
 `;
 
 export const SimpleText = styled.Text`
