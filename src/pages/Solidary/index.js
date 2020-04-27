@@ -84,8 +84,8 @@ class Solidary extends Component {
     return true;
   };
 
-  handleProfile = () =>{
-/*
+  handleProfile = () => {
+    /*
     try {
       const response = await api.get('/help', body, {
         headers: {
@@ -101,12 +101,11 @@ class Solidary extends Component {
     } catch (err) { }
   };
   */
-  }
+  };
 
-  handleNavigateToProfile = () => {
+  handleNavigateToProfile = (perfil) => {
     const { navigation } = this.props;
-
-    navigation.navigate('Profile');
+    navigation.navigate('Profile', { perfil });
   };
 
   sendwhatsapp = (profile) => {
@@ -142,6 +141,8 @@ class Solidary extends Component {
     );
 
     const starts = 4.5;
+
+    console.tron.log(data);
 
     // const profileTeste = JSON.parse(data.activities);
 
@@ -199,8 +200,8 @@ class Solidary extends Component {
             {loading ? (
               <ActivityIndicator color={colors.white} />
             ) : (
-              <VolunteerButtonText>Buscar Voluntários</VolunteerButtonText>
-            )}
+                <VolunteerButtonText>Buscar Voluntários</VolunteerButtonText>
+              )}
           </ButtonVolunteer>
         </Form>
         {loading ? (
@@ -211,7 +212,9 @@ class Solidary extends Component {
             <ScrollView showsVerticalScrollIndicator={false}>
               {data.map((profile) =>
                 !profile.is_sick ? (
-                  <CardContainer onPress={() => this.handleNavigateToProfile()}>
+                  <CardContainer
+                    onPress={() => this.handleNavigateToProfile(profile)}
+                  >
                     <StarView>
                       {starts <= 4.4 ? (
                         <>
@@ -220,8 +223,8 @@ class Solidary extends Component {
                           <Icon name="star" size={16} color="#fff" />
                         </>
                       ) : (
-                        <Icon name="star" size={18} color="#fff" />
-                      )}
+                          <Icon name="star" size={18} color="#fff" />
+                        )}
                       <StartText>{starts}</StartText>
                     </StarView>
                     <CardContentTop>

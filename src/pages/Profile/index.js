@@ -1,109 +1,142 @@
 import React, { Component } from 'react';
 import { Rating, AirbnbRating } from 'react-native-elements';
-import { TextInput } from 'react-native';
+import { TextInput, BackHandler } from 'react-native';
 import normalize from 'react-native-normalize';
 
 import PropTypes from 'prop-types';
-import Icon, { mdiStarOutline } from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon, {
+  mdiStarOutline,
+} from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
-    Container,
-    Card,
-    Avaliation,
-    Rate,
-    Stars,
-    Image,
-    Info,
-    TextContainer,
-    Title,
-    Text,
-    Comments,
-    ActivitiesTitle,
-    CardComment,
-    ButtonComment,
-    ButtonCommentText,
-    Opinion
+  Container,
+  Card,
+  Avaliation,
+  Rate,
+  Stars,
+  Image,
+  Info,
+  TextContainer,
+  Title,
+  TitleCard,
+  Text,
+  TextCard,
+  Comments,
+  ActivitiesTitle,
+  CardComment,
+  ButtonComment,
+  ButtonCommentText,
+  Opinion,
+  ButtonsAvaliation,
+  Input,
 } from './styles';
 
-
-
 class Profile extends Component {
+  state = {};
 
-    ratingCompleted(rating) {
-        console.log("Rating is: " + rating)
-    }
-    _handlePress() {
-        console.log(this.state);
-        this.textInput.clear()
-    }
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+  }
 
-    render() {
-        return (
-            <Container>
-                <Card>
-                    <Info>
-                        <Image source={require('../../assets/images/placeholder.png')} />
-                        <TextContainer>
-                            <Title>Meu Nome fica aqui</Title>
-                            <Text>Minha Cidade fica aqui</Text>
-                            <ActivitiesTitle>Eu Me Voluntario Para</ActivitiesTitle>
-                        </TextContainer>
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
 
-                    </Info>
-                    <Rating
-                        imageSize={18}
-                        readonly
-                        startingValue={3}
-                        sytles={{position: 'absolute', right: 20}}
-                    />
+  handleBackButton = () => {
+    const { navigation } = this.props;
+    navigation.navigate('Solidary');
+    return true;
+  };
 
-                </Card>
-                <Avaliation>
-                    <AirbnbRating
-                        count={5}
-                        defaultRating={3}
-                        size={20}
-                        reviewSize={0}
-                        style={{ margin: 0 }}
-                        onFinishRating={this.ratingCompleted}
-                    />
-                    <TextInput
-                        style={{ height: normalize(80), borderColor: 'gray', borderWidth: 1, marginTop: 15 }}
-                        ref={input => { this.textInput = input }}
-                        placeholder="O que você achou de trabalhar com essa pessoa?"
-                        onChangeText={(text) => this.setState({ text })}
-                        multiline={true}
-                    ></TextInput>
-                    <ButtonComment onPress={() => this._handlePress()}>
-                        <ButtonCommentText>Enviar</ButtonCommentText>
-                    </ButtonComment>
+  ratingCompleted(rating) {
+    console.log(`Rating is: ${rating}`);
+  }
 
-                </Avaliation>
+  handlePress() {
+    console.log(this.state);
+    this.textInput.clear();
+  }
 
-                <Title>O que outras pessoas acharam:</Title>
-                <Opinion>
-                    <Comments contentContainerStyle={{ justifyContent: 'center', alignContent: 'center' }}>
-                        <CardComment>
+  render() {
+    const { params } = this.props.route;
+    console.tron.log(params.perfil);
 
-                            <Text>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    return (
+      <Container>
+        <Card>
+          <Info>
+            <Image source={require('../../assets/images/placeholder.png')} />
+            <TextContainer>
+              <TitleCard>{params.perfil.name}</TitleCard>
+              <TextCard>{params.perfil.administrative_region}</TextCard>
+              <ActivitiesTitle>{params.perfil.activities}</ActivitiesTitle>
+            </TextContainer>
+          </Info>
+          <Rating imageSize={16} readonly startingValue={3} />
+        </Card>
+        <Avaliation>
+          <Input
+            ref={(input) => {
+              this.textInput = input;
+            }}
+            placeholder="O que você achou de trabalhar com essa pessoa?"
+            onChangeText={(text) => this.setState({ text })}
+            multiline
+          />
+          <ButtonsAvaliation>
+            <AirbnbRating
+              count={5}
+              defaultRating={0}
+              size={20}
+              reviewSize={0}
+              onFinishRating={this.ratingCompleted}
+            />
+            <ButtonComment onPress={() => this.handlePress()}>
+              <ButtonCommentText>Enviar</ButtonCommentText>
+            </ButtonComment>
+          </ButtonsAvaliation>
+        </Avaliation>
 
-                                </Text>
-                        </CardComment>
-                        <CardComment>
-
-                            <Text>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-
-                                </Text>
-                        </CardComment>
-
-                    </Comments>
-                </Opinion>
-
-
-
-
-            </Container>
-        )
-    }
+        <Title>Avaliações anteriores:</Title>
+        <Opinion>
+          <Comments
+            contentContainerStyle={{
+              justifyContent: 'center',
+              alignContent: 'center',
+            }}
+          >
+            <CardComment>
+              <Text>
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book. It has
+                survived not only five centuries, but also the leap into
+                electronic typesetting, remaining essentially unchanged. It was
+                popularised in the 1960s with the release of Letraset sheets
+                containing Lorem Ipsum passages, and more recently with desktop
+                publishing software like Aldus PageMaker including versions of
+                Lorem Ipsum.
+              </Text>
+            </CardComment>
+            <CardComment>
+              <Text>
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book. It has
+                survived not only five centuries, but also the leap into
+                electronic typesetting, remaining essentially unchanged. It was
+                popularised in the 1960s with the release of Letraset sheets
+                containing Lorem Ipsum passages, and more recently with desktop
+                publishing software like Aldus PageMaker including versions of
+                Lorem Ipsum.
+              </Text>
+            </CardComment>
+          </Comments>
+        </Opinion>
+      </Container>
+    );
+  }
 }
 
 export default Profile;
