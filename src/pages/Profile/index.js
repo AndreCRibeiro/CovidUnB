@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Rating, AirbnbRating } from 'react-native-elements';
-import { TextInput, BackHandler } from 'react-native';
+import { TextInput, BackHandler, Alert } from 'react-native';
 import normalize from 'react-native-normalize';
+import { nanoid } from 'nanoid/non-secure';
+import firestore from '@react-native-firebase/firestore';
 
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -31,6 +33,15 @@ import {
   ChatButton,
 } from './styles';
 
+import useAuth from '../../store';
+
+import api from '../../services/api';
+
+const withZustand = (Comp) => (props) => {
+  const { token, userData } = useAuth();
+  return <Comp {...props} token={token} />;
+};
+
 class Profile extends Component {
   state = {};
 
@@ -56,6 +67,43 @@ class Profile extends Component {
     console.log(this.state);
     this.textInput.clear();
   }
+
+  handleChat = (profile) => {
+    const { token } = this.props;
+    console.log(token);
+
+    const chatId = nanoid();
+    firestore()
+      .collection('Chats')
+      .doc(chatId)
+      .set({ messages: [] })
+      .then(() => {
+        api
+          .post(
+            '/chats',
+            {
+              user1_id: 16, // TODO : mudar pro id do user atual
+              user2_id: profile.id,
+              chat_id: chatId,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then(() => {
+            const { navigation } = this.props;
+            navigation.navigate('Chat', { chatId });
+          })
+          .catch((err) => {
+            Alert.alert('Falha ao criar chat backend');
+
+            console.log(err);
+          });
+      })
+      .catch(() => Alert.alert('Falha ao criar chat Firebase'));
+  };
 
   render() {
     const { params } = this.props.route;
@@ -136,7 +184,11 @@ class Profile extends Component {
           </Comments>
         </Opinion>
         <ChatButtonView>
-          <ChatButton onPress={() => { }}>
+          <ChatButton
+            onPress={() => {
+              this.handleChat(params.perfil);
+            }}
+          >
             <Icon name="chat" size={33} color={colors.white} />
           </ChatButton>
         </ChatButtonView>
@@ -145,4 +197,4 @@ class Profile extends Component {
   }
 }
 
-export default Profile;
+export default withZustand(Profile);

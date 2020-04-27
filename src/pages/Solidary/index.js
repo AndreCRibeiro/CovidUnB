@@ -19,8 +19,6 @@ import Lottie from 'lottie-react-native';
 import { Card, Title, Paragraph, Appbar, Button } from 'react-native-paper';
 import { Picker } from '@react-native-community/picker';
 import PropTypes from 'prop-types';
-import { nanoid } from 'nanoid/non-secure';
-import firestore from '@react-native-firebase/firestore';
 import Loading from '../../assets/animations/loadingVolunteers.json';
 
 import useAuth from '../../store';
@@ -136,38 +134,6 @@ class Solidary extends Component {
     this.setState({ data: response.data, loading: false });
   };
 
-  handleChat = (profile) => {
-    const { token } = this.props;
-
-    const chatId = nanoid();
-    firestore()
-      .collection('Chats')
-      .doc(chatId)
-      .set({ messages: [] })
-      .then(() => {
-        api
-          .post(
-            '/chats',
-            {
-              user1_id: 16, // TODO : mudar pro id do user atual
-              user2_id: profile.id,
-              chat_id: chatId,
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          )
-          .then(() => {
-            const { navigation } = this.props;
-            navigation.navigate('Chat', { chatId });
-          })
-          .catch(() => Alert.alert('Falha ao criar chat'));
-      })
-      .catch(() => Alert.alert('Falha ao criar chat'));
-  };
-
   render() {
     const { region, task, loading, data } = this.state;
     const { navigation } = this.props;
@@ -195,7 +161,7 @@ class Solidary extends Component {
             marginTop: 20,
           }}
         >
-          <Button color="blue" onPress={() => { }}>
+          <Button color="blue" onPress={() => {}}>
             Novo chat
           </Button>
           <Button color="blue" onPress={() => navigation.navigate('ChatList')}>
@@ -254,8 +220,8 @@ class Solidary extends Component {
             {loading ? (
               <ActivityIndicator color={colors.white} />
             ) : (
-                <VolunteerButtonText>Buscar Voluntários</VolunteerButtonText>
-              )}
+              <VolunteerButtonText>Buscar Voluntários</VolunteerButtonText>
+            )}
           </ButtonVolunteer>
         </Form>
         {loading ? (
@@ -277,8 +243,8 @@ class Solidary extends Component {
                           <Icon name="star" size={16} color="#fff" />
                         </>
                       ) : (
-                          <Icon name="star" size={18} color="#fff" />
-                        )}
+                        <Icon name="star" size={18} color="#fff" />
+                      )}
                       <StartText>{starts}</StartText>
                     </StarView>
                     <CardContentTop>

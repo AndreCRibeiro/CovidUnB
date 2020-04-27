@@ -7,6 +7,7 @@ import useAuth from '../../store';
 
 const withZustand = (Comp) => (props) => {
   const { token, userData } = useAuth();
+  console.log(userData);
   return <Comp {...props} token={token} />;
 };
 
@@ -21,7 +22,6 @@ const App: () => React$Node = (props) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(res.data);
     setChats(res.data);
   };
 
@@ -44,7 +44,7 @@ const App: () => React$Node = (props) => {
         >
           Novo chat
         </Button>
-        <Button color="blue" onPress={() => { }}>
+        <Button color="blue" onPress={() => {}}>
           {' '}
           Meus chats{' '}
         </Button>
@@ -59,19 +59,25 @@ const App: () => React$Node = (props) => {
       >
         Meus chats
       </Text>
-      {chats.map(({ user2_id, chat_id }) => (
-        <Card
-          onPress={() => props.navigation.navigate('Chat', { chatId: chat_id })}
-        >
-          <Card.Title
-            title={`Usuário: ${user2_id}`}
-            style={{
-              backgroundColor: '#fff',
-              borderRadius: 15,
-            }}
-          />
-        </Card>
-      ))}
+      {chats && chats.length > 0 ? (
+        chats.map(({ user2_id, chat_id }) => (
+          <Card
+            onPress={() =>
+              props.navigation.navigate('Chat', { chatId: chat_id })
+            }
+          >
+            <Card.Title
+              title={`Usuário: ${user2_id}`}
+              style={{
+                backgroundColor: '#fff',
+                borderRadius: 15,
+              }}
+            />
+          </Card>
+        ))
+      ) : (
+        <Text>Você ainda não chats</Text>
+      )}
     </SafeAreaView>
   );
 };
