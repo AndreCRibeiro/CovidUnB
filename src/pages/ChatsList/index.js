@@ -3,18 +3,26 @@ import { SafeAreaView, Text, View } from 'react-native';
 import { Card, Appbar, Button } from 'react-native-paper';
 
 import api from '../../services/api';
+import useAuth from '../../store';
+
+const withZustand = (Comp) => (props) => {
+  const { token, userData } = useAuth();
+  return <Comp {...props} token={token} />;
+};
 
 const App: () => React$Node = (props) => {
   const [chats, setChats] = useState([]);
 
   const fetchChat = async () => {
     const { token } = props;
-    const res = await api.get('/chats', {
+    const res = await api.get('/chats?user=16', {
+      //TODO: botar id do user
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    // setChats(res);
+    console.log(res.data);
+    setChats(res.data);
   };
 
   useEffect(() => {
@@ -51,10 +59,10 @@ const App: () => React$Node = (props) => {
       >
         Meus chats
       </Text>
-      {chats.map(({ user_id, chat_id }) => (
+      {chats.map(({ user2_id, chat_id }) => (
         <Card>
           <Card.Title
-            title={`Usuário: ${user_id}`}
+            title={`Usuário: ${user2_id}`}
             style={{
               backgroundColor: '#fff',
               borderRadius: 15,
@@ -66,4 +74,4 @@ const App: () => React$Node = (props) => {
   );
 };
 
-export default App;
+export default withZustand(App);
