@@ -13,6 +13,8 @@ import Questions from './pages/Questions';
 import Solidary from './pages/Solidary';
 import HelpRequest from './pages/HelpRequest';
 import Map from './pages/Map';
+import Profile from './pages/Profile';
+
 
 const AppStack = createStackNavigator();
 
@@ -27,6 +29,7 @@ export default function Routes() {
         }}
         headerMode="none"
       >
+
         <AppStack.Screen
           name="Main"
           component={Main}
@@ -45,8 +48,10 @@ export default function Routes() {
         <AppStack.Screen name="Volunteer" component={Volunteer} />
         <AppStack.Screen name="Solidary" component={Solidary} />
         <AppStack.Screen name="Questions" component={Questions} />
-
         <AppStack.Screen name="HelpRequest" component={HelpRequest} />
+        <AppStack.Screen name="Profile" component={Profile} />
+
+
       </AppStack.Navigator>
     </NavigationContainer>
   );

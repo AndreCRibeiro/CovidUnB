@@ -84,6 +84,30 @@ class Solidary extends Component {
     return true;
   };
 
+  handleProfile = () => {
+    /*
+    try {
+      const response = await api.get('/help', body, {
+        headers: {
+          Authorization: Bearer ${token},
+        }
+      });
+      Alert.alert(
+        'Atenção',
+        'Fique em casa e com o celular próximo!',
+        [{ text: 'OK', onPress: () => navigation.navigate('Profile') }],
+        { cancelable: false }
+      );
+    } catch (err) { }
+  };
+  */
+  };
+
+  handleNavigateToProfile = (perfil) => {
+    const { navigation } = this.props;
+    navigation.navigate('Profile', { perfil });
+  };
+
   sendwhatsapp = (profile) => {
     const message = `Olá ${profile.name}, ví que você se voluntariou para ${profile.activities} e gostaria da sua ajuda! Podemos falar a respeito?`;
 
@@ -117,6 +141,8 @@ class Solidary extends Component {
     );
 
     const starts = 4.5;
+
+    console.tron.log(data);
 
     // const profileTeste = JSON.parse(data.activities);
 
@@ -174,8 +200,8 @@ class Solidary extends Component {
             {loading ? (
               <ActivityIndicator color={colors.white} />
             ) : (
-              <VolunteerButtonText>Buscar Voluntários</VolunteerButtonText>
-            )}
+                <VolunteerButtonText>Buscar Voluntários</VolunteerButtonText>
+              )}
           </ButtonVolunteer>
         </Form>
         {loading ? (
@@ -186,7 +212,9 @@ class Solidary extends Component {
             <ScrollView showsVerticalScrollIndicator={false}>
               {data.map((profile) =>
                 !profile.is_sick ? (
-                  <CardContainer onPress={(profile) => this.sendwhatsapp}>
+                  <CardContainer
+                    onPress={() => this.handleNavigateToProfile(profile)}
+                  >
                     <StarView>
                       {starts <= 4.4 ? (
                         <>
@@ -195,8 +223,8 @@ class Solidary extends Component {
                           <Icon name="star" size={16} color="#fff" />
                         </>
                       ) : (
-                        <Icon name="star" size={18} color="#fff" />
-                      )}
+                          <Icon name="star" size={18} color="#fff" />
+                        )}
                       <StartText>{starts}</StartText>
                     </StarView>
                     <CardContentTop>

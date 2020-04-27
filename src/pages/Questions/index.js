@@ -16,8 +16,16 @@ import {
   Title,
 } from './styles';
 
+import{
+  infoHeight,
+  infoWidth,
+  questionHeight,
+  questionWidth
+} from '../../styles/responsividade'
 export default class Questions extends Component {
   componentDidMount() {
+    console.log(questionWidth)
+    console.log(questionHeight)
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
   }
 
