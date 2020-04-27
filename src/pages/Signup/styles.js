@@ -125,13 +125,13 @@ export const ThirdCenterView = styled.View`
 
 export const AvatarView = styled.View`
   width: 100%;
-  height: 20%;
+  height: 130px;
   align-items: center;
   justify-content: center;
 `;
 export const ButtonChangeAvatar = styled.TouchableOpacity`
-  width: 53%;
-  height: 95%;
+  width: 125px;
+  height: 125px;
   border-radius: 100px;
   border-width: 4px;
   border-color: #000;
@@ -148,5 +148,6 @@ export const Avatar = styled.Image`
 `;
 export const AvatarText = styled.Text`
   font-weight: bold;
-  font-size: 16.5px;
+  font-size: 13px;
+  align-self: center;
 `;

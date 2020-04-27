@@ -14,8 +14,8 @@ export const Logo = styled.Image`
   height: ${normalize(120)};
   background: #fff;
   align-self: center;
-  margin-top: 15px;
-  margin-bottom: ${normalize(20, 'height')}px;
+  margin-top: ${normalize(30, 'height')}px;
+  margin-bottom: ${normalize(30, 'height')}px;
 `;
 
 export const Form = styled.View`
@@ -23,7 +23,7 @@ export const Form = styled.View`
   border-color: #fff;
   flex: 1;
   padding: 10px 20px;
-  margin-top: 5px;
+  margin-top: ${normalize(10, 'height')}px;
 `;
 
 export const Input = styled.TextInput.attrs({

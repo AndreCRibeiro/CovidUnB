@@ -205,7 +205,12 @@ class Main extends Component {
                     style={{ paddingRigth: 3, paddingBottom: 3 }}
                   />
                 ) : (
-                    <Eye source={require('../../assets/images/eye.png')} />
+                    <Icon
+                      name="visibility-off"
+                      size={28}
+                      color={colors.black}
+                      style={{ paddingRigth: 3, paddingBottom: 3 }}
+                    />
                   )}
               </HideNShowPassword>
             </Teste>
