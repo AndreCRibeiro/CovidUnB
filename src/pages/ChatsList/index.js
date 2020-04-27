@@ -60,7 +60,9 @@ const App: () => React$Node = (props) => {
         Meus chats
       </Text>
       {chats.map(({ user2_id, chat_id }) => (
-        <Card>
+        <Card
+          onPress={() => props.navigation.navigate('Chat', { chatId: chat_id })}
+        >
           <Card.Title
             title={`Usuário: ${user2_id}`}
             style={{
