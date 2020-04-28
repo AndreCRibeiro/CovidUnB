@@ -6,12 +6,17 @@ import { colors } from './styles';
 import Main from './pages/Main';
 import Home from './pages/Home';
 import Signup from './pages/Signup';
+import Camera from './pages/Camera';
 import Volunteer from './pages/Volunteer';
 import Talk from './pages/Talk';
 import Questions from './pages/Questions';
 import Solidary from './pages/Solidary';
 import HelpRequest from './pages/HelpRequest';
 import Map from './pages/Map';
+import Profile from './pages/Profile';
+import Chat from './pages/Chat';
+import ChatList from './pages/ChatsList';
+
 
 const AppStack = createStackNavigator();
 
@@ -26,6 +31,7 @@ export default function Routes() {
         }}
         headerMode="none"
       >
+
         <AppStack.Screen
           name="Main"
           component={Main}
@@ -36,7 +42,7 @@ export default function Routes() {
             },
           }}
         />
-
+        <AppStack.Screen name="Camera" component={Camera} />
         <AppStack.Screen name="Register" component={Signup} />
         <AppStack.Screen name="Home" component={Home} />
         <AppStack.Screen name="Map" component={Map} headerMode="none" />
@@ -44,8 +50,12 @@ export default function Routes() {
         <AppStack.Screen name="Volunteer" component={Volunteer} />
         <AppStack.Screen name="Solidary" component={Solidary} />
         <AppStack.Screen name="Questions" component={Questions} />
-
         <AppStack.Screen name="HelpRequest" component={HelpRequest} />
+        <AppStack.Screen name="Profile" component={Profile} />
+        <AppStack.Screen name="Chat" component={Chat} />
+        <AppStack.Screen name="ChatList" component={ChatList} />
+
+
       </AppStack.Navigator>
     </NavigationContainer>
   );

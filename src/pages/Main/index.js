@@ -127,6 +127,12 @@ class Main extends Component {
     navigation.navigate('Register');
   };
 
+  handleCamera = () => {
+    const { navigation } = this.props;
+
+    navigation.navigate('Camera');
+  };
+
   showPass = () => {
     const { showingPass } = this.state;
 
@@ -199,8 +205,13 @@ class Main extends Component {
                     style={{ paddingRigth: 3, paddingBottom: 3 }}
                   />
                 ) : (
-                  <Eye source={require('../../assets/images/eye.png')} />
-                )}
+                    <Icon
+                      name="visibility-off"
+                      size={28}
+                      color={colors.black}
+                      style={{ paddingRigth: 3, paddingBottom: 3 }}
+                    />
+                  )}
               </HideNShowPassword>
             </Teste>
             <OptionsView>
@@ -212,15 +223,15 @@ class Main extends Component {
                 {checked ? (
                   <Icon name="check-box" size={17} color={colors.black} />
                 ) : (
-                  <Icon
-                    name="check-box-outline-blank"
-                    size={17}
-                    color={colors.black}
-                  />
-                )}
+                    <Icon
+                      name="check-box-outline-blank"
+                      size={17}
+                      color={colors.black}
+                    />
+                  )}
                 <RememberText>Lembrar-me</RememberText>
               </RememberButton>
-              <ForgotPassword>
+              <ForgotPassword onPress={this.handleCamera}>
                 <PasswordText>Esqueceu sua senha?</PasswordText>
               </ForgotPassword>
             </OptionsView>
@@ -228,8 +239,8 @@ class Main extends Component {
               {loading ? (
                 <ActivityIndicator color={colors.white} />
               ) : (
-                <LoginButtonText>Login</LoginButtonText>
-              )}
+                  <LoginButtonText>Login</LoginButtonText>
+                )}
             </ButtonLogin>
             <Slash>
               <LineLeft />

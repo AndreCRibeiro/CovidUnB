@@ -15,6 +15,7 @@ export const Form = styled.View`
   border-bottom-width: 1px;
   border-color: #fff;
   padding: 5px;
+  margin-bottom: 100px;
 `;
 
 export const SimpleText = styled.Text`
@@ -120,4 +121,33 @@ export const ThirdCenterView = styled.View`
   align-self: center;
   margin-top: 5px;
   margin-bottom: 3px;
+`;
+
+export const AvatarView = styled.View`
+  width: 100%;
+  height: 130px;
+  align-items: center;
+  justify-content: center;
+`;
+export const ButtonChangeAvatar = styled.TouchableOpacity`
+  width: 125px;
+  height: 125px;
+  border-radius: 100px;
+  border-width: 4px;
+  border-color: #000;
+  align-items: center;
+  justify-content: center;
+  background: #eee;
+  elevation: 10;
+`;
+
+export const Avatar = styled.Image`
+  width: 100%;
+  height: 100%;
+  border-radius: 90px;
+`;
+export const AvatarText = styled.Text`
+  font-weight: bold;
+  font-size: 13px;
+  align-self: center;
 `;

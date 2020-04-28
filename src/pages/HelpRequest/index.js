@@ -227,7 +227,6 @@ class HelpRequest extends Component {
           }}
         >
           <Image source={require('../../assets/images/megaphone.png')} />
-          <TextArea>SOCORRO!</TextArea>
         </ButtonArea>
       </Container>
     );

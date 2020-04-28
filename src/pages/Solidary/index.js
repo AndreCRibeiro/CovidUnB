@@ -10,13 +10,17 @@ import {
   Linking,
   BackHandler,
   Text,
+  Alert,
+  View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 // import { Avatar, Card, Title, Paragraph } from 'react-native-paper';
 import Lottie from 'lottie-react-native';
+import { Card, Title, Paragraph, Appbar, Button } from 'react-native-paper';
 import { Picker } from '@react-native-community/picker';
 import PropTypes from 'prop-types';
 import Loading from '../../assets/animations/loadingVolunteers.json';
+
 import useAuth from '../../store';
 
 import {
@@ -46,7 +50,7 @@ import { colors } from '../../styles';
 
 const withZustand = (Comp) => (props) => {
   const { token, userData } = useAuth();
-  return <Comp {...props} token={token} />;
+  return <Comp {...props} token={token} userData={userData} />;
 };
 
 class Solidary extends Component {
@@ -63,7 +67,9 @@ class Solidary extends Component {
   };
 
   componentDidMount = async () => {
-    const { token } = this.props;
+    const { token, userData } = this.props;
+
+    console.tron.log('Teste', userData);
 
     const response = await api.get('volunteers', {
       headers: {
@@ -82,6 +88,30 @@ class Solidary extends Component {
     const { navigation } = this.props;
     navigation.navigate('Home');
     return true;
+  };
+
+  handleProfile = () => {
+    /*
+    try {
+      const response = await api.get('/help', body, {
+        headers: {
+          Authorization: Bearer ${token},
+        }
+      });
+      Alert.alert(
+        'Atenção',
+        'Fique em casa e com o celular próximo!',
+        [{ text: 'OK', onPress: () => navigation.navigate('Profile') }],
+        { cancelable: false }
+      );
+    } catch (err) { }
+  };
+  */
+  };
+
+  handleNavigateToProfile = (perfil) => {
+    const { navigation } = this.props;
+    navigation.navigate('Profile', { perfil });
   };
 
   sendwhatsapp = (profile) => {
@@ -108,6 +138,7 @@ class Solidary extends Component {
 
   render() {
     const { region, task, loading, data } = this.state;
+    const { navigation } = this.props;
     const LeftContent = (props) => (
       <Avatar.Icon
         {...props}
@@ -118,10 +149,27 @@ class Solidary extends Component {
 
     const starts = 4.5;
 
+    console.tron.log(data);
+
     // const profileTeste = JSON.parse(data.activities);
 
     return (
       <Container>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginTop: 20,
+          }}
+        >
+          <Button color="blue" onPress={() => { }}>
+            Novo chat
+          </Button>
+          <Button color="blue" onPress={() => navigation.navigate('ChatList')}>
+            Meus chats
+          </Button>
+        </View>
         <Form>
           <SimpleText>Entre em contato com um voluntários:</SimpleText>
           <PickerView>
@@ -174,8 +222,8 @@ class Solidary extends Component {
             {loading ? (
               <ActivityIndicator color={colors.white} />
             ) : (
-              <VolunteerButtonText>Buscar Voluntários</VolunteerButtonText>
-            )}
+                <VolunteerButtonText>Buscar Voluntários</VolunteerButtonText>
+              )}
           </ButtonVolunteer>
         </Form>
         {loading ? (
@@ -186,7 +234,9 @@ class Solidary extends Component {
             <ScrollView showsVerticalScrollIndicator={false}>
               {data.map((profile) =>
                 !profile.is_sick ? (
-                  <CardContainer onPress={(profile) => this.sendwhatsapp}>
+                  <CardContainer
+                    onPress={() => this.handleNavigateToProfile(profile)}
+                  >
                     <StarView>
                       {starts <= 4.4 ? (
                         <>
@@ -195,8 +245,8 @@ class Solidary extends Component {
                           <Icon name="star" size={16} color="#fff" />
                         </>
                       ) : (
-                        <Icon name="star" size={18} color="#fff" />
-                      )}
+                          <Icon name="star" size={18} color="#fff" />
+                        )}
                       <StartText>{starts}</StartText>
                     </StarView>
                     <CardContentTop>

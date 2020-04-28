@@ -5,6 +5,8 @@ import React, { Component } from 'react';
 import { ActivityIndicator, Alert, StatusBar } from 'react-native';
 import { TextInputMask } from 'react-native-masked-text';
 import PropTypes from 'prop-types';
+import ImagePicker from 'react-native-image-picker';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import CheckBox from '../../components/checkbox';
 import CheckBoxBall from '../../components/checkboxBall';
 import api from '../../services/api';
@@ -24,6 +26,10 @@ import {
   SecondCenterView,
   ThirdCenterView,
   ErrorText,
+  AvatarView,
+  ButtonChangeAvatar,
+  AvatarText,
+  Avatar,
 } from './styles';
 
 import { colors } from '../../styles';
@@ -56,6 +62,13 @@ export default class Signup extends Component {
     loading: false,
     check: true,
     passLengthCheck: true,
+    filepath: {
+      data: '',
+      uri: '',
+    },
+    fileData: '',
+    fileUri: '',
+    fileType: '',
   };
 
   checkPassLength = (text) => {
@@ -79,6 +92,8 @@ export default class Signup extends Component {
   };
 
   handleSignUp = async () => {
+    const { fileUri, fileData, fileType } = this.state;
+
     this.setState({ loading: true });
     const {
       userName,
@@ -90,11 +105,36 @@ export default class Signup extends Component {
       linkUnb,
       riskGroup,
       matriculaUnb,
+      diabetes,
     } = this.state;
     const { navigation } = this.props;
-    if (this.state.diabetes === true) {
+
+    if (diabetes === true) {
       this.setState({ riskGroup: [...riskGroup, 'Diabetes'] });
     }
+
+    const data = new FormData();
+    data.append({
+      uri: fileUri,
+      name: 'photo.jpg',
+      data: fileData,
+      type: fileType,
+    });
+    try {
+      const res = await api.post(
+        '/files',
+        { file: data },
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            email: 'andre_ribeiro97@hotmail.com',
+          },
+        }
+      );
+    } catch (error) {
+      console.tron.log(error);
+    }
+
     try {
       const response = await api.post('/users', {
         name: userName,
@@ -154,6 +194,44 @@ export default class Signup extends Component {
     }
   };
 
+  changeAvatar = async () => {
+    const { fileUri, fileData } = this.state;
+
+    const options = {
+      title: 'Escolha uma das opções',
+      cancelButtonTitle: 'Cancelar',
+      takePhotoButtonTitle: 'Tirar uma foto',
+      chooseFromLibraryButtonTitle: 'Escolher uma foto',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+      mediaType: 'mixed',
+    };
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+        const source = { uri: response.uri };
+
+        // You can also display the image using data:
+        // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+        // alert(JSON.stringify(response));
+        console.tron.log(response);
+        this.setState({
+          filePath: response,
+          fileData: response.data,
+          fileUri: response.uri,
+          fileType: response.type,
+        });
+      }
+    });
+  };
+
   render() {
     const {
       userName,
@@ -174,6 +252,7 @@ export default class Signup extends Component {
       ddi,
       check,
       passLengthCheck,
+      fileUri,
     } = this.state;
 
     return (
@@ -283,6 +362,21 @@ export default class Signup extends Component {
               value={matriculaUnb}
               onChangeText={(text) => this.setState({ matriculaUnb: text })}
             />
+            <AvatarView>
+              <ButtonChangeAvatar onPress={this.changeAvatar}>
+                {fileUri ? (
+                  <Avatar
+                    source={{ uri: fileUri }}
+                    style={{ resizeMode: 'cover' }}
+                  />
+                ) : (
+                    <>
+                      <Icon name="camera-alt" size={38} />
+                      <AvatarText>Escolha uma foto</AvatarText>
+                    </>
+                  )}
+              </ButtonChangeAvatar>
+            </AvatarView>
             <SecondCenterView>
               <SimpleText>QUAL SEU VÍNCULO COM A UNB?</SimpleText>
             </SecondCenterView>
