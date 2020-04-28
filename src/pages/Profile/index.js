@@ -39,12 +39,10 @@ import api from '../../services/api';
 
 const withZustand = (Comp) => (props) => {
   const { token, userData } = useAuth();
-  return <Comp {...props} token={token} />;
+  return <Comp {...props} token={token} userData={userData} />;
 };
 
 class Profile extends Component {
-  state = {};
-
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
   }
@@ -69,8 +67,9 @@ class Profile extends Component {
   }
 
   handleChat = (profile) => {
-    const { token } = this.props;
-    console.log(token);
+    const { token, userData } = this.props;
+
+    console.log(userData.id);
 
     const chatId = nanoid();
     firestore()
@@ -82,7 +81,7 @@ class Profile extends Component {
           .post(
             '/chats',
             {
-              user1_id: 16, // TODO : mudar pro id do user atual
+              user1_id: userData.id,
               user2_id: profile.id,
               chat_id: chatId,
             },
@@ -92,17 +91,17 @@ class Profile extends Component {
               },
             }
           )
-          .then(() => {
+          .then((res) => {
             const { navigation } = this.props;
             navigation.navigate('Chat', { chatId });
           })
           .catch((err) => {
             Alert.alert('Falha ao criar chat backend');
-
-            console.log(err);
           });
       })
-      .catch(() => Alert.alert('Falha ao criar chat Firebase'));
+      .catch((err) => {
+        Alert.alert('Falha ao criar chat Firebase');
+      });
   };
 
   render() {
