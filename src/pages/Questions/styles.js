@@ -5,9 +5,8 @@ import {
   questionWidth,
   questionHeight,
   infoWidth,
-  infoHeight
-} from "../../styles/responsividade";
-
+  infoHeight,
+} from '../../styles/responsividade';
 
 export const Container = styled.View`
   flex: 1;
@@ -33,10 +32,10 @@ export const Card = styled.View`
   height: ${questionHeight};
   width: ${questionWidth};
   background-color: #fff;
-  margin-left: ${normalize(20)};
-  margin-right: ${normalize(20)};
-  border-width: 2px;
-  border-radius: 8px;
+  margin-left: ${normalize(40)};
+  margin-right: ${(props) => (props.last ? `${normalize(40)}` : 0)};
+  border-width: 1px;
+  border-radius: 25px;
   border-color: #333;
   justify-content: center;
   align-items: center;
@@ -64,8 +63,7 @@ export const Source = styled.Text`
 `;
 
 export const Info = styled.Image`
-  width: ${infoWidth};
-  height: ${infoHeight};
+  width: 100%;
+  height: 100%;
   align-self: center;
-  border-radius: 30px;
 `;

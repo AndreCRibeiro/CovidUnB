@@ -16,16 +16,17 @@ import {
   Title,
 } from './styles';
 
-import{
+import {
   infoHeight,
   infoWidth,
   questionHeight,
-  questionWidth
-} from '../../styles/responsividade'
+  questionWidth,
+} from '../../styles/responsividade';
+
 export default class Questions extends Component {
   componentDidMount() {
-    console.log(questionWidth)
-    console.log(questionHeight)
+    console.log(questionWidth);
+    console.log(questionHeight);
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
   }
 
@@ -46,53 +47,18 @@ export default class Questions extends Component {
         <CardList horizontal>
           <Card>
             <Info source={require('../../assets/images/lavar.png')} />
-            <Source
-              onPress={() =>
-                Linking.openURL('https://coronavirus.saude.gov.br')
-              }
-            >
-              https://coronavirus.saude.gov.br/
-            </Source>
           </Card>
           <Card>
             <Info source={require('../../assets/images/cubrir.png')} />
-            <Source
-              onPress={() =>
-                Linking.openURL('https://coronavirus.saude.gov.br')
-              }
-            >
-              https://coronavirus.saude.gov.br/
-            </Source>
           </Card>
           <Card>
             <Info source={require('../../assets/images/compobj.png')} />
-            <Source
-              onPress={() =>
-                Linking.openURL('https://coronavirus.saude.gov.br')
-              }
-            >
-              https://coronavirus.saude.gov.br/
-            </Source>
           </Card>
           <Card>
             <Info source={require('../../assets/images/evitar.png')} />
-            <Source
-              onPress={() =>
-                Linking.openURL('https://coronavirus.saude.gov.br')
-              }
-            >
-              https://coronavirus.saude.gov.br/
-            </Source>
           </Card>
-          <Card>
+          <Card last>
             <Info source={require('../../assets/images/manter.png')} />
-            <Source
-              onPress={() =>
-                Linking.openURL('https://coronavirus.saude.gov.br')
-              }
-            >
-              https://coronavirus.saude.gov.br/
-            </Source>
           </Card>
         </CardList>
         <EndView>

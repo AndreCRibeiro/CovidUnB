@@ -3,7 +3,7 @@ import { Alert } from 'react-native';
 import {
   paddingImage,
   HelpTitle,
-  heightOutros
+  heightOutros,
 } from '../../styles/responsividade';
 
 export const Container = styled.View`
@@ -19,7 +19,6 @@ export const TextHeader = styled.Text`
   justify-content: center;
   margin-top: 30px;
 `;
-
 
 export const CheckBoxField = styled.View`
   padding: 10px;
@@ -48,16 +47,9 @@ export const ButtonArea = styled.TouchableOpacity`
 `;
 
 export const Image = styled.Image`
-  margin: 0 50%;
-  width: 110px;
-  height: 110px;
-`;
-
-export const TextArea = styled.Text`
-  margin: 5px 51%;
-  color: #ff0000;
-  font-weight: bold;
-  font-size: 20px;
+  width: 200px;
+  height: 250px;
+  border-radius: 50px;
 `;
 
 export const AlertField = styled(Alert)``;
