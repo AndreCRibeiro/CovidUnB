@@ -50,7 +50,7 @@ import { colors } from '../../styles';
 
 const withZustand = (Comp) => (props) => {
   const { token, userData } = useAuth();
-  return <Comp {...props} token={token} />;
+  return <Comp {...props} token={token} userData={userData} />;
 };
 
 class Solidary extends Component {
@@ -67,7 +67,9 @@ class Solidary extends Component {
   };
 
   componentDidMount = async () => {
-    const { token } = this.props;
+    const { token, userData } = this.props;
+
+    console.tron.log('Teste', userData);
 
     const response = await api.get('volunteers', {
       headers: {
@@ -161,7 +163,7 @@ class Solidary extends Component {
             marginTop: 20,
           }}
         >
-          <Button color="blue" onPress={() => {}}>
+          <Button color="blue" onPress={() => { }}>
             Novo chat
           </Button>
           <Button color="blue" onPress={() => navigation.navigate('ChatList')}>
@@ -220,8 +222,8 @@ class Solidary extends Component {
             {loading ? (
               <ActivityIndicator color={colors.white} />
             ) : (
-              <VolunteerButtonText>Buscar Voluntários</VolunteerButtonText>
-            )}
+                <VolunteerButtonText>Buscar Voluntários</VolunteerButtonText>
+              )}
           </ButtonVolunteer>
         </Form>
         {loading ? (
@@ -243,8 +245,8 @@ class Solidary extends Component {
                           <Icon name="star" size={16} color="#fff" />
                         </>
                       ) : (
-                        <Icon name="star" size={18} color="#fff" />
-                      )}
+                          <Icon name="star" size={18} color="#fff" />
+                        )}
                       <StartText>{starts}</StartText>
                     </StarView>
                     <CardContentTop>

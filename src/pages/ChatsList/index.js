@@ -5,19 +5,12 @@ import { Card, Appbar, Button } from 'react-native-paper';
 import api from '../../services/api';
 import useAuth from '../../store';
 
-const withZustand = (Comp) => (props) => {
+const App = (props) => {
   const { token, userData } = useAuth();
-  console.log(userData);
-  return <Comp {...props} token={token} />;
-};
-
-const App: () => React$Node = (props) => {
   const [chats, setChats] = useState([]);
 
   const fetchChat = async () => {
-    const { token } = props;
-    const res = await api.get('/chats?user=16', {
-      // TODO: botar id do user
+    const res = await api.get(`/chats?user=${userData.id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -44,7 +37,7 @@ const App: () => React$Node = (props) => {
         >
           Novo chat
         </Button>
-        <Button color="blue" onPress={() => {}}>
+        <Button color="blue" onPress={() => { }}>
           {' '}
           Meus chats{' '}
         </Button>
@@ -76,10 +69,10 @@ const App: () => React$Node = (props) => {
           </Card>
         ))
       ) : (
-        <Text>Você ainda não chats</Text>
-      )}
+          <Text>Você ainda não chats</Text>
+        )}
     </SafeAreaView>
   );
 };
 
-export default withZustand(App);
+export default App;

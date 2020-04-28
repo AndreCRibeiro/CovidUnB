@@ -141,6 +141,7 @@ class Home extends Component {
 
   handleYes = async () => {
     const { userData, token } = this.props;
+
     const body = { email: userData.email, is_sick: true };
     const response = await api.put('volunteers', body, {
       headers: {

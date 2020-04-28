@@ -1,20 +1,15 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React, { useEffect, useState } from 'react';
 import { GiftedChat } from 'react-native-gifted-chat';
 
 import firestore from '@react-native-firebase/firestore';
+import useAuth from '../../store';
 
-const App: () => React$Node = (props) => {
+const App = (props) => {
+  const { token, userData } = useAuth();
   const [messages, setMessages] = useState([]);
   const { chatId } = props.route.params;
   const chatRef = firestore().collection('Chats').doc(chatId);
+  const { id } = userData;
 
   useEffect(() => {
     const subscriber = chatRef.onSnapshot((documentSnapshot) => {
@@ -41,7 +36,7 @@ const App: () => React$Node = (props) => {
         messages={messages}
         onSend={(messages) => onSend(messages)}
         user={{
-          _id: 16, // TODO : mudar pro id do user atual
+          _id: { id }, // TODO : mudar pro id do user atual
         }}
         renderAvatar={() => null}
       />
