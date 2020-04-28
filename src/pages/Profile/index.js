@@ -58,7 +58,7 @@ class Profile extends Component {
   };
 
   ratingCompleted(rating) {
-    // console.tron.log(`Rating is: ${rating}`);
+    console.log(`Rating is: ${rating}`);
   }
 
   handlePress() {
@@ -106,7 +106,6 @@ class Profile extends Component {
 
   render() {
     const { params } = this.props.route;
-    console.tron.log(params.perfil);
 
     return (
       <Container>

@@ -69,8 +69,6 @@ class Solidary extends Component {
   componentDidMount = async () => {
     const { token, userData } = this.props;
 
-    console.tron.log('Teste', userData);
-
     const response = await api.get('volunteers', {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -148,8 +146,6 @@ class Solidary extends Component {
     );
 
     const starts = 4.5;
-
-    console.tron.log(data);
 
     // const profileTeste = JSON.parse(data.activities);
 

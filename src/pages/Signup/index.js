@@ -132,7 +132,7 @@ export default class Signup extends Component {
         }
       );
     } catch (error) {
-      console.tron.log(error);
+      console.log(error);
     }
 
     try {
@@ -221,7 +221,7 @@ export default class Signup extends Component {
         // You can also display the image using data:
         // const source = { uri: 'data:image/jpeg;base64,' + response.data };
         // alert(JSON.stringify(response));
-        console.tron.log(response);
+        console.log(response);
         this.setState({
           filePath: response,
           fileData: response.data,
