@@ -42,6 +42,7 @@ import {
   ActivitiesText,
   StartText,
   StarView,
+  Scroll,
 } from './styles';
 
 import api from '../../services/api';
@@ -145,8 +146,6 @@ class Solidary extends Component {
       />
     );
 
-    const starts = 4.5;
-
     // const profileTeste = JSON.parse(data.activities);
 
     return (
@@ -156,12 +155,8 @@ class Solidary extends Component {
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'center',
-            marginTop: 20,
           }}
         >
-          <Button color="blue" onPress={() => { }}>
-            Novo chat
-          </Button>
           <Button color="blue" onPress={() => navigation.navigate('ChatList')}>
             Meus chats
           </Button>
@@ -226,42 +221,32 @@ class Solidary extends Component {
           <Lottie resizeMode="contain" source={Loading} autoPlay loop />
         ) : null}
         {data ? (
-          <ProfileList>
-            <ScrollView showsVerticalScrollIndicator={false}>
-              {data.map((profile) =>
-                !profile.is_sick ? (
-                  <CardContainer
-                    onPress={() => this.handleNavigateToProfile(profile)}
-                  >
-                    <StarView>
-                      {starts <= 4.4 ? (
-                        <>
-                          <Icon name="star" size={16} color="#fff" />
-                          <Icon name="star" size={16} color="#fff" />
-                          <Icon name="star" size={16} color="#fff" />
-                        </>
-                      ) : (
-                          <Icon name="star" size={18} color="#fff" />
-                        )}
-                      <StartText>{starts}</StartText>
-                    </StarView>
-                    <CardContentTop>
-                      <Avatar
-                        source={require('../../assets/images/volunteer.png')}
-                      />
-                      <Name>{`${profile.name}, `}</Name>
-                      <Number>Entrar em Contato</Number>
-                    </CardContentTop>
-                    <ActivitiesTitle>Posso ajudar em</ActivitiesTitle>
-                    <CardContentBottom>
-                      <ActivitiesText>{profile.activities}</ActivitiesText>
-                    </CardContentBottom>
-                    <RA>{profile.administrative_region}</RA>
-                  </CardContainer>
-                ) : null
-              )}
-            </ScrollView>
-          </ProfileList>
+          <Scroll>
+            {data.map((profile) =>
+              !profile.is_sick ? (
+                <CardContainer
+                  onPress={() => this.handleNavigateToProfile(profile)}
+                >
+                  <StarView>
+                    <Icon name="star" size={18} color="#fff" />
+                    <StartText>{profile.rate}</StartText>
+                  </StarView>
+                  <CardContentTop>
+                    <Avatar
+                      source={require('../../assets/images/volunteer.png')}
+                    />
+                    <Name>{`${profile.name}, `}</Name>
+                    <Number>Entrar em Contato</Number>
+                  </CardContentTop>
+                  <ActivitiesTitle>Posso ajudar em</ActivitiesTitle>
+                  <CardContentBottom>
+                    <ActivitiesText>{profile.activities}</ActivitiesText>
+                  </CardContentBottom>
+                  <RA>{profile.administrative_region}</RA>
+                </CardContainer>
+              ) : null
+            )}
+          </Scroll>
         ) : null}
       </Container>
     );
