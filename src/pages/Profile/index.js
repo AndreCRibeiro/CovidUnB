@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Rating, AirbnbRating } from 'react-native-elements';
+import { Rating, AirbnbRating } from 'react-native-ratings';
 import { TextInput, BackHandler, Alert } from 'react-native';
 import normalize from 'react-native-normalize';
 import { nanoid } from 'nanoid/non-secure';
@@ -12,8 +12,6 @@ import {
   Container,
   Card,
   Avaliation,
-  Rate,
-  Stars,
   Image,
   Info,
   TextContainer,
@@ -31,6 +29,10 @@ import {
   Input,
   ChatButtonView,
   ChatButton,
+  RatingView,
+  RatingText,
+  RatingViewComment,
+  RatingTextComment,
 } from './styles';
 
 import useAuth from '../../store';
@@ -43,7 +45,23 @@ const withZustand = (Comp) => (props) => {
 };
 
 class Profile extends Component {
-  componentDidMount() {
+  state = {
+    rating: '',
+    userComment: '',
+  };
+
+  async componentDidMount() {
+    const { userData, token } = this.props;
+
+    const body = { volunteer_id: userData.volunteer_id };
+    const response = await api.post(`comments`, body, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    this.setState({ data: response.data });
+
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
   }
 
@@ -57,19 +75,44 @@ class Profile extends Component {
     return true;
   };
 
-  ratingCompleted(rating) {
-    console.log(`Rating is: ${rating}`);
-  }
+  ratingCompleted = (rating) => {
+    // console.tron.log(`Rating is: ${rating}`);
+    this.setState({ rating });
+  };
 
-  handlePress() {
-    console.log(this.state);
-    this.textInput.clear();
-  }
+  handleAvaliation = async () => {
+    const { userComment, rating } = this.state;
+    const { userData, token } = this.props;
+
+    // console.tron.log(userComment);
+    console.tron.log(rating);
+
+    if (userComment !== '') {
+      const body = {
+        volunteer_id: userData.volunteer_id,
+        comment: userComment,
+      };
+      const response = await api.post(`commentate`, body, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }
+
+    if (rating !== '') {
+      const body = { email: userData.email, volunteer_rate: rating };
+      const response = await api.put('rates', body, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }
+
+    this.setState({ userComment: '' });
+  };
 
   handleChat = (profile) => {
     const { token, userData } = this.props;
-
-    console.log(userData.id);
 
     const chatId = nanoid();
     firestore()
@@ -105,6 +148,7 @@ class Profile extends Component {
   };
 
   render() {
+    const { rating, data, userComment } = this.state;
     const { params } = this.props.route;
 
     return (
@@ -118,78 +162,65 @@ class Profile extends Component {
               <ActivitiesTitle>{params.perfil.activities}</ActivitiesTitle>
             </TextContainer>
           </Info>
-          <Rating imageSize={16} readonly startingValue={3} />
+          <RatingView>
+            <Rating
+              type="custom"
+              imageSize={16}
+              readonly
+              startingValue={params.perfil.rate}
+              ratingColor="#0039A6"
+              style={{ flexDirection: 'row' }}
+              fractions={1}
+            />
+            <RatingText>{`${params.perfil.rate} (${params.perfil.count_avaliation})`}</RatingText>
+          </RatingView>
         </Card>
         <Avaliation>
           <Input
-            ref={(input) => {
-              this.textInput = input;
-            }}
+            autoCorrect={false}
+            autoCapitalize="sentences"
+            value={userComment}
             placeholder="O que você achou de trabalhar com essa pessoa?"
-            onChangeText={(text) => this.setState({ text })}
+            onChangeText={(text) => this.setState({ userComment: text })}
             multiline
           />
           <ButtonsAvaliation>
-            <AirbnbRating
-              count={5}
-              defaultRating={0}
-              size={20}
-              reviewSize={0}
-              onFinishRating={this.ratingCompleted}
-            />
-            <ButtonComment onPress={() => this.handlePress()}>
+            <RatingViewComment>
+              <Rating
+                type="custom"
+                imageSize={28}
+                startingValue={0}
+                ratingColor="#0039A6"
+                style={{ flexDirection: 'row' }}
+                onFinishRating={this.ratingCompleted}
+                showRating={false}
+                fractions={1}
+              />
+              <RatingTextComment>{rating}</RatingTextComment>
+            </RatingViewComment>
+            <ButtonComment onPress={() => this.handleAvaliation()}>
               <ButtonCommentText>Enviar</ButtonCommentText>
             </ButtonComment>
           </ButtonsAvaliation>
         </Avaliation>
 
-        <Title>Avaliações anteriores:</Title>
+        <Title>AVALIAÇÕES ANTERIORES:</Title>
         <Opinion>
-          <Comments
-            contentContainerStyle={{
-              justifyContent: 'center',
-              alignContent: 'center',
-            }}
-          >
-            <CardComment>
-              <Text>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages, and more recently with desktop
-                publishing software like Aldus PageMaker including versions of
-                Lorem Ipsum.
-              </Text>
-            </CardComment>
-            <CardComment>
-              <Text>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages, and more recently with desktop
-                publishing software like Aldus PageMaker including versions of
-                Lorem Ipsum.
-              </Text>
-            </CardComment>
-          </Comments>
+          {data
+            ? data.map((comments) => (
+              <CardComment>
+                <Text>{comments.comment}</Text>
+              </CardComment>
+            ))
+            : null}
         </Opinion>
-        <ChatButtonView>
-          <ChatButton
-            onPress={() => {
-              this.handleChat(params.perfil);
-            }}
-          >
-            <Icon name="chat" size={33} color={colors.white} />
-          </ChatButton>
-        </ChatButtonView>
+        <ChatButton
+          onPress={() => {
+            this.handleChat(params.perfil);
+          }}
+        >
+          <Icon name="chat" size={22} color={colors.white} />
+        </ChatButton>
       </Container>
     );
   }

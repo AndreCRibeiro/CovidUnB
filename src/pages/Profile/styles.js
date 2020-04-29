@@ -7,11 +7,11 @@ export const Container = styled.View`
   align-items: center;
   justify-content: center;
   background: #fff;
-  padding: 15px;
+  padding: 10px 0px 0px 0px;
 `;
 
 export const Card = styled.View`
-  height: ${normalize(150)};
+  height: ${normalize(165)};
   width: ${normalize(320)};
   background: #fff;
   border-top-width: 2px;
@@ -33,51 +33,60 @@ export const Info = styled.View`
 `;
 
 export const Image = styled.Image`
-  width: ${normalize(90)};
-  height: ${normalize(90)};
+  width: ${normalize(100)}px;
+  height: ${normalize(100)}px;
   border-radius: 50px;
-  align-self: flex-start;
   margin: 5px 15px 10px 10px;
 `;
 
 export const TextContainer = styled.View`
-  width: ${normalize(200)};
-  height: ${normalize(30)};
+  width: ${normalize(200)}px;
+  height: ${normalize(30)}px;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  margin-top: ${normalize(20)};
-`;
-
-export const Title = styled.Text`
-  font-size: ${normalize(15)}px;
-  font-weight: bold;
+  margin-top: ${normalize(28)}px;
 `;
 
 export const TitleCard = styled.Text`
-  font-size: ${normalize(13)}px;
+  font-size: ${normalize(15)}px;
   font-weight: bold;
   margin-top: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 1px;
+  text-align: center;
+`;
+
+export const TextCard = styled.Text`
+  font-size: ${normalize(15)}px;
+  padding-top: 5px;
+  text-align: center;
 `;
 
 export const ActivitiesTitle = styled.Text`
-  font-size: ${normalize(16)};
+  font-size: ${normalize(15)};
   color: #333;
   font-weight: bold;
   text-align: center;
-  margin-top: ${normalize(10)};
+  margin-top: ${normalize(5)};
+`;
+
+export const RatingView = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+`;
+
+export const RatingText = styled.Text`
+  font-size: ${normalize(15)}px;
+  font-weight: bold;
+  color: #0039a6;
+  padding-left: 7px;
 `;
 
 export const Avaliation = styled.View`
-  height: ${normalize(200)};
-  width: 90%;
-`;
-
-export const ButtonsAvaliation = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
+  height: ${normalize(180)}px;
+  width: ${normalize(320)}px;
 `;
 
 export const Input = styled.TextInput.attrs({
@@ -90,9 +99,25 @@ export const Input = styled.TextInput.attrs({
   margin-top: 25px;
 `;
 
-export const Stars = styled.View`
-  height: ${normalize(30)};
-  width: ${normalize(280)};
+export const ButtonsAvaliation = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: ${normalize(15)}px;
+`;
+
+export const RatingViewComment = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-left: ${normalize(18)}px;
+`;
+
+export const RatingTextComment = styled.Text`
+  font-size: ${normalize(20)}px;
+  font-weight: bold;
+  color: #0039a6;
+  padding-left: 7px;
 `;
 
 export const Comments = styled.ScrollView`
@@ -106,11 +131,8 @@ export const ButtonComment = styled(RectButton)`
   border-radius: 10px;
   opacity: ${(props) => (props.loading ? 0.7 : 1)};
   width: ${normalize(100)};
-  padding: 0 ${normalize(6)}px;
   height: ${normalize(35)};
   align-self: flex-end;
-  margin-top: ${normalize(10)}px;
-  margin-bottom: ${normalize(5)}px;
 `;
 
 export const ButtonCommentText = styled.Text`
@@ -121,23 +143,30 @@ export const ButtonCommentText = styled.Text`
   text-align: center;
 `;
 
-export const Opinion = styled.View`
-  width: 90%;
-  margin-top: ${normalize(8)}px;
-  background: #fff;
-  align-items: center;
+export const Title = styled.Text`
+  font-size: ${normalize(17)}px;
+  font-weight: bold;
+  margin-bottom: ${normalize(5)}px;
+`;
+
+export const Opinion = styled.ScrollView.attrs({
+  showsVerticalScrollIndicator: false,
+  contentContainerStyle: {
+    alignItems: 'center',
+    width: '100%',
+  },
+})`
   flex: 1;
 `;
 
 export const CardComment = styled.View`
-  width: 95%;
   background: #fff;
-  margin-bottom: 20px;
+  width: ${normalize(340)}px;
+  margin: 20px;
   padding: ${normalize(10)}px;
   elevation: 5;
-  border-radius: 10;
+  border-radius: 10px;
   border-width: 2px;
-  align-items: center;
 `;
 
 export const Text = styled.Text`
@@ -145,24 +174,9 @@ export const Text = styled.Text`
   padding: 5px;
 `;
 
-export const TextCard = styled.Text`
-  font-size: ${normalize(13)}px;
-  padding-top: 5px;
-`;
-
-export const ChatButtonView = styled.View`
-  align-self: flex-end;
-  flex-direction: row;
-  width: 100%;
-  align-items: center;
-  justify-content: flex-end;
-  margin-top: 3%;
-  flex: 0.15;
-`;
-
 export const ChatButton = styled(RectButton)`
-  height: 55px;
-  width: 55px;
+  height: 35px;
+  width: 35px;
   background: #fff;
   border-width: 3px;
   border-radius: 35px;
@@ -171,4 +185,7 @@ export const ChatButton = styled(RectButton)`
   align-items: center;
   elevation: 12;
   background: #0039a6;
+  position: absolute;
+  left: ${normalize(333)}px;
+  top: ${normalize(705)}px;
 `;

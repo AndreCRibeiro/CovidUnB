@@ -3,7 +3,7 @@ import { RectButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   flex: 1;
-  padding: 15px;
+  padding: 15px 15px 0 15px;
   background: #fff;
 `;
 
@@ -18,7 +18,7 @@ export const ButtonVolunteer = styled(RectButton)`
   align-items: center;
   background: #0039a6;
   border-radius: 20px;
-  padding: 0 12px;
+  padding: 5px 12px;
   opacity: ${(props) => (props.loading ? 0.7 : 1)};
   height: 45px;
   margin-top: 15px;
@@ -68,6 +68,16 @@ export const ProfileList = styled.View`
   margin-bottom: 150px;
 `;
 
+export const Scroll = styled.ScrollView.attrs({
+  showsVerticalScrollIndicator: false,
+  contentContainerStyle: {
+    alignItems: 'center',
+    width: '100%',
+  },
+})`
+  flex: 1;
+`;
+
 export const CardContainer = styled.TouchableOpacity`
   padding-top: 10px;
   padding-bottom: 10px;
@@ -79,6 +89,7 @@ export const CardContainer = styled.TouchableOpacity`
   border-width: 2px;
   elevation: 10;
   border-color: #0039a6;
+  width: 100%;
 `;
 
 export const CardContentTop = styled.View`
@@ -132,14 +143,16 @@ export const RA = styled.Text`
 
 export const StartText = styled.Text`
   color: #fff;
-  font-style: italic;
   font-weight: bold;
+  font-size: 15px;
+  padding-left: 3px;
+  margin-bottom: 3px;
 `;
 
 export const StarView = styled.View`
   flex: 1;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: center;
   align-self: flex-end;
   margin-top: -35px;
   margin-right: 5px;
