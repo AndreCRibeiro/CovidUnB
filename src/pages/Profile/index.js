@@ -84,9 +84,6 @@ class Profile extends Component {
     const { userComment, rating } = this.state;
     const { userData, token } = this.props;
 
-    // console.tron.log(userComment);
-    console.tron.log(rating);
-
     if (userComment !== '') {
       const body = {
         volunteer_id: userData.volunteer_id,
@@ -108,7 +105,16 @@ class Profile extends Component {
       });
     }
 
-    this.setState({ userComment: '' });
+    const body = { volunteer_id: userData.volunteer_id };
+    const response = await api.post(`comments`, body, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    this.setState({ data: '' });
+
+    this.setState({ userComment: '', data: response.data });
   };
 
   handleChat = (profile) => {
@@ -151,6 +157,10 @@ class Profile extends Component {
     const { rating, data, userComment } = this.state;
     const { params } = this.props.route;
 
+    const number = params.perfil.rate;
+
+    const rate = parseFloat(number.toFixed(2));
+
     return (
       <Container>
         <Card>
@@ -167,12 +177,12 @@ class Profile extends Component {
               type="custom"
               imageSize={16}
               readonly
-              startingValue={params.perfil.rate}
+              startingValue={rate}
               ratingColor="#0039A6"
               style={{ flexDirection: 'row' }}
               fractions={1}
             />
-            <RatingText>{`${params.perfil.rate} (${params.perfil.count_avaliation})`}</RatingText>
+            <RatingText>{`${rate} (${params.perfil.count_avaliation})`}</RatingText>
           </RatingView>
         </Card>
         <Avaliation>
