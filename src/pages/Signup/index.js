@@ -113,7 +113,7 @@ export default class Signup extends Component {
       this.setState({ riskGroup: [...riskGroup, 'Diabetes'] });
     }
 
-    const data = new FormData();
+    /* const data = new FormData();
     data.append({
       uri: fileUri,
       name: 'photo.jpg',
@@ -133,7 +133,7 @@ export default class Signup extends Component {
       );
     } catch (error) {
       console.log(error);
-    }
+    } */
 
     try {
       const response = await api.post('/users', {
