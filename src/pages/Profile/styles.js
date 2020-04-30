@@ -186,6 +186,6 @@ export const ChatButton = styled(RectButton)`
   elevation: 12;
   background: #0039a6;
   position: absolute;
-  left: ${normalize(333)}px;
-  top: ${normalize(705)}px;
+  left: ${normalize(338)}px;
+  top: ${normalize(665)}px;
 `;
