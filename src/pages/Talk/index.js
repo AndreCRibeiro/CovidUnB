@@ -33,13 +33,15 @@ export default class Talk extends Component {
       <Container>
         <CenterView>
           <LogoUnB source={require('../../assets/images/logo.png')} />
+          <SimpleText>Telefone: XXXX-XXXX</SimpleText>
         </CenterView>
         <CenterView>
           <LogoLatitude source={require('../../assets/images/latitude.png')} />
+          <SimpleText>Telefone: YYYY-YYYY</SimpleText>
         </CenterView>
       </Container>
     );
   }
 }
 
-//16
+// 16
