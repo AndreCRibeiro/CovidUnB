@@ -38,10 +38,6 @@ const App = (props) => {
         >
           Novo chat
         </Button>
-        <Button color="blue" onPress={() => {}}>
-          {' '}
-          Meus chats{' '}
-        </Button>
       </View>
       <Text
         style={{
@@ -71,8 +67,8 @@ const App = (props) => {
           </Card>
         ))
       ) : (
-        <Text>Você ainda não chats</Text>
-      )}
+          <Text>Você ainda não chats</Text>
+        )}
     </SafeAreaView>
   );
 };

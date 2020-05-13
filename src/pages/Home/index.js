@@ -176,10 +176,10 @@ class Home extends Component {
     navigation.navigate('HelpRequest', { region });
   };
 
-  handleNavigateToLocal = () => {
+  handleNavigateToChat = () => {
     const { navigation } = this.props;
 
-    navigation.navigate('Map');
+    navigation.navigate('ChatList');
   };
 
   handleNavigateToQuestions = () => {
@@ -380,9 +380,9 @@ class Home extends Component {
             messageStyle={{ color: '#000' }}
           />
           <TopCards>
-            <Card onPress={() => this.handleNavigateToLocal()}>
-              <Image source={require('../../assets/images/destination.png')} />
-              <Text>Localização</Text>
+            <Card onPress={() => this.handleNavigateToChat()}>
+              <Image source={require('../../assets/images/chat.png')} />
+              <Text>Chat</Text>
             </Card>
             <Card onPress={() => this.handleNavigateToVolunteer()}>
               <MediumImage

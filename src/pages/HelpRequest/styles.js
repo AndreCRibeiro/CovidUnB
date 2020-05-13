@@ -47,8 +47,8 @@ export const ButtonArea = styled.TouchableOpacity`
 `;
 
 export const Image = styled.Image`
-  width: 200px;
-  height: 250px;
+  width: 185px;
+  height: 185px;
   border-radius: 50px;
 `;
 
