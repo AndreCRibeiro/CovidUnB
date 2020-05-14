@@ -93,7 +93,7 @@ class Home extends Component {
     showAlert: false,
     modalLogout: false,
     modalchecked: false,
-    showAnimation: false,
+    showAnimation: true,
     exitVolunteer: false,
   };
 
