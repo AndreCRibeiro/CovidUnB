@@ -28,7 +28,6 @@ import {
   ButtonSingup,
   Teste,
   HideNShowPassword,
-  Eye,
   OptionsView,
   RememberButton,
   ForgotPassword,
@@ -55,9 +54,12 @@ class Main extends Component {
   state = {
     userMail: null,
     userPass: null,
+    userMailReset: null,
+    userPassReset: null,
     showingPass: true,
     checked: null,
     showAnimation: true,
+    reset: false,
   };
 
   async componentDidMount() {
@@ -66,6 +68,8 @@ class Main extends Component {
     const checkedAsync = await AsyncStorage.getItem('check');
     const checkedUserAsync = await AsyncStorage.getItem('userNameAsync');
     const checkedPassAsync = await AsyncStorage.getItem('userPassAsync');
+
+    console.tron.log(checkedUserAsync);
 
     if (checkedAsync === 'true') {
       this.setState({
@@ -121,6 +125,32 @@ class Main extends Component {
     }
   };
 
+  handleLoginReset = async () => {
+    const { userMailReset, userPassReset, checked } = this.state;
+    const { fetchAuth, navigation } = this.props;
+
+    if (!userMailReset || !userPassReset) {
+      Alert.alert(
+        'Falha na Autenticação',
+        'É necessário informar email e senha!'
+      );
+    } else {
+      try {
+        const body = { email: userMailReset, password: userPassReset };
+        fetchAuth(body);
+        if (checked) {
+          AsyncStorage.setItem('check', JSON.stringify(checked));
+          AsyncStorage.setItem('userNameAsync', JSON.stringify(userMailReset));
+          AsyncStorage.setItem('userPassAsync', JSON.stringify(userPassReset));
+        } else {
+          AsyncStorage.setItem('check', JSON.stringify(checked));
+        }
+      } catch (err) {
+        Alert.alert('Verifique sua conexão com a Internet!');
+      }
+    }
+  };
+
   handleNavigationToSignUp = () => {
     const { navigation } = this.props;
 
@@ -139,19 +169,20 @@ class Main extends Component {
     this.setState({ showingPass: !showingPass });
   };
 
-  handleSavecredentials = () => {
-    const { userMail, userPass } = this.state;
-  };
-
   render() {
     const {
       userMail,
       userPass,
+      userMailReset,
+      userPassReset,
       showingPass,
       checked,
       showAnimation,
+      reset,
     } = this.state;
     const { loading } = this.props;
+
+    console.tron.log(this.props.route.params);
 
     return (
       <>
@@ -178,78 +209,161 @@ class Main extends Component {
           ) : null}
           <Logo source={require('../../assets/images/logo.png')} />
           <Form>
-            <Input
-              autoCorrect={false}
-              autoCapitalize="none"
-              placeholder="Email"
-              value={userMail}
-              onChangeText={(text) => this.setState({ userMail: text })}
-            />
-            <Teste>
-              <Input
-                autoCorrect={false}
-                autoCapitalize="none"
-                secureTextEntry={showingPass}
-                placeholder="Senha"
-                value={userPass}
-                onChangeText={(text) => this.setState({ userPass: text })}
-                returnKeyType="send"
-                onSubmitEditing={this.handleLogin}
-              />
-              <HideNShowPassword onPress={this.showPass}>
-                {showingPass ? (
-                  <Icon
-                    name="visibility"
-                    size={28}
-                    color={colors.black}
-                    style={{ paddingRigth: 3, paddingBottom: 3 }}
+            {this.props.route.params ? (
+              <>
+                <Input
+                  autoCorrect={false}
+                  autoCapitalize="none"
+                  placeholder="Email"
+                  value={userMailReset}
+                  onChangeText={(text) =>
+                    this.setState({ userMailReset: text })
+                  }
+                />
+                <Teste>
+                  <Input
+                    autoCorrect={false}
+                    autoCapitalize="none"
+                    secureTextEntry={showingPass}
+                    placeholder="Senha"
+                    value={userPassReset}
+                    onChangeText={(text) =>
+                      this.setState({ userPassReset: text })
+                    }
+                    returnKeyType="send"
+                    onSubmitEditing={this.handleLogin}
                   />
-                ) : (
-                    <Icon
-                      name="visibility-off"
-                      size={28}
-                      color={colors.black}
-                      style={{ paddingRigth: 3, paddingBottom: 3 }}
+                  <HideNShowPassword onPress={this.showPass}>
+                    {showingPass ? (
+                      <Icon
+                        name="visibility"
+                        size={28}
+                        color={colors.black}
+                        style={{ paddingRigth: 3, paddingBottom: 3 }}
+                      />
+                    ) : (
+                        <Icon
+                          name="visibility-off"
+                          size={28}
+                          color={colors.black}
+                          style={{ paddingRigth: 3, paddingBottom: 3 }}
+                        />
+                      )}
+                  </HideNShowPassword>
+                </Teste>
+                <OptionsView>
+                  <RememberButton
+                    onPress={() => {
+                      this.setState({ checked: !checked });
+                    }}
+                  >
+                    {checked ? (
+                      <Icon name="check-box" size={17} color={colors.black} />
+                    ) : (
+                        <Icon
+                          name="check-box-outline-blank"
+                          size={17}
+                          color={colors.black}
+                        />
+                      )}
+                    <RememberText>Lembrar-me</RememberText>
+                  </RememberButton>
+                  <ForgotPassword onPress={() => { }}>
+                    <PasswordText>Esqueceu sua senha?</PasswordText>
+                  </ForgotPassword>
+                </OptionsView>
+                <ButtonLogin loading={loading} onPress={this.handleLoginReset}>
+                  {loading ? (
+                    <ActivityIndicator color={colors.white} />
+                  ) : (
+                      <LoginButtonText>Login</LoginButtonText>
+                    )}
+                </ButtonLogin>
+                <Slash>
+                  <LineLeft />
+                  <SimpleText>OU</SimpleText>
+                  <LineRight />
+                </Slash>
+                <ButtonSingup onPress={this.handleNavigationToSignUp}>
+                  <SignupButtonText>Registre-se</SignupButtonText>
+                </ButtonSingup>
+              </>
+            ) : (
+                <>
+                  <Input
+                    autoCorrect={false}
+                    autoCapitalize="none"
+                    placeholder="Email"
+                    value={userMail}
+                    onChangeText={(text) => this.setState({ userMail: text })}
+                  />
+                  <Teste>
+                    <Input
+                      autoCorrect={false}
+                      autoCapitalize="none"
+                      secureTextEntry={showingPass}
+                      placeholder="Senha"
+                      value={userPass}
+                      onChangeText={(text) => this.setState({ userPass: text })}
+                      returnKeyType="send"
+                      onSubmitEditing={this.handleLogin}
                     />
-                  )}
-              </HideNShowPassword>
-            </Teste>
-            <OptionsView>
-              <RememberButton
-                onPress={() => {
-                  this.setState({ checked: !checked });
-                }}
-              >
-                {checked ? (
-                  <Icon name="check-box" size={17} color={colors.black} />
-                ) : (
-                    <Icon
-                      name="check-box-outline-blank"
-                      size={17}
-                      color={colors.black}
-                    />
-                  )}
-                <RememberText>Lembrar-me</RememberText>
-              </RememberButton>
-              <ForgotPassword onPress={this.handleCamera}>
-                <PasswordText>Esqueceu sua senha?</PasswordText>
-              </ForgotPassword>
-            </OptionsView>
-            <ButtonLogin loading={loading} onPress={this.handleLogin}>
-              {loading ? (
-                <ActivityIndicator color={colors.white} />
-              ) : (
-                  <LoginButtonText>Login</LoginButtonText>
-                )}
-            </ButtonLogin>
-            <Slash>
-              <LineLeft />
-              <SimpleText>OU</SimpleText>
-              <LineRight />
-            </Slash>
-            <ButtonSingup onPress={this.handleNavigationToSignUp}>
-              <SignupButtonText>Registre-se</SignupButtonText>
-            </ButtonSingup>
+                    <HideNShowPassword onPress={this.showPass}>
+                      {showingPass ? (
+                        <Icon
+                          name="visibility"
+                          size={28}
+                          color={colors.black}
+                          style={{ paddingRigth: 3, paddingBottom: 3 }}
+                        />
+                      ) : (
+                          <Icon
+                            name="visibility-off"
+                            size={28}
+                            color={colors.black}
+                            style={{ paddingRigth: 3, paddingBottom: 3 }}
+                          />
+                        )}
+                    </HideNShowPassword>
+                  </Teste>
+                  <OptionsView>
+                    <RememberButton
+                      onPress={() => {
+                        this.setState({ checked: !checked });
+                      }}
+                    >
+                      {checked ? (
+                        <Icon name="check-box" size={17} color={colors.black} />
+                      ) : (
+                          <Icon
+                            name="check-box-outline-blank"
+                            size={17}
+                            color={colors.black}
+                          />
+                        )}
+                      <RememberText>Lembrar-me</RememberText>
+                    </RememberButton>
+                    <ForgotPassword onPress={() => { }}>
+                      <PasswordText>Esqueceu sua senha?</PasswordText>
+                    </ForgotPassword>
+                  </OptionsView>
+                  <ButtonLogin loading={loading} onPress={this.handleLogin}>
+                    {loading ? (
+                      <ActivityIndicator color={colors.white} />
+                    ) : (
+                        <LoginButtonText>Login</LoginButtonText>
+                      )}
+                  </ButtonLogin>
+                  <Slash>
+                    <LineLeft />
+                    <SimpleText>OU</SimpleText>
+                    <LineRight />
+                  </Slash>
+                  <ButtonSingup onPress={this.handleNavigationToSignUp}>
+                    <SignupButtonText>Registre-se</SignupButtonText>
+                  </ButtonSingup>
+                </>
+              )}
           </Form>
         </Container>
       </>
