@@ -92,6 +92,7 @@ class Home extends Component {
     modalchecked: false,
     showAnimation: true,
     exitVolunteer: false,
+    reset: '',
   };
 
   async componentDidMount() {
@@ -206,9 +207,14 @@ class Home extends Component {
     navigation.navigate('Volunteer');
   };
 
-  handleLogout = () => {
+  handleLogout = async () => {
     const { navigation } = this.props;
-    navigation.navigate('Main');
+    const { reset } = this.state;
+
+    this.setState({ reset: true });
+    await AsyncStorage.clear();
+
+    navigation.navigate('Main', { reset: true });
   };
 
   handleLeaveVolunteer = async () => {
