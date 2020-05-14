@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { RectButton } from 'react-native-gesture-handler';
 import normalize from 'react-native-normalize';
-import { paddingButton } from '../../styles/responsividade';
+import { paddingMain } from '../../styles/responsividade';
 
 export const Container = styled.View`
   flex: 1;
@@ -121,7 +121,7 @@ export const ButtonLogin = styled(RectButton)`
   padding: 0 12px;
   opacity: ${(props) => (props.loading ? 0.7 : 1)};
   height: 45px;
-  margin-top: ${normalize(70)}px;
+  margin-top: ${paddingMain}px;
   margin-bottom: ${normalize(5)}px;
 `;
 

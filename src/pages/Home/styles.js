@@ -187,8 +187,8 @@ export const ModalButtonSair = styled.TouchableOpacity`
   align-items: center;
   background: #ff0000;
   border-radius: 10px;
-  height: 18px;
-  width: 50px;
+  height: 23px;
+  width: 70px;
 `;
 
 export const ModalButtonSairVolunteer = styled.TouchableOpacity`

@@ -60,6 +60,9 @@ import api from '../../services/api';
 
 const withZustand = (Comp) => (props) => {
   const { token, userData, isSick, changeGeolocation, geolocation } = useAuth();
+  console.log(largura_tela)
+  console.log(largura_tela)
+
   return (
     <Comp
       {...props}
@@ -90,7 +93,7 @@ class Home extends Component {
     showAlert: false,
     modalLogout: false,
     modalchecked: false,
-    showAnimation: true,
+    showAnimation: false,
     exitVolunteer: false,
   };
 

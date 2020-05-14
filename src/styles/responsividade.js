@@ -5,6 +5,11 @@ import normalize from 'react-native-normalize';
 export const largura_tela = Dimensions.get('window').width;
 export const altura_tela = Dimensions.get('window').height;
 
+
+export const paddingMain = altura_tela< 600 ? normalize(40):normalize(70);
+
+//
+
 export const paddingImage = altura_tela< 600 ? normalize(20):normalize(50);
 export const widthImage = altura_tela< 600 ? normalize(80):normalize(100);
 export const heightImage = altura_tela< 600 ? normalize(80):normalize(100);

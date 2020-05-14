@@ -86,7 +86,7 @@ export const ModalViewAnimation = styled.View`
 
 export const ModalButtonSair = styled.TouchableOpacity`
   margin-left: 1%;
-  margin-top: 2%
+  margin-top: 5%
   justify-content: center;
   align-items: center;
   background: #ff0000;

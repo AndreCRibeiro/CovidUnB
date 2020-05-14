@@ -162,7 +162,7 @@ class Solidary extends Component {
           </Button>
         </View>
         <Form>
-          <SimpleText>Entre em contato com um voluntários:</SimpleText>
+          <SimpleText>Entre em contato com um voluntário:</SimpleText>
           <PickerView>
             <Picker
               selectedValue={region}
