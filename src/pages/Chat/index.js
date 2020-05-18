@@ -13,15 +13,24 @@ const App = (props) => {
 
   useEffect(() => {
     const subscriber = chatRef.onSnapshot((documentSnapshot) => {
-      const formattedMessages = documentSnapshot
-        .data()
-        .messages.map((obj) => ({ ...obj, createdAt: obj.createdAt.toDate() }));
-      setMessages(formattedMessages.reverse());
+      if (documentSnapshot.data()) {
+        const formattedMessages = documentSnapshot
+          .data()
+          .messages.map((obj) => ({
+            ...obj,
+            createdAt: obj.createdAt.toDate(),
+          }));
+        setMessages(formattedMessages.reverse());
+      } else {
+        alert('Chat não existe');
+        props.navigation.navigate('ChatList');
+      }
     }); // subscreve pra todas as mudanças no doc, daí só setar o estado das mensagens
 
     // Stop listening for updates when no longer required
     return () => subscriber();
   }, [chatId]);
+  console.log(id);
 
   const onSend = (newMessages = []) => {
     chatRef.update({

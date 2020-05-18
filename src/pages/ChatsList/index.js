@@ -53,8 +53,9 @@ const App = (props) => {
         chats.map(({ user2_id, chat_id }) => (
           <Card
             onPress={() => {
+              console.log('chatd_id', chat_id);
+
               props.navigation.navigate('Chat', { chatId: chat_id });
-              console.log(chat_id);
             }}
           >
             <Card.Title
@@ -67,8 +68,8 @@ const App = (props) => {
           </Card>
         ))
       ) : (
-          <Text>Você ainda não chats</Text>
-        )}
+        <Text>Você ainda não chats</Text>
+      )}
     </SafeAreaView>
   );
 };
