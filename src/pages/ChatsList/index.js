@@ -10,7 +10,6 @@ const App = (props) => {
   const [chats, setChats] = useState([]);
 
   const fetchChat = async () => {
-    console.log(userData.id);
     const res = await api.get(`/chats?user=${userData.id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -50,16 +49,14 @@ const App = (props) => {
         Meus chats
       </Text>
       {chats && chats.length > 0 ? (
-        chats.map(({ user2_id, chat_id }) => (
+        chats.map(({ chat_id, user2 }) => (
           <Card
             onPress={() => {
-              console.log('chatd_id', chat_id);
-
               props.navigation.navigate('Chat', { chatId: chat_id });
             }}
           >
             <Card.Title
-              title={`Usuário: ${user2_id}`}
+              title={`Usuário: ${user2.name}`}
               style={{
                 backgroundColor: '#fff',
                 borderRadius: 15,
@@ -68,7 +65,7 @@ const App = (props) => {
           </Card>
         ))
       ) : (
-        <Text>Você ainda não chats</Text>
+        <Text>Você ainda não tem chats</Text>
       )}
     </SafeAreaView>
   );
