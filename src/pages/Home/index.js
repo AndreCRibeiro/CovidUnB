@@ -22,6 +22,8 @@ import {
   largura_tela,
 } from '../../styles/responsividade';
 
+import Panic from '../../components/panic';
+
 import {
   Container,
   TopCards,
@@ -60,8 +62,8 @@ import api from '../../services/api';
 
 const withZustand = (Comp) => (props) => {
   const { token, userData, isSick, changeGeolocation, geolocation } = useAuth();
-  console.log(largura_tela)
-  console.log(largura_tela)
+  console.log(largura_tela);
+  console.log(largura_tela);
 
   return (
     <Comp
@@ -334,6 +336,7 @@ class Home extends Component {
               </ModalView>
             </ModalContainer>
           </Modal>
+          <Panic />
           <SelectionView>
             <TextView>
               <QuestionText>
