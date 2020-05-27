@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 import React, { useEffect, useState } from 'react';
 import {
   Platform,
@@ -11,6 +12,7 @@ import {
 import { accelerometer } from 'react-native-sensors';
 import Geolocation from '@react-native-community/geolocation';
 import KeepAwake from 'react-native-keep-awake';
+import BackgroundTask from 'react-native-background-task';
 
 const Panic = () => {
   const [keepScreenAwake, changeKeepScreenAwake] = useState(false);
@@ -21,18 +23,34 @@ const Panic = () => {
 
   let cont = 0;
 
-  const callHelp = accelerometer.subscribe(({ x, y, z, timestamp }) => {
-    if (x > 19 || y > 19) {
-      cont++;
-      if (cont > 70) {
-        cont = 0;
-        changeSafeState(false);
-        Vibration.vibrate(1 * ONE_SECOND_IN_MS);
+  BackgroundTask.define(() => {
+    accelerometer.subscribe(({ x, y, z, timestamp }) => {
+      if (x > 19 || y > 19) {
+        cont++;
+        if (cont > 70) {
+          cont = 0;
+          changeSafeState(false);
+          Vibration.vibrate(1 * ONE_SECOND_IN_MS);
 
-        getLocation();
+          getLocation();
+        }
       }
-    }
+    });
+    // BackgroundTask.finish();
   });
+
+  // const callHelp = accelerometer.subscribe(({ x, y, z, timestamp }) => {
+  //   if (x > 19 || y > 19) {
+  //     cont++;
+  //     if (cont > 70) {
+  //       cont = 0;
+  //       changeSafeState(false);
+  //       Vibration.vibrate(1 * ONE_SECOND_IN_MS);
+
+  //       getLocation();
+  //     }
+  //   }
+  // });
 
   const getLocation = async () => {
     await Geolocation.getCurrentPosition(
@@ -45,7 +63,7 @@ const Panic = () => {
         });
         console.log(location);
       }, // sucesso
-      () => { }, // erro
+      () => {}, // erro
       {
         timeout: 5000,
         enableHighAccuracy: false,
@@ -74,13 +92,13 @@ const Panic = () => {
           <KeepAwake />
         </View>
       ) : (
-          <View>
-            <Button
-              title="Permitir desativação do App"
-              onPress={() => changeKeepScreenAwake(true)}
-            />
-          </View>
-        )}
+        <View>
+          <Button
+            title="Permitir desativação do App"
+            onPress={() => changeKeepScreenAwake(true)}
+          />
+        </View>
+      )}
     </SafeAreaView>
   );
 };
