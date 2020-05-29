@@ -65,14 +65,16 @@ const App = (props) => {
         Meus chats
       </Text>
       {chats && chats.length > 0 ? (
-        chats.map(({ chat_id, user2 }) => (
+        chats.map(({ chat_id, user2, user2_id, user1_id, user1 }) => (
           <Card
             onPress={() => {
               props.navigation.navigate('Chat', { chatId: chat_id });
             }}
           >
             <Card.Title
-              title={`Usuário: ${user2.name} ${user2.id}`}
+              title={`Usuário: ${
+                user2_id === userData.id ? user1.name : user2.name
+              }`}
               style={{
                 backgroundColor: '#fff',
                 borderRadius: 15,
