@@ -1,5 +1,4 @@
-/* eslint-disable no-plusplus */
-import React, { useEffect, useState } from 'react';
+import React, { Component } from 'react';
 import {
   Platform,
   Text,
@@ -12,104 +11,85 @@ import {
 import { accelerometer } from 'react-native-sensors';
 import Geolocation from '@react-native-community/geolocation';
 import KeepAwake from 'react-native-keep-awake';
-import BackgroundTask from 'react-native-background-task';
+import useAuth from '../../store/index';
 
-const Panic = () => {
-  const [keepScreenAwake, changeKeepScreenAwake] = useState(false);
-  const [safe, changeSafeState] = useState(true);
-  const [location, changeLocation] = useState();
+import api from '../../services/api';
 
-  const ONE_SECOND_IN_MS = 1000;
+const ONE_SECOND_IN_MS = 1000;
 
-  let cont = 0;
+let cont = 0;
 
-  BackgroundTask.define(() => {
-    accelerometer.subscribe(({ x, y, z, timestamp }) => {
-      if (x > 19 || y > 19) {
-        cont++;
-        if (cont > 70) {
-          cont = 0;
-          changeSafeState(false);
-          Vibration.vibrate(1 * ONE_SECOND_IN_MS);
-
-          getLocation();
-        }
-      }
-    });
-    // BackgroundTask.finish();
-  });
-
-  // const callHelp = accelerometer.subscribe(({ x, y, z, timestamp }) => {
-  //   if (x > 19 || y > 19) {
-  //     cont++;
-  //     if (cont > 70) {
-  //       cont = 0;
-  //       changeSafeState(false);
-  //       Vibration.vibrate(1 * ONE_SECOND_IN_MS);
-
-  //       getLocation();
-  //     }
-  //   }
-  // });
-
-  const getLocation = async () => {
-    await Geolocation.getCurrentPosition(
-      ({ coords: { latitude, longitude } }) => {
-        changeLocation({
-          latitude,
-          longitude,
-          latitudeDelta: 0.0143,
-          longitudeDelta: 0.0134,
-        });
-        console.log(location);
-      }, // sucesso
-      () => {}, // erro
-      {
-        timeout: 5000,
-        enableHighAccuracy: false,
-        maximumAge: 1000,
-      }
-    );
-  };
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <View>
-        {/*  <Button onPress={() => changeSafeState(true)} title="Estou Seguro" /> */}
-      </View>
-      {keepScreenAwake ? (
-        <View>
-          <Text style={[styles.header, styles.paragraph]}>
-            SOS UnB - Botão de Pânico
-          </Text>
-          <Text style={[styles.header, styles.paragraph]}>
-            Agite o aparelho até ele vibrar.
-          </Text>
-          <Button
-            title="Manter App Ativo"
-            onPress={() => changeKeepScreenAwake(false)}
-          />
-          <KeepAwake />
-        </View>
-      ) : (
-        <View>
-          <Button
-            title="Permitir desativação do App"
-            onPress={() => changeKeepScreenAwake(true)}
-          />
-        </View>
-      )}
-    </SafeAreaView>
-  );
+const withZustand = (Comp) => (props) => {
+  const { token, userData } = useAuth();
+  return <Comp {...props} token={token} userData={userData} />;
 };
 
+const callHelp = accelerometer.subscribe(async ({ x, y, z, timestamp }) => {
+  if (x > 45 || y > 45) {
+    cont++;
+    if (cont > 80) {
+      cont = 0;
+      Vibration.vibrate(1 * ONE_SECOND_IN_MS);
+
+      const { token, userData } = this.props;
+
+      await Geolocation.getCurrentPosition(
+        ({ coords: { latitude, longitude } }) => {
+          const location = JSON.stringify({
+            latitude,
+            longitude,
+            latitudeDelta: 0.0143,
+            longitudeDelta: 0.0134,
+          });
+
+          const body = {
+            name: userData.name,
+            whatsapp: userData.whatsapp,
+            user_location: location,
+          };
+
+          try {
+            api.post('/sos', body, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
+          } catch (err) {
+            console.log('CATCHEEEED', err);
+          }
+        }, // sucesso
+        (err) => {
+          console.log(err);
+        }, // erro
+        {
+          timeout: 5000,
+          enableHighAccuracy: false,
+          maximumAge: 1000,
+        }
+      );
+    }
+  }
+});
+
+class Panic extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      keepScreenAwake: false,
+      location: '',
+    };
+  }
+
+  render() {
+    return <SafeAreaView style={styles.container} />;
+  }
+}
+
+export default withZustand(Panic);
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingTop: 44,
-    padding: 8,
-  },
+  container: {},
   header: {
     fontSize: 18,
     fontWeight: 'bold',
@@ -120,5 +100,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
-export default Panic;

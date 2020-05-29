@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import { TextInput, BackHandler, Alert } from 'react-native';
@@ -54,11 +55,14 @@ class Profile extends Component {
     const { userData, token } = this.props;
 
     const body = { volunteer_id: userData.volunteer_id };
-    const response = await api.post(`comments`, body, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await api.get(
+      `comments/${this.props.route.params.perfil.id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     this.setState({ data: response.data });
 
@@ -89,7 +93,7 @@ class Profile extends Component {
         volunteer_id: userData.volunteer_id,
         comment: userComment,
       };
-      const response = await api.post(`commentate`, body, {
+      const response = await api.post(`comments`, body, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -104,13 +108,6 @@ class Profile extends Component {
         },
       });
     }
-
-    const body = { volunteer_id: userData.volunteer_id };
-    const response = await api.post(`comments`, body, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
 
     this.setState({ data: '' });
 
@@ -219,10 +216,10 @@ class Profile extends Component {
         <Opinion>
           {data
             ? data.map((comments) => (
-                <CardComment>
-                  <Text>{comments.comment}</Text>
-                </CardComment>
-              ))
+              <CardComment>
+                <Text>{comments.comment}</Text>
+              </CardComment>
+            ))
             : null}
         </Opinion>
         <ChatButton
