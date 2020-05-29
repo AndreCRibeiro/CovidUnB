@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, Text, View } from 'react-native';
+import { SafeAreaView, Text, View, BackHandler } from 'react-native';
 import { Card, Appbar, Button } from 'react-native-paper';
 
 import api from '../../services/api';
@@ -15,12 +15,28 @@ const App = (props) => {
         Authorization: `Bearer ${token}`,
       },
     });
+    console.log(res.data);
+
     setChats(res.data);
   };
 
   useEffect(() => {
     fetchChat();
   }, []);
+
+  const handleBackButton = () => {
+    const { navigation } = props;
+    navigation.navigate('Home');
+    return true;
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+    };
+  }, [handleBackButton]);
 
   return (
     <SafeAreaView>
@@ -49,14 +65,16 @@ const App = (props) => {
         Meus chats
       </Text>
       {chats && chats.length > 0 ? (
-        chats.map(({ chat_id, user2 }) => (
+        chats.map(({ chat_id, user2, user2_id, user1_id, user1 }) => (
           <Card
             onPress={() => {
               props.navigation.navigate('Chat', { chatId: chat_id });
             }}
           >
             <Card.Title
-              title={`Usuário: ${user2.name}`}
+              title={`Usuário: ${
+                user2_id === userData.id ? user1.name : user2.name
+              }`}
               style={{
                 backgroundColor: '#fff',
                 borderRadius: 15,
