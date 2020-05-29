@@ -49,6 +49,7 @@ const App = (props) => {
   }, [handleBackButton]);
 
   const onSend = (newMessages = []) => {
+    console.log(GiftedChat.append(messages, newMessages));
     chatRef.update({
       // messages: firestore.FieldValue.arrayUnion(...newMessages),
       messages: GiftedChat.append(messages, newMessages),
@@ -61,7 +62,8 @@ const App = (props) => {
         messages={messages}
         onSend={(messages) => onSend(messages)}
         user={{
-          _id: { id }, // TODO : mudar pro id do user atual
+          _id: id,
+          // TODO : mudar pro id do user atual
         }}
         renderAvatar={() => null}
       />
