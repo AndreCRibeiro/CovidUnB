@@ -119,6 +119,7 @@ class Profile extends Component {
 
   handleChat = (profile) => {
     const { token, userData } = this.props;
+    console.log(userData.id, profile.id);
 
     const chatId = nanoid();
     firestore()
@@ -218,10 +219,10 @@ class Profile extends Component {
         <Opinion>
           {data
             ? data.map((comments) => (
-              <CardComment>
-                <Text>{comments.comment}</Text>
-              </CardComment>
-            ))
+                <CardComment>
+                  <Text>{comments.comment}</Text>
+                </CardComment>
+              ))
             : null}
         </Opinion>
         <ChatButton

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, Text, View } from 'react-native';
+import { SafeAreaView, Text, View, BackHandler } from 'react-native';
 import { Card, Appbar, Button } from 'react-native-paper';
 
 import api from '../../services/api';
@@ -15,12 +15,28 @@ const App = (props) => {
         Authorization: `Bearer ${token}`,
       },
     });
+    console.log(res.data);
+
     setChats(res.data);
   };
 
   useEffect(() => {
     fetchChat();
   }, []);
+
+  const handleBackButton = () => {
+    const { navigation } = props;
+    navigation.navigate('Home');
+    return true;
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+    };
+  }, [handleBackButton]);
 
   return (
     <SafeAreaView>
@@ -56,7 +72,7 @@ const App = (props) => {
             }}
           >
             <Card.Title
-              title={`Usuário: ${user2.name}`}
+              title={`Usuário: ${user2.name} ${user2.id}`}
               style={{
                 backgroundColor: '#fff',
                 borderRadius: 15,

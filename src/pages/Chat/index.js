@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { BackHandler } from 'react-native';
+
 import { GiftedChat } from 'react-native-gifted-chat';
 
 import firestore from '@react-native-firebase/firestore';
@@ -10,6 +12,12 @@ const App = (props) => {
   const { chatId } = props.route.params;
   const chatRef = firestore().collection('Chats').doc(chatId);
   const { id } = userData;
+
+  const handleBackButton = () => {
+    const { navigation } = props;
+    navigation.navigate('ChatList');
+    return true;
+  };
 
   useEffect(() => {
     const subscriber = chatRef.onSnapshot((documentSnapshot) => {
@@ -31,6 +39,14 @@ const App = (props) => {
     return () => subscriber();
   }, [chatId]);
   console.log(id);
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+    };
+  }, [handleBackButton]);
 
   const onSend = (newMessages = []) => {
     chatRef.update({
