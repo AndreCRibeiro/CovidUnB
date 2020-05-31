@@ -1,6 +1,10 @@
+/* eslint-disable camelcase */
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, Text, View, BackHandler } from 'react-native';
 import { Card, Appbar, Button } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import { ChatButton } from './styles';
 
 import api from '../../services/api';
 import useAuth from '../../store';
@@ -40,20 +44,6 @@ const App = (props) => {
 
   return (
     <SafeAreaView>
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'center',
-        }}
-      >
-        <Button
-          color="blue"
-          onPress={() => props.navigation.navigate('Solidary')}
-        >
-          Novo chat
-        </Button>
-      </View>
       <Text
         style={{
           textAlign: 'center',
@@ -66,24 +56,35 @@ const App = (props) => {
       </Text>
       {chats && chats.length > 0 ? (
         chats.map(({ chat_id, user2, user2_id, user1_id, user1 }) => (
-          <Card
-            onPress={() => {
-              props.navigation.navigate('Chat', { chatId: chat_id });
-            }}
-          >
-            <Card.Title
-              title={`Usuário: ${
-                user2_id === userData.id ? user1.name : user2.name
-              }`}
-              style={{
-                backgroundColor: '#fff',
-                borderRadius: 15,
+          <>
+            <Card
+              onPress={() => {
+                props.navigation.navigate('Chat', {
+                  chatId: chat_id,
+                  userName: user2_id === userData.id ? user1.name : user2.name,
+                });
               }}
-            />
-          </Card>
+            >
+              <Card.Title
+                title={user2_id === userData.id ? user1.name : user2.name}
+                style={{
+                  backgroundColor: '#fff',
+                  borderRadius: 15,
+                }}
+              />
+            </Card>
+            <ChatButton onPress={() => props.navigation.navigate('Solidary')}>
+              <Icon name="chat" size={22} color="white" />
+            </ChatButton>
+          </>
         ))
       ) : (
-        <Text>Você ainda não tem chats</Text>
+        <>
+          <Text>Você ainda não tem chats</Text>
+          <ChatButton onPress={() => props.navigation.navigate('Solidary')}>
+            <Icon name="chat" size={22} color="white" />
+          </ChatButton>
+        </>
       )}
     </SafeAreaView>
   );
