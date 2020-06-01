@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 export const UserName = styled.Text`
   font-weight: bold;
-  font-size: 14px;
-  padding-top: 7px;
+  font-size: 20px;
+  padding: 8px;
   text-align: center;
 `;

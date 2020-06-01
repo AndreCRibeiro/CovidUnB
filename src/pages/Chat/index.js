@@ -3,9 +3,9 @@ import { BackHandler } from 'react-native';
 import { Divider } from 'react-native-elements';
 
 import { GiftedChat } from 'react-native-gifted-chat';
+import firestore from '@react-native-firebase/firestore';
 import { UserName } from './styles';
 
-import firestore from '@react-native-firebase/firestore';
 import useAuth from '../../store';
 
 const App = (props) => {
@@ -65,7 +65,9 @@ const App = (props) => {
       <Divider />
       <GiftedChat
         messages={messages}
+        placeholder="Digite uma mensagem"
         onSend={(messages) => onSend(messages)}
+        textInputProps={{ autoCapitalize: 'none', autoCorrect: false }}
         user={{
           _id: id,
           // TODO : mudar pro id do user atual
