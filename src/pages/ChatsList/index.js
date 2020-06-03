@@ -57,22 +57,25 @@ const App = (props) => {
       {chats && chats.length > 0 ? (
         chats.map(({ chat_id, user2, user2_id, user1_id, user1 }) => (
           <>
-            <Card
-              onPress={() => {
-                props.navigation.navigate('Chat', {
-                  chatId: chat_id,
-                  userName: user2_id === userData.id ? user1.name : user2.name,
-                });
-              }}
-            >
-              <Card.Title
-                title={user2_id === userData.id ? user1.name : user2.name}
-                style={{
-                  backgroundColor: '#fff',
-                  borderRadius: 15,
+            {user1_id === userData.id ? (
+              <Card
+                onPress={() => {
+                  props.navigation.navigate('Chat', {
+                    chatId: chat_id,
+                    userName:
+                      user2_id === userData.id ? user1.name : user2.name,
+                  });
                 }}
-              />
-            </Card>
+              >
+                <Card.Title
+                  title={user2_id === userData.id ? user1.name : user2.name}
+                  style={{
+                    backgroundColor: '#fff',
+                    borderRadius: 15,
+                  }}
+                />
+              </Card>
+            ) : null}
             <ChatButton onPress={() => props.navigation.navigate('Solidary')}>
               <Icon name="chat" size={22} color="white" />
             </ChatButton>
