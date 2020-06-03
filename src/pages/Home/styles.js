@@ -118,8 +118,8 @@ export const LogoutView = styled.View`
 `;
 
 export const LogoutButton = styled(RectButton)`
-  height: 55px;
-  width: 55px;
+  height: 50px;
+  width: 50px;
   background: #fff;
   margin-right: 10px;
   border-width: 3px;

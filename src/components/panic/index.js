@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   StyleSheet,
   Button,
+  Alert,
 } from 'react-native';
 import { accelerometer } from 'react-native-sensors';
 import Geolocation from '@react-native-community/geolocation';
@@ -54,6 +55,7 @@ const callHelp = accelerometer.subscribe(async ({ x, y, z, timestamp }) => {
                 Authorization: `Bearer ${token}`,
               },
             });
+            Alert.alert('SOS UnB ativado!');
           } catch (err) {
             console.log('CATCHEEEED', err);
           }

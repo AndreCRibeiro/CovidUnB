@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, Text, View, BackHandler } from 'react-native';
-import { Card, Appbar, Button } from 'react-native-paper';
+import { Card } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { ChatButton } from './styles';
@@ -83,7 +83,7 @@ const App = (props) => {
         ))
       ) : (
         <>
-          <Text>Você ainda não tem chats</Text>
+          <Text style={{ margin: 20 }}>Você ainda não tem chats</Text>
           <ChatButton onPress={() => props.navigation.navigate('Solidary')}>
             <Icon name="chat" size={22} color="white" />
           </ChatButton>

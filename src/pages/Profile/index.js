@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import { Rating, AirbnbRating } from 'react-native-ratings';
-import { TextInput, BackHandler, Alert } from 'react-native';
+import { BackHandler, Alert, ActivityIndicator } from 'react-native';
 import normalize from 'react-native-normalize';
 import { nanoid } from 'nanoid/non-secure';
 import firestore from '@react-native-firebase/firestore';
@@ -49,6 +49,7 @@ class Profile extends Component {
   state = {
     rating: '',
     userComment: '',
+    loading: false,
   };
 
   async componentDidMount() {
@@ -118,6 +119,8 @@ class Profile extends Component {
     const { token, userData } = this.props;
     console.log(userData.id, profile.id);
 
+    this.setState({ loading: true });
+
     const chatId = nanoid();
     firestore()
       .collection('Chats')
@@ -152,7 +155,7 @@ class Profile extends Component {
   };
 
   render() {
-    const { rating, data, userComment } = this.state;
+    const { rating, data, userComment, loading } = this.state;
     const { params } = this.props.route;
 
     const number = params.perfil.rate;
@@ -227,7 +230,11 @@ class Profile extends Component {
             this.handleChat(params.perfil);
           }}
         >
-          <Icon name="chat" size={22} color={colors.white} />
+          {loading ? (
+            <ActivityIndicator color={colors.white} />
+          ) : (
+              <Icon name="chat" size={22} color={colors.white} />
+            )}
         </ChatButton>
       </Container>
     );

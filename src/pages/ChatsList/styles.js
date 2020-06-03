@@ -11,9 +11,9 @@ export const ChatButton = styled(RectButton)`
   border-color: #fff;
   justify-content: center;
   align-items: center;
-  elevation: 12;
+  elevation: 3;
   background: #0039a6;
   position: absolute;
-  left: ${normalize(338)}px;
+  left: ${normalize(333)}px;
   top: ${normalize(665)}px;
 `;
