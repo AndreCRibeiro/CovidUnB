@@ -450,7 +450,7 @@ class Home extends Component {
               </Card>
             </BottomCards>
             <BottomCards>
-              {userData.type == 'professor' ? (
+              {userData.type == 'Docente' ? (
                 <Card onPress={() => this.handleNavigateToOrientation()}>
                   <LargeImage
                     source={require('../../assets/images/online-class.png')}
@@ -459,7 +459,7 @@ class Home extends Component {
                 </Card>
               ) : null}
 
-              {userData.type == 'aluno' ? (
+              {userData.type == 'Discente' ? (
                 <Card onPress={() => this.handleNavigateToNewOrientation()}>
                   <Image
                     source={require('../../assets/images/opportunity.png')}
