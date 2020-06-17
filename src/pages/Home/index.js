@@ -61,9 +61,14 @@ import {
 import api from '../../services/api';
 
 const withZustand = (Comp) => (props) => {
-  const { token, userData, isSick, changeGeolocation, geolocation } = useAuth();
-  console.log(largura_tela);
-  console.log(largura_tela);
+  const {
+    token,
+    userData,
+    isSick,
+    changeGeolocation,
+    geolocation,
+    type,
+  } = useAuth();
 
   return (
     <Comp
@@ -222,6 +227,12 @@ class Home extends Component {
     const { navigation } = this.props;
 
     navigation.navigate('MyOrientation');
+  };
+
+  handleNavigateToNewOrientation = () => {
+    const { navigation } = this.props;
+
+    navigation.navigate('NewOrientation');
   };
 
   handleLogout = async () => {
@@ -439,12 +450,24 @@ class Home extends Component {
               </Card>
             </BottomCards>
             <BottomCards>
-              <Card onPress={() => this.handleNavigateToOrientation()}>
-                <LargeImage
-                  source={require('../../assets/images/online-class.png')}
-                />
-                <Text>Solicitar Orientação</Text>
-              </Card>
+              {userData.type == 'aluno' ? (
+                <Card onPress={() => this.handleNavigateToOrientation()}>
+                  <LargeImage
+                    source={require('../../assets/images/online-class.png')}
+                  />
+                  <Text>Pedidos Orientação</Text>
+                </Card>
+              ) : null}
+
+              {userData.type == 'professor' ? (
+                <Card onPress={() => this.handleNavigateToNewOrientation()}>
+                  <Image
+                    source={require('../../assets/images/opportunity.png')}
+                  />
+                  <Text>Solicitar Orientação</Text>
+                </Card>
+              ) : null}
+
               <Card onPress={() => this.handleNavigateToMyOrientation()}>
                 <Image source={require('../../assets/images/document.png')} />
                 <Text>Minhas Orientações</Text>

@@ -1,7 +1,14 @@
-/* eslint-disable no-return-assign */
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
-import { ScrollView, Text } from 'react-native';
+import {
+  ScrollView,
+  Text,
+  View,
+  TextInput,
+  Button,
+  Linking,
+  TouchableOpacity,
+} from 'react-native';
 
 import { Container, CardContainer } from './styles';
 
@@ -14,12 +21,12 @@ const withZustand = (Comp) => (props) => {
   return <Comp {...props} token={token} userData={userData} />;
 };
 
-class MyOrientation extends Component {
+class NewOrientation extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      myOrientations: [],
+      Neworientations: [],
       query: '',
     };
   }
@@ -28,37 +35,28 @@ class MyOrientation extends Component {
     const { token } = this.props;
 
     try {
-      const response = await api.get('/orientations', {
+      const response = await api.get('/Neworientations', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      this.setState({ myOrientations: response.data });
+      this.setState({ Neworientations: response.data });
     } catch (err) {
       console.log(err);
     }
   }
 
-  checkOwner(user, orientationOwner) {
-    if ((user = orientationOwner)) {
-      return true;
-    }
-    return false;
-  }
-
   render() {
-    const { myOrientations } = this.state;
+    const { Neworientations } = this.state;
     const { userData } = this.props;
 
     return (
       <Container>
         <ScrollView>
-          {myOrientations.map((item) =>
-            this.checkOwner(userData.id, item.professor_id) ? (
-              <CardContainer>
-                {console.log(userData.id, item.professor_id)}
-                <Text>Nº da Solicitação: {item.id}</Text>
+          {Neworientations.map((item) =>
+            !item.is_sick ? (
+              <CardContainer onPress={() => this.sendMail}>
                 <Text>Departamento: {item.departament}</Text>
                 <Text>Título: {item.title}</Text>
                 <Text>Resumo: {item.details}</Text>
@@ -71,4 +69,4 @@ class MyOrientation extends Component {
   }
 }
 
-export default withZustand(MyOrientation);
+export default withZustand(NewOrientation);
