@@ -39,6 +39,7 @@ export const TextView = styled.View`
 
 export const Text = styled.Text`
   font-weight: ${(props) => (props.b ? 'bold' : 'normal')};
+  margin-top: 2px;
 `;
 
 export const TextTeste = styled.Text`

@@ -21,6 +21,7 @@ export const CardContainer = styled.TouchableOpacity`
 
 export const Text = styled.Text`
   font-weight: ${(props) => (props.b ? 'bold' : 'normal')};
+  margin-top: 2px;
 `;
 
 export const ButtonFilter = styled(RectButton)`
@@ -31,6 +32,7 @@ export const ButtonFilter = styled(RectButton)`
   padding: 3px 12px;
   opacity: ${(props) => (props.loading ? 0.7 : 1)};
   height: 42px;
+  width: 80%;
   margin: 5px 0px 5px 0px;
 `;
 
