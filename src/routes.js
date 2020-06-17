@@ -18,6 +18,7 @@ import Chat from './pages/Chat';
 import ChatList from './pages/ChatsList';
 import Orientation from './pages/Orientation';
 import MyOrientation from './pages/MyOrientation';
+import NewOrientation from './pages/NewOrientation';
 
 const AppStack = createStackNavigator();
 
@@ -56,6 +57,7 @@ export default function Routes() {
         <AppStack.Screen name="Chat" component={Chat} />
         <AppStack.Screen name="Orientation" component={Orientation} />
         <AppStack.Screen name="MyOrientation" component={MyOrientation} />
+        <AppStack.Screen name="NewOrientation" component={NewOrientation} />
       </AppStack.Navigator>
     </NavigationContainer>
   );

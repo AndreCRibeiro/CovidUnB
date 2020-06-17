@@ -5,7 +5,7 @@ import api from '../services/api';
 const reqAuth = async (set, params) => {
   try {
     const response = await api.post('/sessions', params);
-    console.log('DATA', response.data);
+
     set((state) => ({
       ...state,
       loading: false,

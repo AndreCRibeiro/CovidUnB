@@ -1,3 +1,6 @@
+/* eslint-disable class-methods-use-this */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-cond-assign */
 /* eslint-disable no-return-assign */
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
@@ -20,7 +23,6 @@ class MyOrientation extends Component {
 
     this.state = {
       myOrientations: [],
-      query: '',
     };
   }
 
@@ -57,7 +59,6 @@ class MyOrientation extends Component {
           {myOrientations.map((item) =>
             this.checkOwner(userData.id, item.professor_id) ? (
               <CardContainer>
-                {console.log(userData.id, item.professor_id)}
                 <Text>Nº da Solicitação: {item.id}</Text>
                 <Text>Departamento: {item.departament}</Text>
                 <Text>Título: {item.title}</Text>
@@ -65,6 +66,10 @@ class MyOrientation extends Component {
               </CardContainer>
             ) : null
           )}
+
+          {!myOrientations ? (
+            <Text>Departamento: Você ainda não possui orientações!</Text>
+          ) : null}
         </ScrollView>
       </Container>
     );
