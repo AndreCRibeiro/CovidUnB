@@ -68,9 +68,12 @@ export const BottomCards = styled.View`
 export const Text = styled.Text`
   font-size: 15px;
   font-weight: bold;
+  text-align: center;
 `;
 
-export const SelectionView = styled.View``;
+export const SelectionView = styled.View`
+  margin-top: 5%;
+`;
 
 export const QuestionText = styled.Text`
   font-size: ${fontHome};
@@ -104,7 +107,7 @@ export const RadioText = styled.Text`
 
 export const TextView = styled.View`
   justify-content: flex-start;
-  height: 38px;
+  height: 23px;
 `;
 
 export const LogoutView = styled.View`
@@ -115,6 +118,7 @@ export const LogoutView = styled.View`
   justify-content: flex-end;
   margin-right: 2%;
   margin-top: 3%;
+  margin-bottom: 3%;
 `;
 
 export const LogoutButton = styled(RectButton)`

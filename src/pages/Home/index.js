@@ -274,7 +274,7 @@ class Home extends Component {
     return (
       <>
         <StatusBar barStyle="light-content" backgroundColor="#0039A6" />
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <Container>
             {/*         {showAnimation ? (
               <Modal animationType="fade" transparent visible={showAnimation}>
