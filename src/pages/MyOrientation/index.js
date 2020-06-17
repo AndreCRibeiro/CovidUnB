@@ -4,9 +4,9 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
-import { ScrollView, Text, BackHandler } from 'react-native';
+import { ScrollView, BackHandler, View } from 'react-native';
 
-import { Container, CardContainer } from './styles';
+import { Container, CardContainer, TextView, Text, TextTeste } from './styles';
 
 import useAuth from '../../store';
 
@@ -70,10 +70,22 @@ class MyOrientation extends Component {
           {myOrientations.map((item) =>
             this.checkOwner(userData.id, item.professor_id) ? (
               <CardContainer>
-                <Text>Nº da Solicitação: {item.id}</Text>
-                <Text>Departamento: {item.departament}</Text>
-                <Text>Título: {item.title}</Text>
-                <Text>Resumo: {item.details}</Text>
+                <TextView>
+                  <Text b>Nº da Solicitação: </Text>
+                  <Text>{item.id}</Text>
+                </TextView>
+                <TextView>
+                  <Text b>Departamento: </Text>
+                  <Text>{item.departament}</Text>
+                </TextView>
+                <TextView>
+                  <Text b>Título: </Text>
+                  <Text>{item.title}</Text>
+                </TextView>
+                <TextView>
+                  <Text b>Resumo: </Text>
+                  <TextTeste>{item.details}</TextTeste>
+                </TextView>
               </CardContainer>
             ) : null
           )}

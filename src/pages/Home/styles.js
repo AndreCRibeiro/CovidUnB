@@ -69,6 +69,7 @@ export const Text = styled.Text`
   font-size: 15px;
   font-weight: bold;
   text-align: center;
+  margin-bottom: ${(props) => (props.m ? '10px' : 0)};
 `;
 
 export const SelectionView = styled.View`

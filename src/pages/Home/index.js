@@ -464,13 +464,13 @@ class Home extends Component {
                   <Image
                     source={require('../../assets/images/opportunity.png')}
                   />
-                  <Text>Solicitar Orientação</Text>
+                  <Text m>Solicitar Orientação</Text>
                 </Card>
               ) : null}
 
               <Card onPress={() => this.handleNavigateToMyOrientation()}>
                 <Image source={require('../../assets/images/document.png')} />
-                <Text>Minhas Orientações</Text>
+                <Text m>Minhas Orientações</Text>
               </Card>
             </BottomCards>
             <LogoutView>
