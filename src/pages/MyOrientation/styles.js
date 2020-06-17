@@ -12,10 +12,24 @@ export const CardContainer = styled.TouchableOpacity`
   margin: 20px 10px 5px 10px;
   background: #fff;
   flex-direction: column;
-  border-top-width: 30px;
+  border-top-width: 20px;
   border-width: 2px;
   elevation: 10;
   border-color: #0039a6;
+`;
+
+export const HeaderTitle = styled.View`
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  margin-top: 15px;
+`;
+
+export const HeaderText = styled.Text`
+  text-align: center;
+  color: #0039a6;
+  font-weight: bold;
+  font-size: 18px;
 `;
 
 export const TextView = styled.View`

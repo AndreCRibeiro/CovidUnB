@@ -2,15 +2,22 @@
 import React, { Component } from 'react';
 import {
   ScrollView,
-  Text,
   TextInput,
-  Button,
   Linking,
   TouchableOpacity,
   BackHandler,
+  ActivityIndicator,
 } from 'react-native';
 
-import { Container, CardContainer } from './styles';
+import {
+  Container,
+  CardContainer,
+  Text,
+  ButtonFilter,
+  ButtonText,
+  Input,
+} from './styles';
+import { colors } from '../../styles';
 
 import useAuth from '../../store';
 
@@ -28,6 +35,7 @@ class Orientation extends Component {
     this.state = {
       orientations: [],
       query: '',
+      loading: false,
     };
   }
 
@@ -77,20 +85,24 @@ class Orientation extends Component {
   sendMail = async () => { };
 
   render() {
-    const { orientations } = this.state;
+    const { orientations, loading } = this.state;
     const { userData } = this.props;
 
     return (
       <Container>
-        <TextInput
-          placeholder="Ex: ENE, MAT"
+        <Input
+          autoCorrect={false}
           autoCapitalize="characters"
+          placeholder="Ex: ENE, MAT"
           onChangeText={(text) => this.setState({ query: text })}
         />
-        <Button
-          onPress={this.filterByDepartament}
-          title="Filtrar por Departamento"
-        />
+        <ButtonFilter loading={loading} onPress={this.filterByDepartament}>
+          {loading ? (
+            <ActivityIndicator color={colors.white} />
+          ) : (
+              <ButtonText>FILTRAR POR DEPARTAMENTO</ButtonText>
+            )}
+        </ButtonFilter>
         <ScrollView>
           {orientations.map((item) =>
             !item.is_sick ? (

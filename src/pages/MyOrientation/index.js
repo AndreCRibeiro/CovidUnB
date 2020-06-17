@@ -4,9 +4,17 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
-import { ScrollView, BackHandler, View } from 'react-native';
+import { ScrollView, BackHandler } from 'react-native';
 
-import { Container, CardContainer, TextView, Text, TextTeste } from './styles';
+import {
+  Container,
+  CardContainer,
+  HeaderTitle,
+  HeaderText,
+  TextView,
+  Text,
+  TextTeste,
+} from './styles';
 
 import useAuth from '../../store';
 
@@ -67,6 +75,10 @@ class MyOrientation extends Component {
     return (
       <Container>
         <ScrollView>
+          <HeaderTitle>
+            <HeaderText>Minhas Orientações</HeaderText>
+          </HeaderTitle>
+
           {myOrientations.map((item) =>
             this.checkOwner(userData.id, item.professor_id) ? (
               <CardContainer>
