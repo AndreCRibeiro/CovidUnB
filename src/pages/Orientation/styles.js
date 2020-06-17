@@ -10,7 +10,7 @@ export const Container = styled.View`
 
 export const CardContainer = styled.TouchableOpacity`
   padding: 10px 0px 10px 10px;
-  margin: 20px 10px 5px 10px;
+  margin: 12px 10px 15px 10px;
   background: #fff;
   flex-direction: column;
   border-top-width: 20px;

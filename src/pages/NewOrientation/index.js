@@ -54,11 +54,14 @@ class NewOrientation extends Component {
     return true;
   };
 
-  async createOrientation() {
+  createOrientation = async () => {
+    const { departament, title, details } = this.state;
+    const { token } = this.props;
+
     try {
       const response = await api.post(
         '/orientations',
-        { departament: 'teste', details: 'teste', title: 'teste' },
+        { departament, details, title },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -68,7 +71,7 @@ class NewOrientation extends Component {
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   render() {
     const { departament, title, details, loading } = this.state;
