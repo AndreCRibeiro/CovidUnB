@@ -4,7 +4,7 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView, Text, BackHandler } from 'react-native';
 
 import { Container, CardContainer } from './styles';
 
@@ -40,7 +40,18 @@ class MyOrientation extends Component {
     } catch (err) {
       console.log(err);
     }
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
   }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  handleBackButton = () => {
+    const { navigation } = this.props;
+    navigation.navigate('Home');
+    return true;
+  };
 
   checkOwner(user, orientationOwner) {
     if ((user = orientationOwner)) {

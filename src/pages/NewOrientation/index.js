@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
-import { TouchableOpacity, Text, TextInput } from 'react-native';
+import { TouchableOpacity, Text, TextInput, BackHandler } from 'react-native';
 
 import { Container } from './styles';
 
@@ -26,6 +26,20 @@ class NewOrientation extends Component {
       token: '',
     };
   }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  handleBackButton = () => {
+    const { navigation } = this.props;
+    navigation.navigate('Home');
+    return true;
+  };
 
   async createOrientation() {
     try {

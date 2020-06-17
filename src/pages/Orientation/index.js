@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 import {
   ScrollView,
   Text,
-  View,
   TextInput,
   Button,
   Linking,
   TouchableOpacity,
+  BackHandler,
 } from 'react-native';
 
 import { Container, CardContainer } from './styles';
@@ -45,7 +45,18 @@ class Orientation extends Component {
     } catch (err) {
       console.log(err);
     }
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
   }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  handleBackButton = () => {
+    const { navigation } = this.props;
+    navigation.navigate('Home');
+    return true;
+  };
 
   filterByDepartament = async () => {
     const { token } = this.props;
@@ -63,7 +74,7 @@ class Orientation extends Component {
     }
   };
 
-  sendMail = async () => {};
+  sendMail = async () => { };
 
   render() {
     const { orientations } = this.state;
@@ -72,7 +83,7 @@ class Orientation extends Component {
     return (
       <Container>
         <TextInput
-          placeholder="Ex.: ENE"
+          placeholder="Ex: ENE, MAT"
           autoCapitalize="characters"
           onChangeText={(text) => this.setState({ query: text })}
         />
