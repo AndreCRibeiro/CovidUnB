@@ -16,6 +16,12 @@ import {
   ButtonFilter,
   ButtonText,
   Input,
+  ModalView,
+  ModalText,
+  DescriptionText,
+  ModalButtonSair,
+  ModalButtonTextSair,
+  ModalContainer,
 } from './styles';
 import { colors } from '../../styles';
 
@@ -36,6 +42,8 @@ class Orientation extends Component {
       orientations: [],
       query: '',
       loading: false,
+      modal: false,
+      data: [],
     };
   }
 
@@ -82,43 +90,87 @@ class Orientation extends Component {
     }
   };
 
-  sendMail = async () => { };
+  confirmAndSendMail = (item) => {
+    this.setState({ modal: true, data: item });
+  };
+
+  sendMail = async () => {
+    const { data } = this.state;
+    const { token, userData } = this.props;
+
+    try {
+      const response = await api.put(
+        `/orientations/${data.id}`,
+        {
+          professor_id: userData.id,
+          status: 'answering',
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+
+    Linking.openURL(
+      `mailto:${data.user.email}?subject=UnB Solidária - Solicitação de Orientação&body=Caro(a) ${data.user.name}, \nvi seu pedido de orientação e gostaria de auxiliá-lo.\n\nResponda este email caso ainda deseje orientação.`
+    );
+  };
 
   render() {
-    const { orientations, loading } = this.state;
-    const { userData } = this.props;
+    const { orientations, loading, modal } = this.state;
 
     return (
       <Container>
         <Input
           autoCorrect={false}
           autoCapitalize="characters"
-          placeholder="Ex: ENE, MAT"
+          placeholder="Ex: ENE"
           onChangeText={(text) => this.setState({ query: text })}
         />
         <ButtonFilter loading={loading} onPress={this.filterByDepartament}>
           {loading ? (
             <ActivityIndicator color={colors.white} />
           ) : (
-              <ButtonText>FILTRAR POR DEPARTAMENTO</ButtonText>
-            )}
+            <ButtonText>FILTRAR POR DEPARTAMENTO</ButtonText>
+          )}
         </ButtonFilter>
+
+        {modal ? (
+          <ModalView>
+            <DescriptionText>Deseja iniciar orientação?</DescriptionText>
+            <ModalButtonSair
+              onPress={() => {
+                this.setState({ modal: false });
+                this.sendMail();
+              }}
+            >
+              <ModalButtonTextSair>Orientar</ModalButtonTextSair>
+            </ModalButtonSair>
+
+            <ModalButtonSair
+              onPress={() => {
+                this.setState({ modal: false });
+              }}
+            >
+              <ModalButtonTextSair>Agora não</ModalButtonTextSair>
+            </ModalButtonSair>
+          </ModalView>
+        ) : null}
+
         <ScrollView>
           {orientations.map((item) =>
-            !item.is_sick ? (
-              <CardContainer onPress={() => this.sendMail}>
-                <TouchableOpacity
-                  onPress={() =>
-                    Linking.openURL(
-                      `mailto:${userData.email}?subject=UnB Solidária - Solicitação de Orientação&body=Caro aluno, \nvi seu pedido de orientação e gostaria de auxiliá-lo.\n\nResponda este email caso ainda deseje orientação.`
-                    )
-                  }
-                  title="support@example.com"
-                >
-                  <Text>Departamento: {item.departament}</Text>
-                  <Text>Título: {item.title}</Text>
-                  <Text>Resumo: {item.details}</Text>
-                </TouchableOpacity>
+            item.status === 'open' ? (
+              <CardContainer
+                onPress={() => this.confirmAndSendMail(item)}
+                key={item.id}
+              >
+                <Text>Departamento: {item.departament}</Text>
+                <Text>Título: {item.title}</Text>
+                <Text>Resumo: {item.details}</Text>
               </CardContainer>
             ) : null
           )}
