@@ -71,8 +71,8 @@ export const ModalView = styled.View`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 36%;
-  width: 62%;
+  height: 200px;
+  width: 220px;
   elevation: 5;
 `;
 
