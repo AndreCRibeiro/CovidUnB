@@ -87,7 +87,9 @@ class NewOrientation extends Component {
           autoCorrect={false}
           autoCapitalize="characters"
           placeholder="Departamento - Ex: ENE, MAT"
-          onChangeText={(text) => this.setState({ departament: text })}
+          onChangeText={(text) =>
+            this.setState({ departament: text.toUpperCase() })
+          }
         />
         <Input
           autoCorrect={false}
@@ -108,8 +110,8 @@ class NewOrientation extends Component {
           {loading ? (
             <ActivityIndicator color={colors.white} />
           ) : (
-              <ButtonText>ENVIAR SOLICITAÇÃO</ButtonText>
-            )}
+            <ButtonText>ENVIAR SOLICITAÇÃO</ButtonText>
+          )}
         </Button>
       </Container>
     );

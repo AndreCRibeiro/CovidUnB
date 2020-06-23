@@ -160,14 +160,14 @@ class Orientation extends Component {
           autoCorrect={false}
           autoCapitalize="characters"
           placeholder="Ex: ENE"
-          onChangeText={(text) => this.setState({ query: text })}
+          onChangeText={(text) => this.setState({ query: text.toUpperCase() })}
         />
         <ButtonFilter loading={loading} onPress={this.filterByDepartament}>
           {loading ? (
             <ActivityIndicator color={colors.white} />
           ) : (
-              <ButtonText>FILTRAR POR DEPARTAMENTO</ButtonText>
-            )}
+            <ButtonText>FILTRAR POR DEPARTAMENTO</ButtonText>
+          )}
         </ButtonFilter>
 
         <ScrollView>
