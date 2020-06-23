@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   BackHandler,
   ActivityIndicator,
+  Modal,
 } from 'react-native';
 
 import {
@@ -125,6 +126,36 @@ class Orientation extends Component {
 
     return (
       <Container>
+        {modal ? (
+          <Modal
+            animationType="fade"
+            transparent
+            visible={modal}
+            onRequestClose={() => this.setState({ modal: false })}
+          >
+            <ModalContainer>
+              <ModalView>
+                <DescriptionText>Deseja iniciar orientação?</DescriptionText>
+                <ModalButtonSair
+                  onPress={() => {
+                    this.setState({ modal: false });
+                    this.sendMail();
+                  }}
+                >
+                  <ModalButtonTextSair>Orientar</ModalButtonTextSair>
+                </ModalButtonSair>
+
+                <ModalButtonSair
+                  onPress={() => {
+                    this.setState({ modal: false });
+                  }}
+                >
+                  <ModalButtonTextSair>Agora não</ModalButtonTextSair>
+                </ModalButtonSair>
+              </ModalView>
+            </ModalContainer>
+          </Modal>
+        ) : null}
         <Input
           autoCorrect={false}
           autoCapitalize="characters"
@@ -135,31 +166,9 @@ class Orientation extends Component {
           {loading ? (
             <ActivityIndicator color={colors.white} />
           ) : (
-            <ButtonText>FILTRAR POR DEPARTAMENTO</ButtonText>
-          )}
+              <ButtonText>FILTRAR POR DEPARTAMENTO</ButtonText>
+            )}
         </ButtonFilter>
-
-        {modal ? (
-          <ModalView>
-            <DescriptionText>Deseja iniciar orientação?</DescriptionText>
-            <ModalButtonSair
-              onPress={() => {
-                this.setState({ modal: false });
-                this.sendMail();
-              }}
-            >
-              <ModalButtonTextSair>Orientar</ModalButtonTextSair>
-            </ModalButtonSair>
-
-            <ModalButtonSair
-              onPress={() => {
-                this.setState({ modal: false });
-              }}
-            >
-              <ModalButtonTextSair>Agora não</ModalButtonTextSair>
-            </ModalButtonSair>
-          </ModalView>
-        ) : null}
 
         <ScrollView>
           {orientations.map((item) =>
