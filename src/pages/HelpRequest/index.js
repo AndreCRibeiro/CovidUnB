@@ -43,6 +43,11 @@ class HelpRequest extends Component {
       tosse: false,
       faltaAr: false,
       cansaco: false,
+      dificuldadeRespirar: false,
+      dorGarganta: false,
+      coriza: false,
+      dorPeito: false,
+      contatoPrev: false,
       other: '',
       latitude: '',
       longitude: '',
@@ -79,7 +84,18 @@ class HelpRequest extends Component {
   };
 
   handleCheck = (group) => {
-    const { allSymptoms, febre, tosse, faltaAr, cansaco } = this.state;
+    const {
+      allSymptoms,
+      febre,
+      tosse,
+      faltaAr,
+      cansaco,
+      dificuldadeRespirar,
+      dorGarganta,
+      coriza,
+      dorPeito,
+      contatoPrev,
+    } = this.state;
 
     const index = allSymptoms.findIndex((gp) => gp === group);
 
@@ -105,6 +121,30 @@ class HelpRequest extends Component {
         this.setState({ allSymptoms, cansaco: !cansaco });
         break;
       }
+      case 'Dificuldade de respirar': {
+        this.setState({
+          allSymptoms,
+          dificuldadeRespirar: !dificuldadeRespirar,
+        });
+        break;
+      }
+      case 'Dor de garganta': {
+        this.setState({ allSymptoms, dorGarganta: !dorGarganta });
+        break;
+      }
+      case 'Coriza': {
+        this.setState({ allSymptoms, coriza: !coriza });
+        break;
+      }
+      case 'Dor ou pressão no peito': {
+        this.setState({ allSymptoms, dorPeito: !dorPeito });
+        break;
+      }
+      case 'Contato prévio com pacientes positivos ao Covid-19': {
+        this.setState({ allSymptoms, contatoPrev: !contatoPrev });
+        break;
+      }
+
       default: {
         break;
       }
@@ -156,6 +196,11 @@ class HelpRequest extends Component {
       tosse,
       faltaAr,
       cansaco,
+      dificuldadeRespirar,
+      dorGarganta,
+      coriza,
+      dorPeito,
+      contatoPrev,
       other,
       showAlert,
       modal,
@@ -213,11 +258,43 @@ class HelpRequest extends Component {
             onPress={() => this.handleCheck('Cansaço')}
             text="Cansaço"
           />
+          <CheckBox
+            selected={dificuldadeRespirar}
+            onPress={() => this.handleCheck('Dificuldade de respirar')}
+            text="Dificuldade de respirar"
+          />
+          <CheckBox
+            selected={dorGarganta}
+            onPress={() => this.handleCheck('Dor de garganta')}
+            text="Dor de garganta"
+          />
+          <CheckBox
+            selected={coriza}
+            onPress={() => this.handleCheck('Coriza')}
+            text="Coriza"
+          />
+          <CheckBox
+            selected={dorPeito}
+            onPress={() => this.handleCheck('Dor ou pressão no peito')}
+            text="Dor ou pressão no peito"
+          />
           <Others
             placeholder="Outros sintomas"
             autoCorrect={false}
             value={other}
             onChangeText={(text) => this.setState({ other: text })}
+          />
+          <CheckBox
+            color="#666666"
+            size={20}
+            selected={contatoPrev}
+            dif
+            onPress={() =>
+              this.handleCheck(
+                'Contato prévio com pacientes positivos ao Covid-19'
+              )
+            }
+            text="Já tive ou tenho contato com pessoas diagnosticadas positivas ao Covid-19"
           />
         </CheckBoxField>
         <ButtonArea

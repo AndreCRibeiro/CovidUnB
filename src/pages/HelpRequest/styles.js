@@ -6,22 +6,22 @@ import {
   heightOutros,
 } from '../../styles/responsividade';
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   flex: 1;
-  padding: ${(props) => (props.showAlert ? '0px' : '15px')};
+  padding: 0px 15px 0px 15px;
 `;
 
 export const TextHeader = styled.Text`
-  font-size: ${HelpTitle};
+  font-size: ${HelpTitle}px;
   color: #333;
   font-weight: bold;
   text-align: center;
   justify-content: center;
-  margin-top: 30px;
+  margin-top: 20px;
 `;
 
 export const CheckBoxField = styled.View`
-  padding: 10px;
+  padding: 5px;
 `;
 
 export const Others = styled.TextInput.attrs({
@@ -29,9 +29,10 @@ export const Others = styled.TextInput.attrs({
 })`
   align-self: center;
   padding: 10px;
-  width: 90%;
+  width: 100%;
   height: ${heightOutros};
   margin-top: 10px;
+  margin-bottom: 5px;
   font-size: 16px;
   background-color: #fff;
   border-radius: 10px;
@@ -40,7 +41,8 @@ export const Others = styled.TextInput.attrs({
 
 export const ButtonArea = styled.TouchableOpacity`
   padding: 10px;
-  padding-top: ${paddingImage};
+  padding-top: ${paddingImage}px;
+  margin-bottom: 10px;
   align-self: center;
   align-content: center;
   flex-direction: column;

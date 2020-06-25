@@ -2,8 +2,8 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { TouchableOpacity, Text } from 'react-native';
-import styles from './styles';
+import { TouchableOpacity } from 'react-native';
+import styles, { Text } from './styles';
 
 const CheckBox = ({
   selected,
@@ -13,6 +13,7 @@ const CheckBox = ({
   size = 30,
   color = '#0039A6',
   text = '',
+  dif,
   ...props
 }) => (
     <TouchableOpacity
@@ -20,13 +21,25 @@ const CheckBox = ({
       onPress={onPress}
       {...props}
     >
-      <Icon
-        size={size}
-        color={color}
-        name={selected ? 'check-box' : 'check-box-outline-blank'}
-      />
+      {dif ? (
+        <Icon
+          size={size}
+          color={color}
+          name={selected ? 'radio-button-checked' : 'radio-button-unchecked'}
+        />
+      ) : (
+          <Icon
+            size={size}
+            color={color}
+            name={selected ? 'check-box' : 'check-box-outline-blank'}
+          />
+        )}
 
-      <Text style={styles.textOptionStyle}> {text} </Text>
+      {dif ? (
+        <Text> {text} </Text>
+      ) : (
+          <Text style={styles.textOptionStyle}> {text} </Text>
+        )}
     </TouchableOpacity>
   );
 
