@@ -16,6 +16,9 @@ import Map from './pages/Map';
 import Profile from './pages/Profile';
 import Chat from './pages/Chat';
 import ChatList from './pages/ChatsList';
+import Orientation from './pages/Orientation';
+import MyOrientation from './pages/MyOrientation';
+import NewOrientation from './pages/NewOrientation';
 
 const AppStack = createStackNavigator();
 
@@ -52,6 +55,9 @@ export default function Routes() {
         <AppStack.Screen name="HelpRequest" component={HelpRequest} />
         <AppStack.Screen name="Profile" component={Profile} />
         <AppStack.Screen name="Chat" component={Chat} />
+        <AppStack.Screen name="Orientation" component={Orientation} />
+        <AppStack.Screen name="MyOrientation" component={MyOrientation} />
+        <AppStack.Screen name="NewOrientation" component={NewOrientation} />
       </AppStack.Navigator>
     </NavigationContainer>
   );

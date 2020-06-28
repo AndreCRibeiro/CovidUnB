@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import { Rating, AirbnbRating } from 'react-native-ratings';
-import { TextInput, BackHandler, Alert } from 'react-native';
+import { BackHandler, Alert, ActivityIndicator } from 'react-native';
 import normalize from 'react-native-normalize';
 import { nanoid } from 'nanoid/non-secure';
 import firestore from '@react-native-firebase/firestore';
@@ -48,17 +49,21 @@ class Profile extends Component {
   state = {
     rating: '',
     userComment: '',
+    loading: false,
   };
 
   async componentDidMount() {
     const { userData, token } = this.props;
 
     const body = { volunteer_id: userData.volunteer_id };
-    const response = await api.post(`comments`, body, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await api.get(
+      `comments/${this.props.route.params.perfil.id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     this.setState({ data: response.data });
 
@@ -89,7 +94,7 @@ class Profile extends Component {
         volunteer_id: userData.volunteer_id,
         comment: userComment,
       };
-      const response = await api.post(`commentate`, body, {
+      const response = await api.post(`comments`, body, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -105,13 +110,6 @@ class Profile extends Component {
       });
     }
 
-    const body = { volunteer_id: userData.volunteer_id };
-    const response = await api.post(`comments`, body, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
     this.setState({ data: '' });
 
     this.setState({ userComment: '', data: response.data });
@@ -120,6 +118,8 @@ class Profile extends Component {
   handleChat = (profile) => {
     const { token, userData } = this.props;
     console.log(userData.id, profile.id);
+
+    this.setState({ loading: true });
 
     const chatId = nanoid();
     firestore()
@@ -155,7 +155,7 @@ class Profile extends Component {
   };
 
   render() {
-    const { rating, data, userComment } = this.state;
+    const { rating, data, userComment, loading } = this.state;
     const { params } = this.props.route;
 
     const number = params.perfil.rate;
@@ -219,10 +219,10 @@ class Profile extends Component {
         <Opinion>
           {data
             ? data.map((comments) => (
-                <CardComment>
-                  <Text>{comments.comment}</Text>
-                </CardComment>
-              ))
+              <CardComment>
+                <Text>{comments.comment}</Text>
+              </CardComment>
+            ))
             : null}
         </Opinion>
         <ChatButton
@@ -230,7 +230,11 @@ class Profile extends Component {
             this.handleChat(params.perfil);
           }}
         >
-          <Icon name="chat" size={22} color={colors.white} />
+          {loading ? (
+            <ActivityIndicator color={colors.white} />
+          ) : (
+              <Icon name="chat" size={22} color={colors.white} />
+            )}
         </ChatButton>
       </Container>
     );

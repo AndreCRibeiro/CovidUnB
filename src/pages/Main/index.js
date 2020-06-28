@@ -69,8 +69,6 @@ class Main extends Component {
     const checkedUserAsync = await AsyncStorage.getItem('userNameAsync');
     const checkedPassAsync = await AsyncStorage.getItem('userPassAsync');
 
-    console.tron.log(checkedUserAsync);
-
     if (checkedAsync === 'true') {
       this.setState({
         checked: true,
@@ -181,8 +179,6 @@ class Main extends Component {
       reset,
     } = this.state;
     const { loading } = this.props;
-
-    console.tron.log(this.props.route.params);
 
     return (
       <>

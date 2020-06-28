@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { BackHandler } from 'react-native';
+import { Divider } from 'react-native-elements';
 
 import { GiftedChat } from 'react-native-gifted-chat';
-
 import firestore from '@react-native-firebase/firestore';
+import { UserName } from './styles';
+
 import useAuth from '../../store';
 
 const App = (props) => {
   const { token, userData } = useAuth();
   const [messages, setMessages] = useState([]);
-  const { chatId } = props.route.params;
+  const { chatId, userName } = props.route.params;
   const chatRef = firestore().collection('Chats').doc(chatId);
   const { id } = userData;
 
@@ -38,7 +40,6 @@ const App = (props) => {
     // Stop listening for updates when no longer required
     return () => subscriber();
   }, [chatId]);
-  console.log(id);
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', handleBackButton);
@@ -49,6 +50,7 @@ const App = (props) => {
   }, [handleBackButton]);
 
   const onSend = (newMessages = []) => {
+    console.log(GiftedChat.append(messages, newMessages));
     chatRef.update({
       // messages: firestore.FieldValue.arrayUnion(...newMessages),
       messages: GiftedChat.append(messages, newMessages),
@@ -57,11 +59,18 @@ const App = (props) => {
   };
   return (
     <>
+      <UserName style={{ textAlign: 'center', fontWeight: 'bold' }}>
+        {userName}
+      </UserName>
+      <Divider />
       <GiftedChat
         messages={messages}
+        placeholder="Digite uma mensagem"
         onSend={(messages) => onSend(messages)}
+        textInputProps={{ autoCapitalize: 'none', autoCorrect: false }}
         user={{
-          _id: { id }, // TODO : mudar pro id do user atual
+          _id: id,
+          // TODO : mudar pro id do user atual
         }}
         renderAvatar={() => null}
       />

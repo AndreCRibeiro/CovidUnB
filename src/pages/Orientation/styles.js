@@ -1,60 +1,62 @@
 import styled from 'styled-components/native';
-import { Alert } from 'react-native';
-import {
-  paddingImage,
-  HelpTitle,
-  heightOutros,
-} from '../../styles/responsividade';
+import { RectButton } from 'react-native-gesture-handler';
 
-export const Container = styled.ScrollView`
+export const Container = styled.View`
   flex: 1;
-  padding: 0px 15px 0px 15px;
-`;
-
-export const TextHeader = styled.Text`
-  font-size: ${HelpTitle}px;
-  color: #333;
-  font-weight: bold;
-  text-align: center;
+  width: 100%;
+  align-items: center;
   justify-content: center;
-  margin-top: 20px;
 `;
 
-export const CheckBoxField = styled.View`
-  padding: 5px;
+export const CardContainer = styled.TouchableOpacity`
+  padding: 10px 0px 10px 10px;
+  margin: 12px 10px 15px 10px;
+  background: #fff;
+  flex-direction: column;
+  border-top-width: 20px;
+  border-width: 2px;
+  elevation: 10;
+  border-color: #0039a6;
 `;
 
-export const Others = styled.TextInput.attrs({
+export const Text = styled.Text`
+  font-weight: ${(props) => (props.b ? 'bold' : 'normal')};
+  margin-top: 2px;
+`;
+
+export const ButtonFilter = styled(RectButton)`
+  justify-content: center;
+  align-items: center;
+  background: #0039a6;
+  border-radius: 25px;
+  padding: 3px 12px;
+  opacity: ${(props) => (props.loading ? 0.7 : 1)};
+  height: 42px;
+  width: 80%;
+  margin: 5px 0px 5px 0px;
+`;
+
+export const ButtonText = styled.Text`
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #fff;
+  font-weight: bold;
+  margin-top: 4px;
+  text-align: center;
+`;
+
+export const Input = styled.TextInput.attrs({
   placeholderTextColor: '#000',
 })`
-  align-self: center;
-  padding: 10px;
-  width: 100%;
-  height: ${heightOutros};
-  margin-top: 10px;
-  margin-bottom: 5px;
-  font-size: 16px;
-  background-color: #fff;
-  border-radius: 10px;
+  height: 45px;
+  width: 80%;
+  background: #fff;
+  border-radius: 11px;
+  padding: 0 15px;
   border: 2px solid #000;
+  margin: 15px 0 8px 0;
+  elevation: 6;
 `;
-
-export const ButtonArea = styled.TouchableOpacity`
-  padding: 10px;
-  padding-top: ${paddingImage}px;
-  margin-bottom: 10px;
-  align-self: center;
-  align-content: center;
-  flex-direction: column;
-`;
-
-export const Image = styled.Image`
-  width: 185px;
-  height: 185px;
-  border-radius: 50px;
-`;
-
-export const AlertField = styled(Alert)``;
 
 export const ModalContainer = styled.View`
   flex: 1;
@@ -69,8 +71,8 @@ export const ModalView = styled.View`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 36%;
-  width: 62%;
+  height: 200px;
+  width: 220px;
   elevation: 5;
 `;
 

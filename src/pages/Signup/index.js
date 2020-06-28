@@ -143,7 +143,8 @@ export default class Signup extends Component {
         password: userPassConfirmed,
         address: userAddress,
         birth_date: userBirth,
-        link_unb: linkUnb,
+        linkUnb,
+        type: linkUnb,
         risk_group: riskGroup.toString(),
         user_location: '',
         matricula_unb: matriculaUnb,
@@ -370,11 +371,11 @@ export default class Signup extends Component {
                     style={{ resizeMode: 'cover' }}
                   />
                 ) : (
-                    <>
-                      <Icon name="camera-alt" size={38} />
-                      <AvatarText>Escolha uma foto</AvatarText>
-                    </>
-                  )}
+                  <>
+                    <Icon name="camera-alt" size={38} />
+                    <AvatarText>Escolha uma foto</AvatarText>
+                  </>
+                )}
               </ButtonChangeAvatar>
             </AvatarView>
             <SecondCenterView>
@@ -449,8 +450,8 @@ export default class Signup extends Component {
               {loading ? (
                 <ActivityIndicator color={colors.white} />
               ) : (
-                  <ButtonText>Registrar</ButtonText>
-                )}
+                <ButtonText>Registrar</ButtonText>
+              )}
             </Button>
           </Form>
         </Container>
