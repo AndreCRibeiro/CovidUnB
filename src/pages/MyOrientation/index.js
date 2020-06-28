@@ -8,13 +8,26 @@ import { ScrollView, BackHandler } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
+  ScrollView,
+  TextInput,
+  Linking,
+  TouchableOpacity,
+  BackHandler,
+  ActivityIndicator,
+  Modal,
+} from 'react-native';
+import { Picker } from '@react-native-community/picker';
+import {
   Container,
+  SubContainer,
   CardContainer,
   HeaderTitle,
   HeaderText,
   TextView,
   Text,
   TextTeste,
+  Input,
+  PickerView,
   Favorite,
   CloseView,
   CloseButton,
@@ -37,6 +50,7 @@ class MyOrientation extends Component {
     this.state = {
       myOrientations: [],
       statusOrientation: '',
+      lista: '',
     };
   }
 
@@ -73,6 +87,7 @@ class MyOrientation extends Component {
     }
     return false;
   }
+  state = { filtro: '' };
 
   handleFavoriteAnswering = async (id) => {
     const { token } = this.props;
@@ -159,18 +174,36 @@ class MyOrientation extends Component {
   };
 
   render() {
-    const { myOrientations } = this.state;
+    const { myOrientations, lista } = this.state;
     const { userData } = this.props;
 
     return (
       <Container>
-        <ScrollView>
+        <SubContainer>
           <HeaderTitle>
             <HeaderText>Minhas Orientações</HeaderText>
           </HeaderTitle>
+          <PickerView>
+            <Picker
+              selectedValue={lista}
+              onValueChange={(value) => this.setState({ lista: value })}
+            >
+              <Picker.Item label="Status Orientações" value="" />
+              <Picker.Item label="Todas Orientações " value="" />
+              <Picker.Item label="Orientações Favoritas" value="favorite" />
+              <Picker.Item
+                label="Orientações em Atendimento"
+                value="answering"
+              />
+              <Picker.Item label="Orientações Finalizadas" value="closed" />
+            </Picker>
+          </PickerView>
+        </SubContainer>
 
+        <ScrollView>
           {myOrientations.map((item) =>
-            this.checkOwner(userData.id, item.professor_id) ? (
+            this.checkOwner(userData.id, item.professor_id) &&
+            item.status === lista ? (
               <CardContainer>
                 <TextView>
                   <Text b>Nº da Solicitação: </Text>
