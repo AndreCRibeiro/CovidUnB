@@ -7,15 +7,6 @@ import React, { Component } from 'react';
 import { ScrollView, BackHandler } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {
-  ScrollView,
-  TextInput,
-  Linking,
-  TouchableOpacity,
-  BackHandler,
-  ActivityIndicator,
-  Modal,
-} from 'react-native';
 import { Picker } from '@react-native-community/picker';
 import {
   Container,
@@ -26,7 +17,6 @@ import {
   TextView,
   Text,
   TextTeste,
-  Input,
   PickerView,
   Favorite,
   CloseView,
@@ -87,7 +77,6 @@ class MyOrientation extends Component {
     }
     return false;
   }
-  state = { filtro: '' };
 
   handleFavoriteAnswering = async (id) => {
     const { token } = this.props;
@@ -188,8 +177,7 @@ class MyOrientation extends Component {
               selectedValue={lista}
               onValueChange={(value) => this.setState({ lista: value })}
             >
-              <Picker.Item label="Status Orientações" value="" />
-              <Picker.Item label="Todas Orientações " value="" />
+              <Picker.Item label="Todas Orientações" value="" />
               <Picker.Item label="Orientações Favoritas" value="favorite" />
               <Picker.Item
                 label="Orientações em Atendimento"
@@ -203,55 +191,102 @@ class MyOrientation extends Component {
         <ScrollView>
           {myOrientations.map((item) =>
             this.checkOwner(userData.id, item.professor_id) &&
-            item.status === lista ? (
-              <CardContainer>
-                <TextView>
-                  <Text b>Nº da Solicitação: </Text>
-                  <Text>{item.id}</Text>
-                  {item.status === 'answering' ? (
-                    <Favorite
-                      onPress={() => this.handleFavoriteAnswering(item.id)}
-                    >
-                      {item.status === 'favorite' ? (
-                        <Icon name="star" size={28} color="#0039A6" />
-                      ) : (
-                          <Icon name="star-outline" size={28} color="#0039A6" />
-                        )}
-                    </Favorite>
-                  ) : (
-                      <Favorite onPress={() => this.handleFavorite(item.id)}>
-                        {item.status === 'answering' ? (
-                          <Icon name="star-outline" size={28} color="#0039A6" />
+              item.status === lista ? (
+                <CardContainer>
+                  <TextView>
+                    <Text b>Nº da Solicitação: </Text>
+                    <Text>{item.id}</Text>
+                    {item.status === 'answering' ? (
+                      <Favorite
+                        onPress={() => this.handleFavoriteAnswering(item.id)}
+                      >
+                        {item.status === 'favorite' ? (
+                          <Icon name="star" size={28} color="#0039A6" />
                         ) : (
-                            <Icon name="star" size={28} color="#0039A6" />
+                            <Icon name="star-outline" size={28} color="#0039A6" />
                           )}
                       </Favorite>
-                    )}
-                </TextView>
-                <TextView>
-                  <Text b>Departamento: </Text>
-                  <Text>{item.departament}</Text>
-                </TextView>
-                <TextView>
-                  <Text b>Título: </Text>
-                  <Text>{item.title}</Text>
-                </TextView>
-                <TextView>
-                  <Text b>Resumo: </Text>
-                  <TextTeste>{item.details}</TextTeste>
-                </TextView>
-                <CloseView>
-                  <CloseButton
-                    onPress={() => {
-                      this.setState({ statusOrientation: 'closed' }),
+                    ) : (
+                        <Favorite onPress={() => this.handleFavorite(item.id)}>
+                          {item.status === 'answering' ? (
+                            <Icon name="star-outline" size={28} color="#0039A6" />
+                          ) : (
+                              <Icon name="star" size={28} color="#0039A6" />
+                            )}
+                        </Favorite>
+                      )}
+                  </TextView>
+                  <TextView>
+                    <Text b>Departamento: </Text>
+                    <Text>{item.departament}</Text>
+                  </TextView>
+                  <TextView>
+                    <Text b>Título: </Text>
+                    <Text>{item.title}</Text>
+                  </TextView>
+                  <TextView>
+                    <Text b>Resumo: </Text>
+                    <TextTeste>{item.details}</TextTeste>
+                  </TextView>
+                  <CloseView>
+                    <CloseButton
+                      onPress={() => {
                         this.handleClose(item.id);
-                    }}
-                  >
-                    <TextClose>Encerrar orientação</TextClose>
-                  </CloseButton>
-                </CloseView>
-              </CardContainer>
-            ) : null
+                      }}
+                    >
+                      <TextClose>Encerrar orientação</TextClose>
+                    </CloseButton>
+                  </CloseView>
+                </CardContainer>
+              ) : this.checkOwner(userData.id, item.professor_id) &&
+                lista === '' ? (
+                  <CardContainer>
+                    <TextView>
+                      <Text b>Nº da Solicitação: </Text>
+                      <Text>{item.id}</Text>
+                      {item.status === 'answering' ? (
+                        <Favorite
+                          onPress={() => this.handleFavoriteAnswering(item.id)}
+                        >
+                          {item.status === 'favorite' ? (
+                            <Icon name="star" size={28} color="#0039A6" />
+                          ) : (
+                              <Icon name="star-outline" size={28} color="#0039A6" />
+                            )}
+                        </Favorite>
+                      ) : (
+                          <Favorite onPress={() => this.handleFavorite(item.id)}>
+                            {item.status === 'answering' ? (
+                              <Icon name="star-outline" size={28} color="#0039A6" />
+                            ) : (
+                                <Icon name="star" size={28} color="#0039A6" />
+                              )}
+                          </Favorite>
+                        )}
+                    </TextView>
+                    <TextView>
+                      <Text b>Departamento: </Text>
+                      <Text>{item.departament}</Text>
+                    </TextView>
+                    <TextView>
+                      <Text b>Título: </Text>
+                      <Text>{item.title}</Text>
+                    </TextView>
+                    <TextView>
+                      <Text b>Resumo: </Text>
+                      <TextTeste>{item.details}</TextTeste>
+                    </TextView>
+                    <CloseView>
+                      <CloseButton
+                        onPress={() => {
+                          this.handleClose(item.id);
+                        }}
+                      >
+                        <TextClose>Encerrar orientação</TextClose>
+                      </CloseButton>
+                    </CloseView>
+                  </CardContainer>
+                ) : null
           )}
 
           {!myOrientations ? (
