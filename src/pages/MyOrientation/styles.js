@@ -7,6 +7,13 @@ export const Container = styled.View`
   justify-content: center;
 `;
 
+export const SubContainer = styled.View`
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+`;
+
 export const CardContainer = styled.TouchableOpacity`
   padding: 10px 0px 10px 10px;
   margin: 20px 10px 5px 10px;
@@ -44,4 +51,27 @@ export const Text = styled.Text`
 
 export const TextTeste = styled.Text`
   width: 80%;
+`;
+
+export const Input = styled.TextInput.attrs({
+  placeholderTextColor: '#000',
+})`
+  height: 45px;
+  width: 80%;
+  background: #fff;
+  border-radius: 11px;
+  border: 2px solid #000;
+  margin: 25px 0 8px 0;
+  elevation: 6;
+`;
+
+export const PickerView = styled.View`
+  height: 45px;
+  width: 80%;
+  background: #fff;
+  border-radius: 11px;
+  padding: 0 15px;
+  border: 2px solid #000;
+  margin: 25px 0 8px 0;
+  elevation: 6;
 `;
