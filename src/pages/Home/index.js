@@ -416,9 +416,9 @@ class Home extends Component {
               messageStyle={{ color: '#000' }}
             />
             <TopCards>
-              <Card onPress={() => this.handleNavigateToChat()}>
-                <Image source={require('../../assets/images/chat.png')} />
-                <Text>Chat</Text>
+            <Card onPress={() => this.handleNavigateToSolidary()}>
+                <LargeImage source={require('../../assets/images/phone.png')} />
+                <Text>Ajuda solidária</Text>
               </Card>
               <Card onPress={() => this.handleNavigateToVolunteer()}>
                 <MediumImage
@@ -434,11 +434,12 @@ class Home extends Component {
                 />
                 <Text>Dúvidas</Text>
               </Card>
-              <Card onPress={() => this.handleNavigateToSolidary()}>
-                <LargeImage source={require('../../assets/images/phone.png')} />
-                <Text>Ajuda solidária</Text>
+              <Card onPress={() => this.handleNavigateToChat()}>
+                <Image source={require('../../assets/images/chat.png')} />
+                <Text>Chat</Text>
               </Card>
             </MiddleCards>
+
             <BottomCards>
               <Card onPress={() => this.handleNavigateToHelp()}>
                 <LargeImage source={require('../../assets/images/heart.png')} />
