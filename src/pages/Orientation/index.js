@@ -23,6 +23,7 @@ import {
   ModalButtonSair,
   ModalButtonTextSair,
   ModalContainer,
+  TextView,
 } from './styles';
 import { colors } from '../../styles';
 
@@ -170,16 +171,25 @@ class Orientation extends Component {
           )}
         </ButtonFilter>
 
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator = {false}>
           {orientations.map((item) =>
             item.status === 'open' ? (
               <CardContainer
                 onPress={() => this.confirmAndSendMail(item)}
                 key={item.id}
               >
-                <Text>Departamento: {item.departament}</Text>
+               <TextView>
+                 <Text>Departamento: {item.departament}</Text>
+               </TextView>
+
+              <TextView>
                 <Text>Título: {item.title}</Text>
+              </TextView>
+
+              <TextView>
                 <Text>Resumo: {item.details}</Text>
+              </TextView>
+
               </CardContainer>
             ) : null
           )}

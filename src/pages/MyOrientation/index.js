@@ -188,7 +188,7 @@ class MyOrientation extends Component {
           </PickerView>
         </SubContainer>
 
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator = {false}>
           {myOrientations.map((item) =>
             this.checkOwner(userData.id, item.professor_id) &&
               item.status === lista ? (
