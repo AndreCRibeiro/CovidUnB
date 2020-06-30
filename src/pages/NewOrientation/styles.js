@@ -12,10 +12,6 @@ export const HeaderTitle = styled.View`
   justify-content: center;
   margin: 20px 0 30px 0;
 `;
-export const RowView = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
 
 export const HeaderText = styled.Text`
   text-align: center;
@@ -59,6 +55,7 @@ export const ButtonText = styled.Text`
 `;
 export const ModalButtonSair = styled.TouchableOpacity`
   margin-left: 1%;
+  margin-top: 2%;
   justify-content: center;
   align-items: center;
   background: #ff0000;
@@ -75,6 +72,7 @@ export const ModalText = styled.Text`
   font-weight: bold;
   font-size: 14px;
   padding: 5px;
+  text-align: center;
 `;
 
 export const ModalContainer = styled.View`
@@ -84,3 +82,13 @@ export const ModalContainer = styled.View`
   background: rgba(123, 123, 123, 0.4);
 `;
 
+export const ModalView = styled.View`
+  background: #fff;
+  border-radius: 8px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 15%;
+  width: ${(props) => (props.error ? '65%' : '50%')};
+  elevation: 5;
+`;

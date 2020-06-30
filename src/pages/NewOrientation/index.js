@@ -42,9 +42,9 @@ class NewOrientation extends Component {
       departament: '',
       title: '',
       details: '',
-      token: '',
       loading: false,
       modalHome: false,
+      modalError: false,
     };
   }
 
@@ -64,12 +64,10 @@ class NewOrientation extends Component {
 
   handleHome = async () => {
     const { navigation } = this.props;
-    const { reset } = this.state;
 
-    this.setState({ reset: true });
-    await AsyncStorage.clear();
+    this.setState({ modalHome: false });
 
-    navigation.navigate('Home', { reset: true });
+    navigation.navigate('Home');
   };
 
   createOrientation = async () => {
@@ -86,21 +84,61 @@ class NewOrientation extends Component {
           },
         }
       );
-      this.setState({modalHome: true})
+      this.setState({ modalHome: true });
     } catch (err) {
+      this.setState({ modalError: true });
       console.log(err);
     }
   };
 
   render() {
-    const { departament, title, details, loading, modalHome } = this.state;
-    const { userData } = this.props;
+    const { loading, modalHome, modalError } = this.state;
 
     return (
       <Container>
         <HeaderTitle>
           <HeaderText>Minhas Orientações</HeaderText>
         </HeaderTitle>
+
+        <Modal
+          animationType="fade"
+          transparent
+          visible={modalHome}
+          onRequestClose={() => this.setState({ modalHome: false })}
+        >
+          <ModalContainer>
+            <ModalView>
+              <ModalText>Solicitação enviada!</ModalText>
+              <ModalButtonSair
+                onPress={() => {
+                  this.handleHome();
+                }}
+              >
+                <ModalButtonTextSair>OK</ModalButtonTextSair>
+              </ModalButtonSair>
+            </ModalView>
+          </ModalContainer>
+        </Modal>
+
+        <Modal
+          animationType="fade"
+          transparent
+          visible={modalError}
+          onRequestClose={() => this.setState({ modalError: false })}
+        >
+          <ModalContainer>
+            <ModalView error>
+              <ModalText>Erro na solicitação, tente novamente.</ModalText>
+              <ModalButtonSair
+                onPress={() => {
+                  this.setState({ modalError: false });
+                }}
+              >
+                <ModalButtonTextSair>OK</ModalButtonTextSair>
+              </ModalButtonSair>
+            </ModalView>
+          </ModalContainer>
+        </Modal>
 
         <Input
           autoCorrect={false}
@@ -129,33 +167,10 @@ class NewOrientation extends Component {
           {loading ? (
             <ActivityIndicator color={colors.white} />
           ) : (
-            <ButtonText>ENVIAR SOLICITAÇÃO</ButtonText>
-          )}
+              <ButtonText>ENVIAR SOLICITAÇÃO</ButtonText>
+            )}
         </Button>
-        <Modal
-              animationType="fade"
-              transparent
-              visible={modalHome}
-              onRequestClose={() => this.setState({ modalHome: false })}
-        >
-          <ModalContainer>
-                <ModalView>
-                  <ModalText>Solicitação enviada!</ModalText>
-                  <RowView>
-                    <ModalButtonSair
-                      onPress={() => {
-                        this.setState({ modalHome: true });
-                        this.handleHome();
-                      }}
-                   >
-                    <ModalButtonTextSair>Sair</ModalButtonTextSair>
-                    </ModalButtonSair>
-                  </RowView>
-                </ModalView>
-          </ModalContainer>
-        </Modal>
       </Container>
-
     );
   }
 }
