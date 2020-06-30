@@ -9,6 +9,7 @@ export const Container = styled.View`
 `;
 
 export const CardContainer = styled.TouchableOpacity`
+
   padding: 10px 0px 10px 10px;
   margin: 12px 10px 15px 10px;
   background: #fff;
@@ -17,6 +18,14 @@ export const CardContainer = styled.TouchableOpacity`
   border-width: 2px;
   elevation: 10;
   border-color: #0039a6;
+  width: 375px;
+
+`;
+
+export const TextView = styled.View`
+  flex-direction: row;
+  flex: 1;
+  margin: 2px 0px 2px 0px;
 `;
 
 export const Text = styled.Text`
