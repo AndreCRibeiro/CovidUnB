@@ -7,6 +7,7 @@ import {
   Text,
   BackHandler,
   ActivityIndicator,
+  Modal,
 } from 'react-native';
 
 import {
@@ -16,6 +17,12 @@ import {
   HeaderText,
   Button,
   ButtonText,
+  ModalContainer,
+  ModalButtonSair,
+  ModalButtonTextSair,
+  ModalText,
+  ModalView,
+  RowView,
 } from './styles';
 
 import useAuth from '../../store';
@@ -37,6 +44,7 @@ class NewOrientation extends Component {
       details: '',
       token: '',
       loading: false,
+      modalHome: false,
     };
   }
 
@@ -54,6 +62,16 @@ class NewOrientation extends Component {
     return true;
   };
 
+  handleHome = async () => {
+    const { navigation } = this.props;
+    const { reset } = this.state;
+
+    this.setState({ reset: true });
+    await AsyncStorage.clear();
+
+    navigation.navigate('Home', { reset: true });
+  };
+
   createOrientation = async () => {
     const { departament, title, details } = this.state;
     const { token } = this.props;
@@ -68,13 +86,14 @@ class NewOrientation extends Component {
           },
         }
       );
+      this.setState({modalHome: true})
     } catch (err) {
       console.log(err);
     }
   };
 
   render() {
-    const { departament, title, details, loading } = this.state;
+    const { departament, title, details, loading, modalHome } = this.state;
     const { userData } = this.props;
 
     return (
@@ -113,9 +132,31 @@ class NewOrientation extends Component {
             <ButtonText>ENVIAR SOLICITAÇÃO</ButtonText>
           )}
         </Button>
+        <Modal
+              animationType="fade"
+              transparent
+              visible={modalHome}
+              onRequestClose={() => this.setState({ modalHome: false })}
+        >
+          <ModalContainer>
+                <ModalView>
+                  <ModalText>Solicitação enviada!</ModalText>
+                  <RowView>
+                    <ModalButtonSair
+                      onPress={() => {
+                        this.setState({ modalHome: true });
+                        this.handleHome();
+                      }}
+                   >
+                    <ModalButtonTextSair>Sair</ModalButtonTextSair>
+                    </ModalButtonSair>
+                  </RowView>
+                </ModalView>
+          </ModalContainer>
+        </Modal>
       </Container>
+
     );
   }
 }
-
 export default withZustand(NewOrientation);

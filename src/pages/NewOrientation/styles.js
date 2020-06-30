@@ -12,6 +12,10 @@ export const HeaderTitle = styled.View`
   justify-content: center;
   margin: 20px 0 30px 0;
 `;
+export const RowView = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
 
 export const HeaderText = styled.Text`
   text-align: center;
@@ -53,3 +57,30 @@ export const ButtonText = styled.Text`
   margin-top: 4px;
   text-align: center;
 `;
+export const ModalButtonSair = styled.TouchableOpacity`
+  margin-left: 1%;
+  justify-content: center;
+  align-items: center;
+  background: #ff0000;
+  border-radius: 10px;
+  height: 23px;
+  width: 70px;
+`;
+export const ModalButtonTextSair = styled.Text`
+  color: #fff;
+`;
+export const ModalButtonText = styled.Text``;
+
+export const ModalText = styled.Text`
+  font-weight: bold;
+  font-size: 14px;
+  padding: 5px;
+`;
+
+export const ModalContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  background: rgba(123, 123, 123, 0.4);
+`;
+
