@@ -1,7 +1,12 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import { Rating, AirbnbRating } from 'react-native-ratings';
-import { BackHandler, Alert, ActivityIndicator } from 'react-native';
+import {
+  BackHandler,
+  Alert,
+  ActivityIndicator,
+  ScrollView,
+} from 'react-native';
 import normalize from 'react-native-normalize';
 import { nanoid } from 'nanoid/non-secure';
 import firestore from '@react-native-firebase/firestore';
@@ -219,10 +224,10 @@ class Profile extends Component {
         <Opinion>
           {data
             ? data.map((comments) => (
-              <CardComment>
-                <Text>{comments.comment}</Text>
-              </CardComment>
-            ))
+                <CardComment>
+                  <Text>{comments.comment}</Text>
+                </CardComment>
+              ))
             : null}
         </Opinion>
         <ChatButton
@@ -233,8 +238,8 @@ class Profile extends Component {
           {loading ? (
             <ActivityIndicator color={colors.white} />
           ) : (
-              <Icon name="chat" size={22} color={colors.white} />
-            )}
+            <Icon name="chat" size={29} color={colors.white} />
+          )}
         </ChatButton>
       </Container>
     );

@@ -8,6 +8,7 @@ import { ChatButton } from './styles';
 
 import api from '../../services/api';
 import useAuth from '../../store';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const App = (props) => {
   const { token, userData } = useAuth();
@@ -77,7 +78,7 @@ const App = (props) => {
               </Card>
             ) : null}
             <ChatButton onPress={() => props.navigation.navigate('Solidary')}>
-              <Icon name="chat" size={22} color="white" />
+              <Icon name="chat" size={28} color="white" />
             </ChatButton>
           </>
         ))
@@ -85,7 +86,7 @@ const App = (props) => {
         <>
           <Text style={{ margin: 20 }}>Você ainda não tem chats</Text>
           <ChatButton onPress={() => props.navigation.navigate('Solidary')}>
-            <Icon name="chat" size={22} color="white" />
+            <Icon name="chat" size={28} color="white" />
           </ChatButton>
         </>
       )}
