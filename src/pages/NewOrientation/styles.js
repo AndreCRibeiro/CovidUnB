@@ -53,3 +53,42 @@ export const ButtonText = styled.Text`
   margin-top: 4px;
   text-align: center;
 `;
+export const ModalButtonSair = styled.TouchableOpacity`
+  margin-left: 1%;
+  margin-top: 2%;
+  justify-content: center;
+  align-items: center;
+  background: #ff0000;
+  border-radius: 10px;
+  height: 23px;
+  width: 70px;
+`;
+export const ModalButtonTextSair = styled.Text`
+  color: #fff;
+`;
+export const ModalButtonText = styled.Text``;
+
+export const ModalText = styled.Text`
+  font-weight: bold;
+  font-size: 14px;
+  padding: 5px;
+  text-align: center;
+`;
+
+export const ModalContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  background: rgba(123, 123, 123, 0.4);
+`;
+
+export const ModalView = styled.View`
+  background: #fff;
+  border-radius: 8px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 15%;
+  width: ${(props) => (props.error ? '65%' : '50%')};
+  elevation: 5;
+`;

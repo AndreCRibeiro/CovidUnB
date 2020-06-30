@@ -276,23 +276,6 @@ class Home extends Component {
         <StatusBar barStyle="light-content" backgroundColor="#0039A6" />
         <ScrollView showsVerticalScrollIndicator={false}>
           <Container>
-            {/*         {showAnimation ? (
-              <Modal animationType="fade" transparent visible={showAnimation}>
-                <ModalContainerAnimation>
-                  <Lottie
-                    resizeMode="contain"
-                    source={stay}
-                    autoPlay
-                    loop={false}
-                    onAnimationFinish={() =>
-                      this.setState({ showAnimation: false })
-                    }
-                    style={{ backgroundColor: '#fff' }}
-                    speed={1.5}
-                  />
-                </ModalContainerAnimation>
-              </Modal>
-            ) : null} */}
             <Modal
               animationType="fade"
               transparent
@@ -416,7 +399,7 @@ class Home extends Component {
               messageStyle={{ color: '#000' }}
             />
             <TopCards>
-            <Card onPress={() => this.handleNavigateToSolidary()}>
+              <Card onPress={() => this.handleNavigateToSolidary()}>
                 <LargeImage source={require('../../assets/images/phone.png')} />
                 <Text>Ajuda solidária</Text>
               </Card>
