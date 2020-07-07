@@ -39,13 +39,11 @@ import {
   RatingText,
   RatingViewComment,
   RatingTextComment,
-
 } from './styles';
 
 import useAuth from '../../store';
 
 import api from '../../services/api';
-import { ScrollView } from 'react-native-gesture-handler';
 
 const withZustand = (Comp) => (props) => {
   const { token, userData } = useAuth();
@@ -170,7 +168,6 @@ class Profile extends Component {
     const rate = parseFloat(number.toFixed(2));
 
     return (
-    <ScrollView>
       <Container>
         <Card>
           <Info>
@@ -224,16 +221,14 @@ class Profile extends Component {
         </Avaliation>
 
         <Title>AVALIAÇÕES ANTERIORES:</Title>
-        <ChatButton>
-
-        </ChatButton>
+        <ChatButton />
         <Opinion>
           {data
             ? data.map((comments) => (
-                <CardComment>
-                  <Text>{comments.comment}</Text>
-                </CardComment>
-              ))
+              <CardComment>
+                <Text>{comments.comment}</Text>
+              </CardComment>
+            ))
             : null}
         </Opinion>
         <ChatButton
@@ -244,12 +239,10 @@ class Profile extends Component {
           {loading ? (
             <ActivityIndicator color={colors.white} />
           ) : (
-            <Icon name="chat" size={29} color={colors.white} />
-          )}
+              <Icon name="chat" size={29} color={colors.white} />
+            )}
         </ChatButton>
       </Container>
-
-    </ScrollView>
     );
   }
 }

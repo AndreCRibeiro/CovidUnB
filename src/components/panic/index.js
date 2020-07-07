@@ -25,54 +25,6 @@ const withZustand = (Comp) => (props) => {
   return <Comp {...props} token={token} userData={userData} />;
 };
 
-const callHelp = accelerometer.subscribe(async ({ x, y, z, timestamp }) => {
-  if (x > 45 || y > 45) {
-    cont++;
-    if (cont > 80) {
-      cont = 0;
-      Vibration.vibrate(1 * ONE_SECOND_IN_MS);
-
-      const { token, userData } = this.props;
-
-      await Geolocation.getCurrentPosition(
-        ({ coords: { latitude, longitude } }) => {
-          const location = JSON.stringify({
-            latitude,
-            longitude,
-            latitudeDelta: 0.0143,
-            longitudeDelta: 0.0134,
-          });
-
-          const body = {
-            name: userData.name,
-            whatsapp: userData.whatsapp,
-            user_location: location,
-          };
-
-          try {
-            api.post('/sos', body, {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            });
-            Alert.alert('SOS UnB ativado!');
-          } catch (err) {
-            console.log('CATCHEEEED', err);
-          }
-        }, // sucesso
-        (err) => {
-          console.log(err);
-        }, // erro
-        {
-          timeout: 5000,
-          enableHighAccuracy: false,
-          maximumAge: 1000,
-        }
-      );
-    }
-  }
-});
-
 class Panic extends Component {
   constructor(props) {
     super(props);
@@ -83,22 +35,57 @@ class Panic extends Component {
     };
   }
 
+  callHelp = accelerometer.subscribe(async ({ x, y, z, timestamp }) => {
+    if (x > 45 || y > 45) {
+      cont++;
+      if (cont > 80) {
+        cont = 0;
+        Vibration.vibrate(1 * ONE_SECOND_IN_MS);
+
+        const { token, userData } = this.props;
+
+        await Geolocation.getCurrentPosition(
+          ({ coords: { latitude, longitude } }) => {
+            const location = JSON.stringify({
+              latitude,
+              longitude,
+              latitudeDelta: 0.0143,
+              longitudeDelta: 0.0134,
+            });
+
+            const body = {
+              name: userData.name,
+              whatsapp: userData.whatsapp,
+              user_location: location,
+            };
+
+            try {
+              api.post('/sos', body, {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              });
+              Alert.alert('SOS UnB ativado!');
+            } catch (err) {
+              console.log('CATCHEEEED', err);
+            }
+          }, // sucesso
+          (err) => {
+            console.tron.log(err);
+          }, // erro
+          {
+            timeout: 5000,
+            enableHighAccuracy: false,
+            maximumAge: 1000,
+          }
+        );
+      }
+    }
+  });
+
   render() {
-    return <SafeAreaView style={styles.container} />;
+    return <SafeAreaView />;
   }
 }
 
 export default withZustand(Panic);
-
-const styles = StyleSheet.create({
-  container: {},
-  header: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  paragraph: {
-    margin: 24,
-    textAlign: 'center',
-  },
-});
