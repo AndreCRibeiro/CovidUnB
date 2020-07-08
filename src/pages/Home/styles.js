@@ -21,8 +21,8 @@ export const TopCards = styled.View`
 `;
 
 export const Card = styled(RectButton)`
-  height: ${cardHeight};
-  width: ${cardWidth};
+  height: ${cardHeight}px;
+  width: ${cardWidth}px;
   background: #fff;
   margin: ${cardMargin}px;
   border-width: 1px;
@@ -77,7 +77,7 @@ export const SelectionView = styled.View`
 `;
 
 export const QuestionText = styled.Text`
-  font-size: ${fontHome};
+  font-size: ${fontHome}px;
   color: #000;
   font-weight: bold;
   text-align: center;
@@ -103,7 +103,7 @@ export const RadioText = styled.Text`
   justify-content: center;
   align-self: center;
   font-weight: bold;
-  font-size: ${fontHome};
+  font-size: ${fontHome}px;
 `;
 
 export const TextView = styled.View`

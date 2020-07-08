@@ -71,7 +71,7 @@ class Panic extends Component {
             }
           }, // sucesso
           (err) => {
-            console.tron.log(err);
+            console.log(err);
           }, // erro
           {
             timeout: 5000,

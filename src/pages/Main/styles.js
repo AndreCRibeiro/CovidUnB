@@ -10,8 +10,8 @@ export const Container = styled.View`
 `;
 
 export const Logo = styled.Image`
-  width: ${normalize(120)};
-  height: ${normalize(120)};
+  width: ${normalize(120)}px;
+  height: ${normalize(120)}px;
   background: #fff;
   align-self: center;
   margin-top: ${normalize(30, 'height')}px;
@@ -29,7 +29,7 @@ export const Form = styled.View`
 export const Input = styled.TextInput.attrs({
   placeholderTextColor: '#000',
 })`
-  height: ${normalize(40)};
+  height: ${normalize(40)}px;
   background: #fff;
   border-radius: 11px;
   padding: 0 15px;
@@ -56,7 +56,7 @@ export const HideNShowPassword = styled.TouchableOpacity`
 `;
 
 export const Eye = styled.Image`
-  width: ${normalize(20)};
+  width: ${normalize(20)}px;
 `;
 
 export const OptionsView = styled.View`
